@@ -1,0 +1,14 @@
+// Main layout styles are now handled by Tailwind CSS classes
+// Keeping this file for potential component overrides if needed
+.main-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    color: #323130;
+    background-color: #ffffff;
+  }
+  
+  .layout-content {
+    flex: 1;
+  }

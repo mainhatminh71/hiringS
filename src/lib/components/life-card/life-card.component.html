@@ -1,0 +1,9 @@
+<div class="life-cards-grid">
+  <article class="life-card" *ngFor="let item of lifeAtMicrosoft">
+    <div class="life-card-image">
+      <div class="image-placeholder">{{ item.emoji }}</div>
+    </div>
+    <h3 class="life-card-title">{{ item.title }}</h3>
+    <p class="life-card-description">{{ item.description }}</p>
+  </article>
+</div>

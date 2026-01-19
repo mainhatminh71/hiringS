@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { JobCardComponent } from '../../../lib/components/job-card/job-card.component';
+import { LifeCardComponent } from '../../../lib/components/life-card/life-card.component';
 
 @Component({
   selector: 'app-careers',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NzIconModule, JobCardComponent, LifeCardComponent],
   templateUrl: './careers.component.html',
   styleUrl: './careers.component.scss'
 })

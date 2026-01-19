@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Tailwind CSS v4 Configuration
+// With Tailwind v4, you can use CSS-first configuration or @config directive
+// @config "./tailwind.config.js"; // Uncomment if you need to use tailwind.config.js
+
+// Import Tailwind CSS v4 (single import for v4)
+@import "tailwindcss";
+
+// Import all styles from lib/styles
+@import './lib/styles/index';

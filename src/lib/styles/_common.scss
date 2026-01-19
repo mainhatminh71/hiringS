@@ -1,0 +1,310 @@
+// ============================================
+// Common Variables
+// ============================================
+
+// Common Sizes
+$size-xs: 4px;
+$size-sm: 8px;
+$size-md: 16px;
+$size-lg: 24px;
+$size-xl: 32px;
+$size-2xl: 48px;
+$size-3xl: 64px;
+
+// Common Widths
+$width-full: 100%;
+$width-half: 50%;
+$width-auto: auto;
+
+// Common Heights
+$height-full: 100%;
+$height-screen: 100vh;
+$height-auto: auto;
+
+// Common Display
+$display-none: none;
+$display-block: block;
+$display-inline: inline;
+$display-inline-block: inline-block;
+$display-flex: flex;
+$display-grid: grid;
+
+// Common Positions
+$position-static: static;
+$position-relative: relative;
+$position-absolute: absolute;
+$position-fixed: fixed;
+$position-sticky: sticky;
+
+// Common Overflow
+$overflow-visible: visible;
+$overflow-hidden: hidden;
+$overflow-auto: auto;
+$overflow-scroll: scroll;
+
+// Common Cursors
+$cursor-default: default;
+$cursor-pointer: pointer;
+$cursor-not-allowed: not-allowed;
+$cursor-text: text;
+$cursor-move: move;
+$cursor-grab: grab;
+$cursor-grabbing: grabbing;
+
+// Common Text Align
+$text-align-left: left;
+$text-align-center: center;
+$text-align-right: right;
+$text-align-justify: justify;
+
+// Common Text Transform
+$text-transform-none: none;
+$text-transform-uppercase: uppercase;
+$text-transform-lowercase: lowercase;
+$text-transform-capitalize: capitalize;
+
+// Common Text Decoration
+$text-decoration-none: none;
+$text-decoration-underline: underline;
+$text-decoration-line-through: line-through;
+
+// Common White Space
+$white-space-normal: normal;
+$white-space-nowrap: nowrap;
+$white-space-pre: pre;
+$white-space-pre-wrap: pre-wrap;
+$white-space-pre-line: pre-line;
+
+// Common Word Break
+$word-break-normal: normal;
+$word-break-break-all: break-all;
+$word-break-break-word: break-word;
+$word-break-keep-all: keep-all;
+
+// Common Object Fit
+$object-fit-contain: contain;
+$object-fit-cover: cover;
+$object-fit-fill: fill;
+$object-fit-none: none;
+$object-fit-scale-down: scale-down;
+
+// Common Flex Directions
+$flex-direction-row: row;
+$flex-direction-row-reverse: row-reverse;
+$flex-direction-column: column;
+$flex-direction-column-reverse: column-reverse;
+
+// Common Flex Wrap
+$flex-wrap-nowrap: nowrap;
+$flex-wrap-wrap: wrap;
+$flex-wrap-wrap-reverse: wrap-reverse;
+
+// Common Justify Content
+$justify-content-start: flex-start;
+$justify-content-end: flex-end;
+$justify-content-center: center;
+$justify-content-between: space-between;
+$justify-content-around: space-around;
+$justify-content-evenly: space-evenly;
+
+// Common Align Items
+$align-items-start: flex-start;
+$align-items-end: flex-end;
+$align-items-center: center;
+$align-items-baseline: baseline;
+$align-items-stretch: stretch;
+
+// Common Align Content
+$align-content-start: flex-start;
+$align-content-end: flex-end;
+$align-content-center: center;
+$align-content-between: space-between;
+$align-content-around: space-around;
+$align-content-stretch: stretch;
+
+// Common Align Self
+$align-self-auto: auto;
+$align-self-start: flex-start;
+$align-self-end: flex-end;
+$align-self-center: center;
+$align-self-baseline: baseline;
+$align-self-stretch: stretch;
+
+// Common Flex Grow/Shrink
+$flex-grow-0: 0;
+$flex-grow-1: 1;
+$flex-shrink-0: 0;
+$flex-shrink-1: 1;
+
+// Common Grid Template
+$grid-template-auto: auto;
+$grid-template-1fr: 1fr;
+$grid-template-repeat: repeat;
+
+// Common Gap
+$gap-none: 0;
+$gap-xs: 4px;
+$gap-sm: 8px;
+$gap-md: 16px;
+$gap-lg: 24px;
+$gap-xl: 32px;
+
+// Common Border Styles
+$border-style-none: none;
+$border-style-solid: solid;
+$border-style-dashed: dashed;
+$border-style-dotted: dotted;
+$border-style-double: double;
+
+// Common Border Widths
+$border-width-none: 0;
+$border-width-thin: 1px;
+$border-width-base: 2px;
+$border-width-thick: 4px;
+
+// Common Outline
+$outline-none: none;
+$outline-auto: auto;
+
+// Common Visibility
+$visibility-visible: visible;
+$visibility-hidden: hidden;
+$visibility-collapse: collapse;
+
+// Common Opacity Values
+$opacity-0: 0;
+$opacity-25: 0.25;
+$opacity-50: 0.5;
+$opacity-75: 0.75;
+$opacity-100: 1;
+
+// Common Z-Index Values
+$z-index-0: 0;
+$z-index-10: 10;
+$z-index-20: 20;
+$z-index-30: 30;
+$z-index-40: 40;
+$z-index-50: 50;
+$z-index-auto: auto;
+
+// Common Min/Max Sizes
+$min-width-0: 0;
+$min-width-full: 100%;
+$max-width-none: none;
+$max-width-full: 100%;
+$min-height-0: 0;
+$min-height-full: 100%;
+$min-height-screen: 100vh;
+$max-height-none: none;
+$max-height-full: 100%;
+$max-height-screen: 100vh;
+
+// Common Aspect Ratios
+$aspect-ratio-square: 1 / 1;
+$aspect-ratio-video: 16 / 9;
+$aspect-ratio-4-3: 4 / 3;
+$aspect-ratio-3-2: 3 / 2;
+$aspect-ratio-21-9: 21 / 9;
+
+// Common Transform
+$transform-none: none;
+$transform-gpu: translateZ(0);
+
+// Common Backface Visibility
+$backface-visibility-visible: visible;
+$backface-visibility-hidden: hidden;
+
+// Common Will Change
+$will-change-auto: auto;
+$will-change-scroll: scroll-position;
+$will-change-contents: contents;
+$will-change-transform: transform;
+
+// Common User Select
+$user-select-none: none;
+$user-select-text: text;
+$user-select-all: all;
+$user-select-auto: auto;
+
+// Common Pointer Events
+$pointer-events-none: none;
+$pointer-events-auto: auto;
+
+// Common Resize
+$resize-none: none;
+$resize-both: both;
+$resize-horizontal: horizontal;
+$resize-vertical: vertical;
+
+// Common Table Layout
+$table-layout-auto: auto;
+$table-layout-fixed: fixed;
+
+// Common List Style
+$list-style-none: none;
+$list-style-disc: disc;
+$list-style-decimal: decimal;
+
+// Common Vertical Align
+$vertical-align-baseline: baseline;
+$vertical-align-top: top;
+$vertical-align-middle: middle;
+$vertical-align-bottom: bottom;
+$vertical-align-text-top: text-top;
+$vertical-align-text-bottom: text-bottom;
+
+// Common Float
+$float-left: left;
+$float-right: right;
+$float-none: none;
+
+// Common Clear
+$clear-left: left;
+$clear-right: right;
+$clear-both: both;
+$clear-none: none;
+
+// Common Box Sizing
+$box-sizing-content: content-box;
+$box-sizing-border: border-box;
+
+// Common Isolation
+$isolation-auto: auto;
+$isolation-isolate: isolate;
+
+// Common Mix Blend Mode
+$mix-blend-mode-normal: normal;
+$mix-blend-mode-multiply: multiply;
+$mix-blend-mode-screen: screen;
+$mix-blend-mode-overlay: overlay;
+$mix-blend-mode-darken: darken;
+$mix-blend-mode-lighten: lighten;
+$mix-blend-mode-color-dodge: color-dodge;
+$mix-blend-mode-color-burn: color-burn;
+$mix-blend-mode-hard-light: hard-light;
+$mix-blend-mode-soft-light: soft-light;
+$mix-blend-mode-difference: difference;
+$mix-blend-mode-exclusion: exclusion;
+$mix-blend-mode-hue: hue;
+$mix-blend-mode-saturation: saturation;
+$mix-blend-mode-color: color;
+$mix-blend-mode-luminosity: luminosity;
+
+// Common Background Blend Mode
+$background-blend-mode-normal: normal;
+$background-blend-mode-multiply: multiply;
+$background-blend-mode-screen: screen;
+$background-blend-mode-overlay: overlay;
+$background-blend-mode-darken: darken;
+$background-blend-mode-lighten: lighten;
+$background-blend-mode-color-dodge: color-dodge;
+$background-blend-mode-color-burn: color-burn;
+$background-blend-mode-hard-light: hard-light;
+$background-blend-mode-soft-light: soft-light;
+$background-blend-mode-difference: difference;
+$background-blend-mode-exclusion: exclusion;
+$background-blend-mode-hue: hue;
+$background-blend-mode-saturation: saturation;
+$background-blend-mode-color: color;
+$background-blend-mode-luminosity: luminosity;
+

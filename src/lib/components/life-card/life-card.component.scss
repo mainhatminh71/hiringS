@@ -1,0 +1,48 @@
+.life-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .life-card {
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .life-card-image {
+      width: 100%;
+      padding-top: 60%;
+      background: #f3f2f1;
+      position: relative;
+      overflow: hidden;
+
+      .image-placeholder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 64px;
+      }
+    }
+
+    .life-card-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 24px 24px 12px;
+      color: #323130;
+    }
+
+    .life-card-description {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #605e5c;
+      margin: 0 24px 24px;
+    }
+  }

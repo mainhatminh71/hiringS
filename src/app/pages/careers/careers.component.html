@@ -1,0 +1,80 @@
+<main class="careers-page">
+ 
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">Win and thrive together</h1>
+        <div class="search-container">
+          <div class="search-input-wrapper">
+            <span class="search-icon-input">🔍</span>
+            <input type="text" class="search-input" placeholder="Search by job title, ID, or keyword">
+          </div>
+          <div class="search-input-wrapper">
+            <span class="location-icon">📍</span>
+            <input type="text" class="search-input" placeholder="City, state, or country/region">
+          </div>
+          <button class="find-jobs-button">Find jobs</button>
+        </div>
+      </div>
+      <div class="hero-graphic">
+        <div class="graphic-arcs">
+          <div class="arc arc-1"></div>
+          <div class="arc arc-2"></div>
+          <div class="arc arc-3"></div>
+          <div class="arc arc-4"></div>
+          <div class="arc arc-5"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section">
+    <div class="mission-container">
+      <div class="mission-video">
+        <div class="video-wrapper">
+          <div class="video-placeholder">
+            <div class="video-label">
+              <div class="video-logo">
+                <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="10" width="20" height="16" rx="2" fill="#0078d4"/>
+                  <path d="M12 10V8C12 6.89543 12.8954 6 14 6H18C19.1046 6 20 6.89543 20 8V10" stroke="white" stroke-width="1.5" fill="none"/>
+                  <line x1="11" y1="17" x2="21" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="11" y1="20" x2="21" y2="20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span>Our Mission</span>
+            </div>
+            <div class="play-button">▶</div>
+          </div>
+        </div>
+      </div>
+      <div class="mission-content">
+        <h2 class="mission-title">Empowered by Purpose. United by Mission.</h2>
+        <p class="mission-text">When you join HiringS, you're not just stepping into a job—you're stepping into a mission-driven company where purpose is at the heart of everything we do.</p>
+        <p class="mission-text">Our mission—to empower every person and every organization on the planet to achieve more—isn't just words.</p>
+        <p class="mission-text">It's our foundation. It's what sets us apart.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Life at Microsoft Section -->
+  <section class="life-section">
+    <div class="container">
+      <h2 class="section-title">Life at HiringS</h2>
+      <app-life-card [lifeAtMicrosoft]="lifeAtMicrosoft"></app-life-card>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section id="jobs" class="jobs-section">
+    <div class="container">
+      <h2 class="section-title">Open Positions</h2>
+      <div class="flex flex-col gap-4">
+        <app-job-card *ngFor="let job of jobOpenings" [job]="job"></app-job-card>
+      </div>
+    </div>
+  </section>
+
+</main>

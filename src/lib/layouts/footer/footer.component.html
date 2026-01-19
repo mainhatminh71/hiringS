@@ -1,0 +1,53 @@
+<footer class="main-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <div class="footer-section">
+        <div class="language-selector">
+          <nz-icon nzType="global" nzTheme="outline"></nz-icon>
+          <nz-select 
+            [(ngModel)]="selectedLanguage" 
+            (ngModelChange)="onLanguageChange($event)"
+            nzPlaceHolder="Select Language"
+            class="footer-select">
+            <nz-option nzValue="en" nzLabel="English"></nz-option>
+            <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
+          </nz-select>
+        </div>
+        <div class="footer-links">
+          <a 
+            *ngFor="let link of footerLinks"
+            [href]="link.url"
+            class="footer-link">
+            {{ link.label }}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-section footer-section-right">
+        <div class="social-icons">
+          <a 
+            *ngFor="let social of socialLinks"
+            [nz-tooltip]="social.label"
+            nzTooltipPlacement="top"
+            [href]="social.url" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon" 
+            [attr.aria-label]="social.label">
+            <nz-icon [nzType]="social.icon" nzTheme="outline"></nz-icon>
+          </a>
+        </div>
+        <div class="footer-legal">
+          <a 
+            *ngFor="let legal of legalLinks"
+            [href]="legal.url"
+            class="footer-link">
+            {{ legal.label }}
+          </a>
+          <span class="copyright">© HiringS 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
