@@ -19,7 +19,7 @@
           "options": {
             "outputPath": "dist/hiring-s",
             "index": "src/index.html",
-            "browser": "",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
