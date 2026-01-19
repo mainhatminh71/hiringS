@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/hiring-s",
+  "outputDirectory": "dist/hiring-s/browser",
   "installCommand": "npm install",
   "framework": null,
   "rewrites": [
