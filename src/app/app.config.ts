@@ -9,7 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-
+import { environment } from '../environments/environment';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
+import { ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+  
 registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
@@ -18,5 +24,14 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(en_US),
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
-    provideHttpClient(), provideClientHydration(withEventReplay())]
+    provideHttpClient(), 
+  
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideAnalytics(() => getAnalytics()),
+    
+    ScreenTrackingService,
+    UserTrackingService,
+  ]
 };

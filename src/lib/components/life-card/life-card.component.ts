@@ -2,12 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewEncapsulation } from '@angular/core';
 import { Input } from '@angular/core';
+import { LifeCard } from '../../core/models/life-card.model';
 
-export interface LifeCard {
-  emoji: string,
-  title: string,
-  description: string
-}
 
 @Component({
   selector: 'app-life-card',

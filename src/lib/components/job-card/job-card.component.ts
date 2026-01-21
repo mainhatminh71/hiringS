@@ -1,13 +1,8 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { JobCard } from '../../core/models/job-card.model';
 
-export interface Job {
-  title: string,
-  department: string,
-  location: string,
-  type: string,
-  postedDate: string,
-}
+
 
 
 @Component({
@@ -19,5 +14,5 @@ export interface Job {
   standalone: true
 })
 export class JobCardComponent {
-  @Input() job!: Job;
+  @Input() job!: JobCard;
 }

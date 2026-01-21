@@ -8,7 +8,7 @@ import { LogoComponent } from '../../components/logo/logo.component';
   selector: 'app-header',
   imports: [CommonModule, NzIconModule, NzInputModule, LogoComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrl: './header.component.css',
   standalone: true
 })
 export class HeaderComponent {

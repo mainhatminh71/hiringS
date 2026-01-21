@@ -32,7 +32,7 @@ interface SocialLink {
     NzToolTipModule
   ],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss',
+  styleUrl: './footer.component.css',
   standalone: true
 })
 export class FooterComponent {
