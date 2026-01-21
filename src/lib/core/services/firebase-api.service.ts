@@ -134,7 +134,6 @@ export class FirebaseApiService {
 
         const getFieldValue = (field: any): any => {
             if (!field) return null;
-            // Firestore REST API returns values in format: { stringValue: '...' }, { integerValue: 123 }, etc.
             if (field.stringValue !== undefined) return field.stringValue;
             if (field.integerValue !== undefined) return parseInt(field.integerValue);
             if (field.booleanValue !== undefined) return field.booleanValue;

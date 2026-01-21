@@ -26,5 +26,14 @@ export const FIELD_REGISTRY: Record<string, () => FormField> = {
   'managerId': () => input('managerId', 'text', 'Manager ID', 'Enter your manager ID', {
     required: true,
     size: 'large'
-  })
+  }),
+  'fullName': () => input('fullName', 'text', 'Full Name', 'Enter your full name', {
+    required: true,
+    size: 'large'
+  }),
+  'company': () => input('company', 'text', 'Company', 'Enter your company name', {
+    required: true,
+    size: 'large'
+  }),
+
 }
