@@ -42,13 +42,13 @@ export interface SignInRequest {
 
 export class FirebaseApiService {
     private http = inject(HttpClient);
-    private apiKey = environment.firebase.apiKey;
+    private apiKey = environment.firebase.apiKey || 'FIREBASE_API_KEY';
     private projectId = environment.firebase.projectId;
 
-    
+
     signIn(email: string, password: string): Observable<{ idToken: string; expiresIn: string }> {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`;
-        
+
         const headers = new HttpHeaders({
           'Content-Type': 'application/json'
         });
@@ -87,7 +87,7 @@ export class FirebaseApiService {
         console.log('🔍 Requesting config with ID:', configId);
 
         const url = `https://firestore.googleapis.com/v1/projects/${this.projectId}/databases/(default)/documents:runQuery`;
-        
+
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${idToken}`,
           'Content-Type': 'application/json'
@@ -127,11 +127,11 @@ export class FirebaseApiService {
         );
     }
 
-    
+
 
     private convertFirestoreRestDocumentToCustomerConfig(document: any): CustomerConfig {
         const fields = document.fields || {};
-        
+
         const getFieldValue = (field: any): any => {
             if (!field) return null;
             // Firestore REST API returns values in format: { stringValue: '...' }, { integerValue: 123 }, etc.
