@@ -8,17 +8,19 @@ let content = fs.readFileSync(envFile, 'utf8');
 
 // Replace placeholders with actual values from process.env
 const replacements = {
-  'FIREBASE_API_KEY_PLACEHOLDER': process.env.FIREBASE_API_KEY || 'FIREBASE_API_KEY',
-  'FIREBASE_EMAIL_PLACEHOLDER': process.env.FIREBASE_EMAIL || 'FIREBASE_EMAIL',
-  'FIREBASE_PASSWORD_PLACEHOLDER': process.env.FIREBASE_PASSWORD || 'FIREBASE_PASSWORD'
+  "FIREBASE_API_KEY": process.env.FIREBASE_API_KEY || 'FIREBASE_API_KEY',
+  "FIREBASE_EMAIL": process.env.FIREBASE_EMAIL || 'FIREBASE_EMAIL',
+  "FIREBASE_PASSWORD": process.env.FIREBASE_PASSWORD || 'FIREBASE_PASSWORD'
 };
 
-// Replace placeholders with actual values
-Object.keys(replacements).forEach(placeholder => {
-  const value = replacements[placeholder];
+// Replace values in single quotes
+Object.keys(replacements).forEach(key => {
+  const value = replacements[key];
   // Escape single quotes in the value
   const escapedValue = value.replace(/'/g, "\\'");
-  content = content.replace(new RegExp(placeholder, 'g'), escapedValue);
+  // Replace 'KEY' with 'actual_value'
+  const regex = new RegExp(`'${key}'`, 'g');
+  content = content.replace(regex, `'${escapedValue}'`);
 });
 
 fs.writeFileSync(envFile, content);
