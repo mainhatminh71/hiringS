@@ -4,11 +4,11 @@
   [subtitle]="config.subtitle"
   [maxWidth]="config.maxWidth">
   
-  <form  class="space-y-6">
+  <form class="space-y-6" (ngSubmit)="onSubmit()">
     <ng-container *ngFor="let field of config.fields">
       <ng-container [ngSwitch]="field.type">
         
-        <div *ngSwitchCase="'input'" [class]="field.class || ''">
+        <div *ngSwitchCase="'input'" class="space-y-2">
           <app-input 
             [config]="field.config!" 
             (valueChange)="onFieldValueChange(field.id, $event)">
@@ -17,41 +17,59 @@
 
         <div *ngSwitchCase="'divider'" class="relative my-6">
           <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-300"></div>
+            <div class="w-full border-t border-gray-200"></div>
           </div>
           <div class="relative flex justify-center text-sm">
-            <span class="px-2 bg-white text-gray-500">{{ field.text || field.label }}</span>
+            <span class="px-4 bg-white text-gray-500">{{ field.text || field.label || 'Or continue with' }}</span>
           </div>
         </div>
 
       </ng-container>
     </ng-container>
 
-    <div *ngIf="config.socialButtons && config.socialButtons.length > 0" class="space-y-3">
+    <!-- Sign up button -->
+    <button
+      type="submit"
+      class="w-full h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium transition-colors">
+      {{ config.submitLabel || 'Sign Up' }}
+    </button>
+
+    <!-- Divider -->
+    <div *ngIf="config.socialButtons && config.socialButtons.length > 0" class="relative">
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-gray-200"></div>
+      </div>
+      <div class="relative flex justify-center text-sm">
+        <span class="px-4 bg-white text-gray-500">
+          Or continue with
+        </span>
+      </div>
+    </div>
+
+    <!-- Social buttons -->
+    <div *ngIf="config.socialButtons && config.socialButtons.length > 0" class="grid grid-cols-2 gap-4">
       <button
         *ngFor="let button of config.socialButtons"
         type="button"
         [disabled]="button.disabled"
-        [style.backgroundColor]="button.backgroundColor"
-        [style.color]="button.color"
-        [class]="button.class || 'w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium transition-colors'"
-        [style.hover.background-color]="button.hoverColor"
+        class="h-12 border border-gray-300 rounded-md bg-white hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-medium transition-colors"
         (click)="button.onClick && button.onClick()">
         <nz-icon 
           *ngIf="button.icon && isIconObject(button.icon)" 
           [nzType]="button.icon.nzType" 
           [nzTheme]="button.icon.nzTheme"
-          class="mr-2">
+          class="w-5 h-5">
         </nz-icon>
-        {{ button.label || 'Continue with ' + button.provider }}
+        <span>{{ getButtonLabel(button) }}</span>
       </button>
     </div>
 
-    <!-- Submit Button -->
-    <button
-      type="submit"
-      class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-      {{ config.submitLabel || 'Submit' }}
-    </button>
+    <!-- Sign in link -->
+    <p class="text-center text-sm text-gray-600">
+      Already have an account? 
+      <a routerLink="/sign-in" class="text-blue-600 hover:text-blue-800 font-medium">
+        Sign in
+      </a>
+    </p>
   </form>
 </app-entry-form>

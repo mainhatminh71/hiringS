@@ -8,7 +8,7 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { from } from 'rxjs';
 import {QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
-
+import {shareReplay} from 'rxjs/operators';
 
 export interface SignInRequest {
     email: string;
@@ -45,69 +45,73 @@ export class FirebaseApiService {
     private apiKey = environment.firebase.apiKey || 'FIREBASE_API_KEY';
     private projectId = environment.firebase.projectId;
 
+    private cachedToken$?: Observable<{ idToken: string; expiresIn: string }>;
+    private cachedConfigs = new Map<string, Observable<CustomerConfig | null>>();
+
 
     signIn(email: string, password: string): Observable<{ idToken: string; expiresIn: string }> {
-        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`;
+      if (!this.cachedToken$) {
+          const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.apiKey}`;
+          const headers = new HttpHeaders({
+              'Content-Type': 'application/json'
+          });
+          const requestBody: SignInRequest = {
+              email,
+              password,
+              returnSecureToken: true
+          };
 
-        const headers = new HttpHeaders({
-          'Content-Type': 'application/json'
-        });
-
-        const requestBody: SignInRequest = {
-          email,
-          password,
-          returnSecureToken: true
-        };
-
-        return this.http.post<SignInResponse>(url, requestBody, { headers }).pipe(
-          map(response => ({
-            idToken: response.idToken,
-            expiresIn: response.expiresIn
-          })),
-          tap(data => {
-            console.log('✅ Login success, token:', data.idToken.substring(0, 20) + '...');
-          }),
-          catchError(error => {
-            const errorCode = error.error?.error?.message;
-            if (errorCode?.includes('TOO_MANY_ATTEMPTS_TRY_LATER') || errorCode?.includes('TOO_MANY_REQUESTS')) {
-              console.error('❌ Too many requests. Please try again later.');
-              return throwError(() => new Error('Too many sign-in attempts. Please wait a few minutes before trying again.'));
-            }
-            if (errorCode?.includes('INVALID_PASSWORD') || errorCode?.includes('EMAIL_NOT_FOUND') || errorCode?.includes('INVALID_EMAIL')) {
-              console.error('❌ Invalid credentials');
-              return throwError(() => new Error('Invalid email or password.'));
-            }
-            console.error('❌ Sign-in error:', error);
-            return throwError(() => error);
-          })
-        );
+          this.cachedToken$ = this.http.post<SignInResponse>(url, requestBody, { headers }).pipe(
+              map(response => ({
+                  idToken: response.idToken,
+                  expiresIn: response.expiresIn
+              })),            
+              catchError(error => {
+                  // Clear cache on error
+                  this.cachedToken$ = undefined;
+                  const errorCode = error.error?.error?.message;
+                  if (errorCode?.includes('TOO_MANY_ATTEMPTS_TRY_LATER') || errorCode?.includes('TOO_MANY_REQUESTS')) {
+                      console.error('❌ Too many requests. Please try again later.');
+                      return throwError(() => new Error('Too many sign-in attempts. Please wait a few minutes before trying again.'));
+                  }
+                  if (errorCode?.includes('INVALID_PASSWORD') || errorCode?.includes('EMAIL_NOT_FOUND') || errorCode?.includes('INVALID_EMAIL')) {
+                      console.error('❌ Invalid credentials');
+                      return throwError(() => new Error('Invalid email or password.'));
+                  }
+                  console.error('❌ Sign-in error:', error);
+                  return throwError(() => error);
+              }),
+              shareReplay(1) // Cache và share token
+          );
       }
+      return this.cachedToken$;
+  }
 
-      getCustomerConfigById(configId: string, idToken: string): Observable<CustomerConfig | null> {
+
+  getCustomerConfigById(configId: string, idToken: string): Observable<CustomerConfig | null> {
+    // Cache config để không phải fetch lại
+    if (!this.cachedConfigs.has(configId)) {
         console.log('🔍 Requesting config with ID:', configId);
-
         const url = `https://firestore.googleapis.com/v1/projects/${this.projectId}/databases/(default)/documents:runQuery`;
-
         const headers = new HttpHeaders({
-          'Authorization': `Bearer ${idToken}`,
-          'Content-Type': 'application/json'
+            'Authorization': `Bearer ${idToken}`,
+            'Content-Type': 'application/json'
         });
-
         const requestBody = {
-          structuredQuery: {
-            from: [{ collectionId: 'customer-form-config' }],
-            where: {
-              fieldFilter: {
-                field: { fieldPath: 'id' },
-                op: 'EQUAL',
-                value: { stringValue: configId }
-              }
-            },
-            limit: 1
-          }
+            structuredQuery: {
+                from: [{ collectionId: 'customer-form-config' }],
+                where: {
+                    fieldFilter: {
+                        field: { fieldPath: 'id' },
+                        op: 'EQUAL',
+                        value: { stringValue: configId }
+                    }
+                },
+                limit: 1
+            }
         };
 
-        return this.http.post<any>(url, requestBody, { headers }).pipe(
+        const config$ = this.http.post<any>(url, requestBody, { headers }).pipe(
             map(response => {
                 if (!response || !response.length || !response[0].document) {
                     console.warn(`⚠️ Customer config with id "${configId}" not found`);
@@ -121,11 +125,20 @@ export class FirebaseApiService {
                 }
             }),
             catchError(err => {
+                // Clear cache on error
+                this.cachedConfigs.delete(configId);
                 console.error('❌ Failed to load config:', err);
                 return throwError(() => err);
-            })
+            }),
+            shareReplay(1) // Cache config
         );
+        
+        this.cachedConfigs.set(configId, config$);
     }
+    
+    return this.cachedConfigs.get(configId)!;
+}
+
 
 
 
@@ -141,6 +154,8 @@ export class FirebaseApiService {
             if (field.arrayValue?.values) {
                 return field.arrayValue.values.map((v: any) => getFieldValue(v));
             }
+
+            //Chuyển response sang object CustomerConfig
             if (field.mapValue?.fields) {
                 const result: any = {};
                 Object.keys(field.mapValue.fields).forEach(key => {

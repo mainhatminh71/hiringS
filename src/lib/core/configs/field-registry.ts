@@ -35,5 +35,25 @@ export const FIELD_REGISTRY: Record<string, () => FormField> = {
     required: true,
     size: 'large'
   }),
+  'accountName': () => input('accountName', 'text', 'Account Name', 'Enter your account name', {
+    required: true,
+    size: 'large'
+  }),
+  'firstName': () => input('firstname', 'text', 'First Name', 'Enter your first name', {
+    required: true,
+    size: 'large'
+  }),
+  'lastname': () => input('lastname', 'text', 'Last Name', 'Enter your last name', {
+    required: true,
+    size: 'large'
+  }),
+  'phone': () => input('phone', 'text', 'Phone', 'Enter your phone number', {
+    required: true,
+    size: 'large'
+  }),
+  'ssn': () => input('ssn', 'text', 'SSN', 'Enter your SSN', {
+    required: true,
+    size: 'large'
+  }),
 
 }
