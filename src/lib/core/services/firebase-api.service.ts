@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { 
   Auth, 
   signInWithEmailAndPassword, 
@@ -52,6 +53,8 @@ export interface SignInRequest {
 export class FirebaseApiService {
     private http = inject(HttpClient);
     private auth = inject(Auth);
+    private platformId = inject(PLATFORM_ID);
+    private isBrowser = isPlatformBrowser(this.platformId);
     private apiKey = environment.firebase.apiKey || 'FIREBASE_API_KEY';
     private projectId = environment.firebase.projectId;
 
@@ -150,6 +153,10 @@ export class FirebaseApiService {
 
 
 handleRedirectResult(userData?: Record<string, any>, customerConfigId?: string): Observable<AuthResponse | null> {
+    if (!this.isBrowser) {
+      return of(null);
+    }
+
     return from(getRedirectResult(this.auth)).pipe(
       switchMap((credential) => {
         if (!credential) {
@@ -171,6 +178,10 @@ handleRedirectResult(userData?: Record<string, any>, customerConfigId?: string):
         );
       }),
       catchError(err => {
+        // Ignore operation-not-supported-in-this-environment error (SSR)
+        if (err.code === 'auth/operation-not-supported-in-this-environment') {
+          return of(null);
+        }
         console.error('Redirect result error:', err);
         return of(null);
       })
