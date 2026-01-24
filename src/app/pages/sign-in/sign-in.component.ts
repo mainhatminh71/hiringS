@@ -110,6 +110,13 @@ export class SignInComponent implements OnInit, OnDestroy {
       provider as AuthProvider, 
       undefined, 
       this.config?.id
-    );
+    ).subscribe({
+      next: ({ token, user }) => {
+        console.log('Token:', token);
+        console.log('User:', user);
+        this.router.navigate(['/']);
+      },
+      error: (err) => console.error('Social sign in error:', err)
+    });
   }
 }
