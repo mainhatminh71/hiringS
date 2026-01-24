@@ -12,4 +12,4 @@ export const environment = {
       firebasePassword: 'FIREBASE_PASSWORD'
     }
   };
-export const testCustomerId = 'startup-v5';
+export const testCustomerId = 'tech-v3';
