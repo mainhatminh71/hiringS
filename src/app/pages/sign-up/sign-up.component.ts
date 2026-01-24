@@ -2,14 +2,16 @@ import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EntryFormComponent } from '../../../lib/components/entry-form/entry-form.component';
 import { FormConfig } from '../../../lib/core/models/form-config.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, map, shareReplay } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms';
 import { InputComponent } from '../../../lib/components/input/input.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzIconConfig } from '../../../lib/core/models/button-config.model';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ButtonConfig } from '../../../lib/core/models/button-config.model';
+import { AuthProvider } from '../../../lib/core/models/user.model';
+import { AuthService } from '../../../lib/core/services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,14 +22,22 @@ import { ButtonConfig } from '../../../lib/core/models/button-config.model';
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private formConfigSubscription?: Subscription;
   formData: Record<string, any> = {};
+  config: FormConfig | null = null;
 
   ngOnInit() {
-    // Component sẽ tự động nhận config từ resolver
+    this.formConfigSubscription = this.formConfig$.subscribe(config => {
+      this.config = config;
+    });
   }
 
   ngOnDestroy() {
-    // Cleanup nếu cần
+    if (this.formConfigSubscription) {
+      this.formConfigSubscription.unsubscribe();
+    }
   }
 
   onFieldValueChange(fieldId: string, value: any) {
@@ -76,7 +86,40 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // Handle form submission
-    console.log('Form submitted:', this.formData);
+    const email = this.formData['email'];
+    const password = this.formData['password'];
+  
+    if (email && password) {
+      const userData: Record<string, any> = {};
+      Object.keys(this.formData).forEach(key => {
+        if (key !== 'email' && key !== 'password') {
+          userData[key] = this.formData[key];
+        }
+      });
+      
+      this.authService.signUp(email, password, userData, this.config?.id).subscribe({
+        next: ({ token, user }) => {
+          console.log('Token:', token);
+          console.log('User:', user);
+          this.router.navigate(['/']);
+        },
+        error: (err) => console.error('Sign up error:', err)
+      });
+    }
+  }
+  
+  onSocialButtonClick(provider: string) {
+    this.authService.signInWithProvider(
+      provider as AuthProvider, 
+      undefined, 
+      this.config?.id
+    ).subscribe({
+      next: ({ token, user }) => {
+        console.log('Token:', token);
+        console.log('User:', user);
+        this.router.navigate(['/']);
+      },
+      error: (err) => console.error('Social sign in error:', err)
+    });
   }
 }

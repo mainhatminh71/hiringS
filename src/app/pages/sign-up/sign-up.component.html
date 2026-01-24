@@ -1,29 +1,19 @@
-<app-entry-form 
-  *ngIf="formConfig$ | async as config"
+<app-entry-form
+  *ngIf="config"
   [title]="config.title"
   [subtitle]="config.subtitle"
   [maxWidth]="config.maxWidth">
-  
+
   <form class="space-y-6" (ngSubmit)="onSubmit()">
     <ng-container *ngFor="let field of config.fields">
       <ng-container [ngSwitch]="field.type">
-        
+
         <div *ngSwitchCase="'input'" class="space-y-2">
-          <app-input 
-            [config]="field.config!" 
+          <app-input
+            [config]="field.config!"
             (valueChange)="onFieldValueChange(field.id, $event)">
           </app-input>
         </div>
-
-        <div *ngSwitchCase="'divider'" class="relative my-6">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-200"></div>
-          </div>
-          <div class="relative flex justify-center text-sm">
-            <span class="px-4 bg-white text-gray-500">{{ field.text || field.label || 'Or continue with' }}</span>
-          </div>
-        </div>
-
       </ng-container>
     </ng-container>
 
@@ -53,10 +43,10 @@
         type="button"
         [disabled]="button.disabled"
         class="h-12 border border-gray-300 rounded-md bg-white hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-medium transition-colors"
-        (click)="button.onClick && button.onClick()">
-        <nz-icon 
-          *ngIf="button.icon && isIconObject(button.icon)" 
-          [nzType]="button.icon.nzType" 
+        (click)="onSocialButtonClick(button.provider)">
+        <nz-icon
+          *ngIf="button.icon && isIconObject(button.icon)"
+          [nzType]="button.icon.nzType"
           [nzTheme]="button.icon.nzTheme"
           class="w-5 h-5">
         </nz-icon>
@@ -66,7 +56,7 @@
 
     <!-- Sign in link -->
     <p class="text-center text-sm text-gray-600">
-      Already have an account? 
+      Already have an account?
       <a routerLink="/sign-in" class="text-blue-600 hover:text-blue-800 font-medium">
         Sign in
       </a>

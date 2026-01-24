@@ -8,18 +8,25 @@ import { FormsModule } from '@angular/forms';
 import { InputComponent } from '../../../lib/components/input/input.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzIconConfig } from '../../../lib/core/models/button-config.model';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ButtonConfig } from '../../../lib/core/models/button-config.model';
+import { AuthProvider } from '../../../lib/core/models/user.model';
+import { AuthService } from '../../../lib/core/services/auth.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import {NzIconService} from 'ng-zorro-antd/icon';
+
 
 @Component({
   selector: 'app-sign-in',
-  imports: [CommonModule, EntryFormComponent, FormsModule, InputComponent, NzIconModule, RouterLink],
+  imports: [CommonModule, EntryFormComponent, FormsModule, InputComponent, NzIconModule, RouterLink, NzIconModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
   standalone: true
 })
 export class SignInComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
+  private authService = inject(AuthService);
+  private router = inject(Router);
   private formConfigSubscription?: Subscription;
   formData: Record<string, any> = {};
   config: FormConfig | null = null;
@@ -52,7 +59,6 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   getButtonLabel(button: ButtonConfig): string {
-    // If custom label is provided, use it (but remove "Continue with" prefix if present)
     if (button.label) {
       return button.label.replace(/^Continue with\s+/i, '');
     }
@@ -84,7 +90,26 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // Handle form submission
-    console.log('Form submitted:', this.formData);
+    const email = this.formData['email'];
+    const password = this.formData['password'];
+  
+    if (email && password) {
+      this.authService.signIn(email, password).subscribe({
+        next: ({ token, user }) => {
+          console.log('Token:', token);
+          console.log('User:', user);
+          this.router.navigate(['/']);
+        },
+        error: (err) => console.error('Sign in error:', err)
+      });
+    }
+  }
+  
+  onSocialButtonClick(provider: string) {
+    this.authService.signInWithProvider(
+      provider as AuthProvider, 
+      undefined, 
+      this.config?.id
+    );
   }
 }

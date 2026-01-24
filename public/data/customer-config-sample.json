@@ -1,1302 +1,2586 @@
 [
-    {
-      "id": "default-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-a-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "company"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-b-v1",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "firstName"],
-        "socialButtons": ["google"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "minimal-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": []
-      },
-      "signUp": {
-        "fields": ["email", "password"],
-        "socialButtons": [],
-        "gridLayout": false,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "social-only-v1",
-      "signIn": {
-        "fields": [],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email"],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "enterprise-v1",
-      "signIn": {
-        "fields": ["email", "password", "employeeId"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "employeeId", "department", "manager"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "startup-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company"],
-        "socialButtons": ["google", "github"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "retail-v1",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "address"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "education-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "studentId"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "healthcare-v1",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "specialty"],
-        "socialButtons": ["google"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "finance-v1",
-      "signIn": {
-        "fields": ["email", "password", "accountNumber"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "accountNumber", "fullName", "ssn"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "tech-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company", "role"],
-        "socialButtons": ["google", "github", "twitter"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "media-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "portfolio"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "gaming-v1",
-      "signIn": {
-        "fields": ["email", "password", "username"],
-        "socialButtons": ["google", "discord", "twitch"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "username", "fullName"],
-        "socialButtons": ["google", "discord", "twitch"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "travel-v1",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "passport"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "food-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "restaurant"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "fitness-v1",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook", "instagram"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "age"],
-        "socialButtons": ["google", "facebook", "instagram"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "music-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "spotify", "apple"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "artistName"],
-        "socialButtons": ["google", "spotify", "apple"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "real-estate-v1",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "brokerage"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "automotive-v1",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "dealership"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "default-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-a-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "company"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-b-v2",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "firstName"],
-        "socialButtons": ["google"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "minimal-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": []
-      },
-      "signUp": {
-        "fields": ["email", "password"],
-        "socialButtons": [],
-        "gridLayout": false,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "social-only-v2",
-      "signIn": {
-        "fields": [],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email"],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "enterprise-v2",
-      "signIn": {
-        "fields": ["email", "password", "employeeId"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "employeeId", "department", "manager"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "startup-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company"],
-        "socialButtons": ["google", "github"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "retail-v2",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "address"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "education-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "studentId"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "healthcare-v2",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "specialty"],
-        "socialButtons": ["google"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "finance-v2",
-      "signIn": {
-        "fields": ["email", "password", "accountNumber"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "accountNumber", "fullName", "ssn"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "tech-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company", "role"],
-        "socialButtons": ["google", "github", "twitter"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "media-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "portfolio"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "gaming-v2",
-      "signIn": {
-        "fields": ["email", "password", "username"],
-        "socialButtons": ["google", "discord", "twitch"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "username", "fullName"],
-        "socialButtons": ["google", "discord", "twitch"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "travel-v2",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "passport"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "food-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "restaurant"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "fitness-v2",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook", "instagram"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "age"],
-        "socialButtons": ["google", "facebook", "instagram"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "music-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "spotify", "apple"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "artistName"],
-        "socialButtons": ["google", "spotify", "apple"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "real-estate-v2",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "brokerage"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "automotive-v2",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "dealership"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "default-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-a-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "company"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-b-v3",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "firstName"],
-        "socialButtons": ["google"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "minimal-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": []
-      },
-      "signUp": {
-        "fields": ["email", "password"],
-        "socialButtons": [],
-        "gridLayout": false,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "social-only-v3",
-      "signIn": {
-        "fields": [],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email"],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "enterprise-v3",
-      "signIn": {
-        "fields": ["email", "password", "employeeId"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "employeeId", "department", "manager"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "startup-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company"],
-        "socialButtons": ["google", "github"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "retail-v3",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "address"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "education-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "studentId"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "healthcare-v3",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "specialty"],
-        "socialButtons": ["google"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "finance-v3",
-      "signIn": {
-        "fields": ["email", "password", "accountNumber"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "accountNumber", "fullName", "ssn"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "tech-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company", "role"],
-        "socialButtons": ["google", "github", "twitter"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "media-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "portfolio"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "gaming-v3",
-      "signIn": {
-        "fields": ["email", "password", "username"],
-        "socialButtons": ["google", "discord", "twitch"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "username", "fullName"],
-        "socialButtons": ["google", "discord", "twitch"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "travel-v3",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "passport"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "food-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "restaurant"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "fitness-v3",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook", "instagram"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "age"],
-        "socialButtons": ["google", "facebook", "instagram"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "music-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "spotify", "apple"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "artistName"],
-        "socialButtons": ["google", "spotify", "apple"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "real-estate-v3",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "brokerage"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "automotive-v3",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "dealership"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "default-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-a-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "company"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-b-v4",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "firstName"],
-        "socialButtons": ["google"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "minimal-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": []
-      },
-      "signUp": {
-        "fields": ["email", "password"],
-        "socialButtons": [],
-        "gridLayout": false,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "social-only-v4",
-      "signIn": {
-        "fields": [],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email"],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "enterprise-v4",
-      "signIn": {
-        "fields": ["email", "password", "employeeId"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "employeeId", "department", "manager"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "startup-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company"],
-        "socialButtons": ["google", "github"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "retail-v4",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "address"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "education-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "studentId"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "healthcare-v4",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "specialty"],
-        "socialButtons": ["google"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "finance-v4",
-      "signIn": {
-        "fields": ["email", "password", "accountNumber"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "accountNumber", "fullName", "ssn"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "tech-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company", "role"],
-        "socialButtons": ["google", "github", "twitter"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "media-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "portfolio"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "gaming-v4",
-      "signIn": {
-        "fields": ["email", "password", "username"],
-        "socialButtons": ["google", "discord", "twitch"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "username", "fullName"],
-        "socialButtons": ["google", "discord", "twitch"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "travel-v4",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "passport"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "food-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "restaurant"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "fitness-v4",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook", "instagram"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "age"],
-        "socialButtons": ["google", "facebook", "instagram"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "music-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "spotify", "apple"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "artistName"],
-        "socialButtons": ["google", "spotify", "apple"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "real-estate-v4",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "brokerage"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "automotive-v4",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "dealership"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "default-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-a-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "company"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "company-b-v5",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "firstName"],
-        "socialButtons": ["google"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "minimal-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": []
-      },
-      "signUp": {
-        "fields": ["email", "password"],
-        "socialButtons": [],
-        "gridLayout": false,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "social-only-v5",
-      "signIn": {
-        "fields": [],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email"],
-        "socialButtons": ["google", "facebook", "twitter", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": false
-      }
-    },
-    {
-      "id": "enterprise-v5",
-      "signIn": {
-        "fields": ["email", "password", "employeeId"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "employeeId", "department", "manager"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "startup-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company"],
-        "socialButtons": ["google", "github"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "retail-v5",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "address"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "education-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "microsoft"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "firstName", "lastName", "studentId"],
-        "socialButtons": ["google", "microsoft"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "healthcare-v5",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "specialty"],
-        "socialButtons": ["google"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "finance-v5",
-      "signIn": {
-        "fields": ["email", "password", "accountNumber"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "accountNumber", "fullName", "ssn"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "tech-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "github", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "company", "role"],
-        "socialButtons": ["google", "github", "twitter"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "media-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "portfolio"],
-        "socialButtons": ["google", "facebook", "instagram", "twitter"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "gaming-v5",
-      "signIn": {
-        "fields": ["email", "password", "username"],
-        "socialButtons": ["google", "discord", "twitch"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "username", "fullName"],
-        "socialButtons": ["google", "discord", "twitch"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "travel-v5",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "passport"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "food-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "restaurant"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "fitness-v5",
-      "signIn": {
-        "fields": ["email", "password", "phone"],
-        "socialButtons": ["google", "facebook", "instagram"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "phone", "fullName", "age"],
-        "socialButtons": ["google", "facebook", "instagram"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "music-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "spotify", "apple"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "artistName"],
-        "socialButtons": ["google", "spotify", "apple"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "real-estate-v5",
-      "signIn": {
-        "fields": ["email", "password", "license"],
-        "socialButtons": ["google", "linkedin"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "license", "fullName", "brokerage"],
-        "socialButtons": ["google", "linkedin"],
-        "gridLayout": true,
-        "passwordMatch": true
-      }
-    },
-    {
-      "id": "automotive-v5",
-      "signIn": {
-        "fields": ["email", "password"],
-        "socialButtons": ["google", "facebook"]
-      },
-      "signUp": {
-        "fields": ["email", "password", "fullName", "dealership"],
-        "socialButtons": ["google", "facebook"],
-        "gridLayout": false,
-        "passwordMatch": true
-      }
+  {
+    "id": "default-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
     }
-  ]
+  },
+  {
+    "id": "company-a-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "company"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-b-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "firstName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "minimal-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": []
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [],
+      "gridLayout": false,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "social-only-v1",
+    "signIn": {
+      "fields": [],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "enterprise-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId",
+        "department",
+        "manager"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "startup-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "retail-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "address"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "education-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "studentId"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "healthcare-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "specialty"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "finance-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber",
+        "fullName",
+        "ssn"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "tech-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company",
+        "role"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "media-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "portfolio"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "gaming-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "username"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "username",
+        "fullName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "travel-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "passport"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "food-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "restaurant"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "fitness-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "age"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "music-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "artistName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "real-estate-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "brokerage"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "automotive-v1",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "dealership"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "default-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-a-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "company"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-b-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "firstName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "minimal-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": []
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [],
+      "gridLayout": false,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "social-only-v2",
+    "signIn": {
+      "fields": [],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "enterprise-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId",
+        "department",
+        "manager"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "startup-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "retail-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "address"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "education-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "studentId"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "healthcare-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "specialty"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "finance-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber",
+        "fullName",
+        "ssn"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "tech-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company",
+        "role"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "media-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "portfolio"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "gaming-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "username"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "username",
+        "fullName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "travel-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "passport"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "food-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "restaurant"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "fitness-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "age"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "music-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "artistName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "real-estate-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "brokerage"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "automotive-v2",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "dealership"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "default-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-a-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "company"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-b-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "firstName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "minimal-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": []
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [],
+      "gridLayout": false,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "social-only-v3",
+    "signIn": {
+      "fields": [],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "enterprise-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId",
+        "department",
+        "manager"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "startup-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "retail-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "address"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "education-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "studentId"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "healthcare-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "specialty"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "finance-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber",
+        "fullName",
+        "ssn"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "tech-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company",
+        "role"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "media-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "portfolio"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "gaming-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "username"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "username",
+        "fullName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "travel-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "passport"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "food-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "restaurant"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "fitness-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "age"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "music-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "artistName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "real-estate-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "brokerage"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "automotive-v3",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "dealership"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "default-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-a-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "company"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-b-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "firstName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "minimal-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": []
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [],
+      "gridLayout": false,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "social-only-v4",
+    "signIn": {
+      "fields": [],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "enterprise-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId",
+        "department",
+        "manager"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "startup-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "retail-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "address"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "education-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "studentId"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "healthcare-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "specialty"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "finance-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber",
+        "fullName",
+        "ssn"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "tech-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company",
+        "role"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "media-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "portfolio"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "gaming-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "username"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "username",
+        "fullName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "travel-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "passport"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "food-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "restaurant"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "fitness-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "age"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "music-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "artistName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "real-estate-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "brokerage"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "automotive-v4",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "dealership"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "default-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-a-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "company"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "company-b-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "firstName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "minimal-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": []
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [],
+      "gridLayout": false,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "social-only-v5",
+    "signIn": {
+      "fields": [],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": false
+    }
+  },
+  {
+    "id": "enterprise-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "employeeId",
+        "department",
+        "manager"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "startup-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company"
+      ],
+      "socialButtons": [
+        "google",
+        "github"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "retail-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "address"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "education-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "firstName",
+        "lastName",
+        "studentId"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "healthcare-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "specialty"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "finance-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "accountNumber",
+        "fullName",
+        "ssn"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "tech-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "company",
+        "role"
+      ],
+      "socialButtons": [
+        "google",
+        "github",
+        "twitter"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "media-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "portfolio"
+      ],
+      "socialButtons": [
+        "google",
+        "twitter"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "gaming-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "username"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "username",
+        "fullName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "travel-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "passport"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "food-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "restaurant"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "fitness-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "phone"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "phone",
+        "fullName",
+        "age"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "music-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "artistName"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "real-estate-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password",
+        "license"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "license",
+        "fullName",
+        "brokerage"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": true,
+      "passwordMatch": true
+    }
+  },
+  {
+    "id": "automotive-v5",
+    "signIn": {
+      "fields": [
+        "email",
+        "password"
+      ],
+      "socialButtons": [
+        "google"
+      ]
+    },
+    "signUp": {
+      "fields": [
+        "email",
+        "password",
+        "fullName",
+        "dealership"
+      ],
+      "socialButtons": [
+        "google"
+      ],
+      "gridLayout": false,
+      "passwordMatch": true
+    }
+  }
+]

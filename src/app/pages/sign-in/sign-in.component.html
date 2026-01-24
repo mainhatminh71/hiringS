@@ -61,7 +61,7 @@
         type="button"
         [disabled]="button.disabled"
         class="h-12 border border-gray-300 rounded-md bg-white hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-medium transition-colors"
-        (click)="button.onClick && button.onClick()">
+        (click)="onSocialButtonClick(button.provider)">
         <nz-icon 
           *ngIf="button.icon && isIconObject(button.icon)" 
           [nzType]="button.icon.nzType" 

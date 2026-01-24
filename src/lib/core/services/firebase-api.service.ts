@@ -1,15 +1,24 @@
 import { Injectable, inject } from '@angular/core';
+import { 
+  Auth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signInWithRedirect,
+  getRedirectResult,
+  linkWithRedirect,
+  GoogleAuthProvider, 
+  FacebookAuthProvider, 
+  TwitterAuthProvider, 
+  OAuthProvider, 
+  GithubAuthProvider 
+} from '@angular/fire/auth';
+import { Observable, from, throwError, of } from 'rxjs';
+import { switchMap, map, catchError, shareReplay, tap } from 'rxjs/operators';
+import { AuthProvider, AuthResponse } from '../models/user.model';
+import { User } from '../classes/user.class';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { CustomerConfig } from '../models/customer-config.model';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { from } from 'rxjs';
-import {QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
-import { Firestore } from '@angular/fire/firestore';
-import {shareReplay} from 'rxjs/operators';
-
 export interface SignInRequest {
     email: string;
     password: string;
@@ -42,6 +51,7 @@ export interface SignInRequest {
 
 export class FirebaseApiService {
     private http = inject(HttpClient);
+    private auth = inject(Auth);
     private apiKey = environment.firebase.apiKey || 'FIREBASE_API_KEY';
     private projectId = environment.firebase.projectId;
 
@@ -89,7 +99,6 @@ export class FirebaseApiService {
 
 
   getCustomerConfigById(configId: string, idToken: string): Observable<CustomerConfig | null> {
-    // Cache config để không phải fetch lại
     if (!this.cachedConfigs.has(configId)) {
         console.log('🔍 Requesting config with ID:', configId);
         const url = `https://firestore.googleapis.com/v1/projects/${this.projectId}/databases/(default)/documents:runQuery`;
@@ -119,7 +128,7 @@ export class FirebaseApiService {
                 }
                 return this.convertFirestoreRestDocumentToCustomerConfig(response[0].document);
             }),
-            tap(config => {
+            tap((config: CustomerConfig | null) => {
                 if (config) {
                     console.log(`✅ Loaded config "${configId}"`, config);
                 }
@@ -140,7 +149,33 @@ export class FirebaseApiService {
 }
 
 
-
+handleRedirectResult(userData?: Record<string, any>, customerConfigId?: string): Observable<AuthResponse | null> {
+    return from(getRedirectResult(this.auth)).pipe(
+      switchMap((credential) => {
+        if (!credential) {
+          return of(null);
+        }
+        
+        const providers = this.getProvidersFromFirebaseUser(credential.user);
+        const user = new User(
+          credential.user.uid, 
+          credential.user.email || '', 
+          providers, 
+          customerConfigId, 
+          userData
+        );
+        
+        return this.saveUser(user).pipe(
+          switchMap(() => from(credential.user.getIdToken())),
+          map(token => ({ token, user }))
+        );
+      }),
+      catchError(err => {
+        console.error('Redirect result error:', err);
+        return of(null);
+      })
+    );
+  }
 
     private convertFirestoreRestDocumentToCustomerConfig(document: any): CustomerConfig {
         const fields = document.fields || {};
@@ -186,6 +221,32 @@ export class FirebaseApiService {
         };
     }
 
+    private getProvidersFromFirebaseUser(firebaseUser: any): AuthProvider[] {
+        return firebaseUser.providerData.map((p: any) => {
+            const providerId = p.providerId.split('.')[0];
+            return providerId === 'password' ? 'password' : providerId as AuthProvider;
+        })
+    }
+    saveUser(user: User): Observable<void> {
+      if (!user.id) {
+        return throwError(() => new Error('User ID is required'));
+      }
+    
+      return this.signIn(environment.firebase.firebaseEmail, environment.firebase.firebasePassword).pipe(
+        switchMap(({ idToken }) => {
+          const url = `https://firestore.googleapis.com/v1/projects/${this.projectId}/databases/(default)/documents/users/${user.id}`;
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${idToken}`,
+            'Content-Type': 'application/json'
+          });
+    
+          return this.http.patch(url, user.toFirestore(), { headers }).pipe(
+            map(() => void 0),
+            catchError(err => throwError(() => err))
+          );
+        })
+      );
+    }
 
 
 }
