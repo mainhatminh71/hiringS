@@ -107,9 +107,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   
   onSocialButtonClick(provider: string) {
     this.authService.signInWithProvider(
-      provider as AuthProvider, 
-      undefined, 
-      this.config?.id
+      provider as AuthProvider
     ).subscribe({
       next: ({ token, user }) => {
         console.log('Token:', token);

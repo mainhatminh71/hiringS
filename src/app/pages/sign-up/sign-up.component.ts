@@ -109,9 +109,16 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
   
   onSocialButtonClick(provider: string) {
-    this.authService.signInWithProvider(
+    const userData: Record<string, any> = {};
+    Object.keys(this.formData).forEach(key => {
+      if (key !== 'email' && key !== 'password') {
+        userData[key] = this.formData[key];
+      }
+    });
+  
+    this.authService.signUpWithProvider(
       provider as AuthProvider, 
-      undefined, 
+      Object.keys(userData).length > 0 ? userData : undefined, 
       this.config?.id
     ).subscribe({
       next: ({ token, user }) => {
@@ -119,7 +126,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         console.log('User:', user);
         this.router.navigate(['/']);
       },
-      error: (err) => console.error('Social sign in error:', err)
+      error: (err) => console.error('Social sign up error:', err)
     });
   }
 }

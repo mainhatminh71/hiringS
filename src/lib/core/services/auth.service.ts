@@ -56,16 +56,35 @@ export class AuthService {
     );
   }
 
-  signInWithProvider(providerName: AuthProvider, userData?: Record<string, any>, customerConfigId?: string): Observable<AuthResponse> {
+  signInWithProvider(providerName: AuthProvider): Observable<AuthResponse> {
     const provider = this.getProvider(providerName);
     if (!provider) {
       return throwError(() => new Error(`Provider ${providerName} not supported`));
     }
-
+  
+    return from(signInWithPopup(this.auth, provider)).pipe(
+      switchMap((credential) => {
+        const providers = this.getProvidersWithIds(credential.user);
+        const user = new User(credential.user.uid, credential.user.email || '', providers);
+                return from(credential.user.getIdToken()).pipe(
+          map(token => ({ token, user }))
+        );
+      }),
+      catchError(err => throwError(() => this.handleError(err)))
+    );
+  }
+  
+  signUpWithProvider(providerName: AuthProvider, userData?: Record<string, any>, customerConfigId?: string): Observable<AuthResponse> {
+    const provider = this.getProvider(providerName);
+    if (!provider) {
+      return throwError(() => new Error(`Provider ${providerName} not supported`));
+    }
+  
     return from(signInWithPopup(this.auth, provider)).pipe(
       switchMap((credential) => {
         const providers = this.getProvidersWithIds(credential.user);
         const user = new User(credential.user.uid, credential.user.email || '', providers, customerConfigId, userData);
+        
         return this.firebaseApi.saveUser(user).pipe(
           switchMap(() => credential.user.getIdToken()),
           map(token => ({ token, user }))
