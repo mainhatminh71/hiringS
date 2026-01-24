@@ -30,7 +30,10 @@ export class AuthService {
   signUp(email: string, password: string, userData: Record<string, any>, customerConfigId?: string): Observable<AuthResponse> {
     return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
       switchMap((credential) => {
-        const user = new User(credential.user.uid, email, ['password'], customerConfigId, userData);
+        const providers: Partial<Record<AuthProvider, string>> = {
+          password: credential.user.uid
+        };
+        const user = new User(credential.user.uid, email, providers, customerConfigId, userData);
         return this.firebaseApi.saveUser(user).pipe(
           switchMap(() => credential.user.getIdToken()),
           map(token => ({ token, user }))
@@ -43,7 +46,7 @@ export class AuthService {
   signIn(email: string, password: string): Observable<AuthResponse> {
     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
       switchMap((credential) => {
-        const providers = this.getProvidersFromFirebaseUser(credential.user);
+        const providers = this.getProvidersWithIds(credential.user);
         const user = new User(credential.user.uid, credential.user.email!, providers);
         return from(credential.user.getIdToken()).pipe(
           map(token => ({ token, user }))
@@ -61,7 +64,7 @@ export class AuthService {
 
     return from(signInWithPopup(this.auth, provider)).pipe(
       switchMap((credential) => {
-        const providers = this.getProvidersFromFirebaseUser(credential.user);
+        const providers = this.getProvidersWithIds(credential.user);
         const user = new User(credential.user.uid, credential.user.email || '', providers, customerConfigId, userData);
         return this.firebaseApi.saveUser(user).pipe(
           switchMap(() => credential.user.getIdToken()),
@@ -78,7 +81,7 @@ export class AuthService {
           return of(null);
         }
         
-        const providers = this.getProvidersFromFirebaseUser(credential.user);
+        const providers = this.getProvidersWithIds(credential.user);
         const user = new User(
           credential.user.uid, 
           credential.user.email || '', 
@@ -112,7 +115,7 @@ export class AuthService {
 
     return from(linkWithPopup(currentUser, provider)).pipe(
       switchMap((credential) => {
-        const providers = this.getProvidersFromFirebaseUser(credential.user);
+        const providers = this.getProvidersWithIds(credential.user);
         const user = new User(currentUser.uid, currentUser.email || '', providers);
         return this.firebaseApi.saveUser(user).pipe(map(() => user));
       }),
@@ -120,11 +123,22 @@ export class AuthService {
     );
   }
 
-  private getProvidersFromFirebaseUser(firebaseUser: any): AuthProvider[] {
-    return firebaseUser.providerData.map((p: any) => {
+  private getProvidersWithIds(firebaseUser: any): Partial<Record<AuthProvider, string>> {
+    const providers: Partial<Record<AuthProvider, string>> = {};
+    
+    firebaseUser.providerData.forEach((p: any) => {
       const providerId = p.providerId.split('.')[0];
-      return providerId === 'password' ? 'password' : providerId as AuthProvider;
+      const providerName = providerId === 'password' ? 'password' : providerId as AuthProvider;
+      
+      
+      if (providerName === 'password') {
+        providers[providerName] = firebaseUser.uid; 
+      } else {
+        providers[providerName] = p.uid;
+      }
     });
+    
+    return providers;
   }
 
   private handleError(error: any): Error {

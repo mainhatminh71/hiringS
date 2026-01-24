@@ -156,7 +156,7 @@ handleRedirectResult(userData?: Record<string, any>, customerConfigId?: string):
           return of(null);
         }
         
-        const providers = this.getProvidersFromFirebaseUser(credential.user);
+        const providers = this.getProvidersWithIds(credential.user);
         const user = new User(
           credential.user.uid, 
           credential.user.email || '', 
@@ -221,11 +221,23 @@ handleRedirectResult(userData?: Record<string, any>, customerConfigId?: string):
         };
     }
 
-    private getProvidersFromFirebaseUser(firebaseUser: any): AuthProvider[] {
-        return firebaseUser.providerData.map((p: any) => {
+    private getProvidersWithIds(firebaseUser: any): Partial<Record<AuthProvider, string>> {
+        const providers: Partial<Record<AuthProvider, string>> = {};
+        
+        firebaseUser.providerData.forEach((p: any) => {
             const providerId = p.providerId.split('.')[0];
-            return providerId === 'password' ? 'password' : providerId as AuthProvider;
-        })
+            const providerName = providerId === 'password' ? 'password' : providerId as AuthProvider;
+            
+            // Với password, dùng Firebase UID làm provider ID
+            // Với OAuth providers, dùng providerData.uid (đây chính là provider ID)
+            if (providerName === 'password') {
+                providers[providerName] = firebaseUser.uid; 
+            } else {
+                providers[providerName] = p.uid;
+            }
+        });
+        
+        return providers;
     }
     saveUser(user: User): Observable<void> {
       if (!user.id) {

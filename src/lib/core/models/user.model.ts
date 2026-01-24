@@ -8,7 +8,7 @@ export interface AuthResponse {
 export interface IUser {
     id?: string,
     email: string;
-    providers: AuthProvider[];
+    providers: Partial<Record<AuthProvider, string>>; // Partial để không bắt buộc tất cả providers
     customerConfigId?: string;
     [key: string]: any;
 }
