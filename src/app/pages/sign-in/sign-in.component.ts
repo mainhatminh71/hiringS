@@ -12,13 +12,11 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ButtonConfig } from '../../../lib/core/models/button-config.model';
 import { AuthProvider } from '../../../lib/core/models/user.model';
 import { AuthService } from '../../../lib/core/services/auth.service';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import {NzIconService} from 'ng-zorro-antd/icon';
 
 
 @Component({
   selector: 'app-sign-in',
-  imports: [CommonModule, EntryFormComponent, FormsModule, InputComponent, NzIconModule, RouterLink, NzIconModule],
+  imports: [CommonModule, EntryFormComponent, FormsModule, InputComponent, NzIconModule, RouterLink],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
   standalone: true
@@ -28,9 +26,13 @@ export class SignInComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private router = inject(Router);
   private formConfigSubscription?: Subscription;
+
+
   formData: Record<string, any> = {};
+  formErrors: Record<string, string> = {};
   config: FormConfig | null = null;
   rememberMe: boolean = false;
+  isSubmitting: boolean = false;
 
   ngOnInit() {
     this.formConfigSubscription = this.formConfig$.subscribe(config => {
@@ -46,6 +48,41 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   onFieldValueChange(fieldId: string, value: any) {
     this.formData[fieldId] = value;
+    if (this.formErrors[fieldId]) {
+      delete this.formErrors[fieldId];
+    }
+  }
+
+  validateForm() : boolean {
+    this.formErrors = {};
+    let isValid = true;
+
+    if (!this.formData['email']) {
+      this.formErrors['email'] = 'Email is required';
+      isValid = false;
+    } else if (!this.isValidEmail(this.formData['email'])) {
+      this.formErrors['email'] = 'Invalid email address';
+      isValid = false;
+    }
+
+    if (!this.formData['password']) {
+      this.formErrors['password'] = 'Password is required';
+      isValid = false;
+    } else if (this.formData['password'].length < 8) {
+      this.formErrors['password'] = 'Password must be at least 8 characters long';
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  isValidEmail(email: string) : boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  getFieldError(fieldId: string) : string {
+    return this.formErrors[fieldId] || '';
   }
 
   formConfig$: Observable<FormConfig> = this.route.data.pipe(
@@ -90,31 +127,45 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (!this.validateForm()) {
+      return;
+    }
+
     const email = this.formData['email'];
     const password = this.formData['password'];
   
     if (email && password) {
+      this.isSubmitting = true;
       this.authService.signIn(email, password).subscribe({
         next: ({ token, user }) => {
           console.log('Token:', token);
           console.log('User:', user);
+          this.isSubmitting = false;
           this.router.navigate(['/']);
         },
-        error: (err) => console.error('Sign in error:', err)
+        error: (err) => {
+          console.error('Sign in error:', err);
+          this.isSubmitting = false;
+        }
       });
     }
   }
   
   onSocialButtonClick(provider: string) {
+    this.isSubmitting = true;
     this.authService.signInWithProvider(
       provider as AuthProvider
     ).subscribe({
       next: ({ token, user }) => {
         console.log('Token:', token);
         console.log('User:', user);
+        this.isSubmitting = false;
         this.router.navigate(['/']);
       },
-      error: (err) => console.error('Social sign in error:', err)
+      error: (err) => {
+        console.error('Social sign in error:', err);
+        this.isSubmitting = false;
+      }
     });
   }
 }

@@ -27,6 +27,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
   private formConfigSubscription?: Subscription;
   formData: Record<string, any> = {};
   config: FormConfig | null = null;
+  formErrors: Record<string, string> = {};
+  isSubmitting = false;
 
   ngOnInit() {
     this.formConfigSubscription = this.formConfig$.subscribe(config => {
@@ -42,7 +44,47 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   onFieldValueChange(fieldId: string, value: any) {
     this.formData[fieldId] = value;
+    if (this.formErrors[fieldId]) {
+      delete this.formErrors[fieldId];
+    }
   }
+  validateForm(): boolean {
+    this.formErrors = {};
+    let isValid = true;
+
+    if (!this.formData['email']) {
+      this.formErrors['email'] = 'Email is required';
+      isValid = false;
+    } else if (!this.isValidEmail(this.formData['email'])) {
+      this.formErrors['email'] = 'Please enter a valid email';
+      isValid = false;
+    }
+
+    if (!this.formData['password']) {
+      this.formErrors['password'] = 'Password is required';
+      isValid = false;
+    } else if (this.formData['password'].length < 6) {
+      this.formErrors['password'] = 'Password must be at least 6 characters';
+      isValid = false;
+    }
+
+    if (this.formData['confirmPassword']) {
+      if (this.formData['password'] !== this.formData['confirmPassword']) {
+        this.formErrors['confirmPassword'] = 'Passwords do not match';
+        isValid = false;
+      }
+    }
+
+    return isValid;
+  }
+  isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  getFieldError(fieldId: string): string {
+    return this.formErrors[fieldId] || '';
+  }
+  
 
   formConfig$: Observable<FormConfig> = this.route.data.pipe(
     map(data => data['formConfig']),
@@ -55,7 +97,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   getButtonLabel(button: ButtonConfig): string {
-    // If custom label is provided, use it (but remove "Continue with" prefix if present)
     if (button.label) {
       return button.label.replace(/^Continue with\s+/i, '');
     }
@@ -86,32 +127,44 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (!this.validateForm()) {
+      return;
+    }
+
+    if (this.isSubmitting) return;
+
+    this.isSubmitting = true;
     const email = this.formData['email'];
     const password = this.formData['password'];
   
-    if (email && password) {
-      const userData: Record<string, any> = {};
-      Object.keys(this.formData).forEach(key => {
-        if (key !== 'email' && key !== 'password') {
-          userData[key] = this.formData[key];
-        }
-      });
+    const userData: Record<string, any> = {};
+    Object.keys(this.formData).forEach(key => {
+      if (key !== 'email' && key !== 'password' && key !== 'confirmPassword') {
+        userData[key] = this.formData[key];
+      }
+    });
       
-      this.authService.signUp(email, password, userData, this.config?.id).subscribe({
-        next: ({ token, user }) => {
-          console.log('Token:', token);
-          console.log('User:', user);
-          this.router.navigate(['/']);
-        },
-        error: (err) => console.error('Sign up error:', err)
-      });
-    }
+    this.authService.signUp(email, password, userData, this.config?.id).subscribe({
+      next: ({ token, user }) => {
+        console.log('Token:', token);
+        console.log('User:', user);
+        this.isSubmitting = false;
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Sign up error:', err);
+        this.isSubmitting = false;
+      }
+    });
   }
   
   onSocialButtonClick(provider: string) {
+    if (this.isSubmitting) return;
+
+    this.isSubmitting = true;
     const userData: Record<string, any> = {};
     Object.keys(this.formData).forEach(key => {
-      if (key !== 'email' && key !== 'password') {
+      if (key !== 'email' && key !== 'password' && key !== 'confirmPassword') {
         userData[key] = this.formData[key];
       }
     });
@@ -124,9 +177,13 @@ export class SignUpComponent implements OnInit, OnDestroy {
       next: ({ token, user }) => {
         console.log('Token:', token);
         console.log('User:', user);
+        this.isSubmitting = false;
         this.router.navigate(['/']);
       },
-      error: (err) => console.error('Social sign up error:', err)
+      error: (err) => {
+        console.error('Social sign up error:', err);
+        this.isSubmitting = false;
+      }
     });
   }
 }

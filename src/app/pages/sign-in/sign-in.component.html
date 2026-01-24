@@ -13,6 +13,10 @@
             [config]="field.config!" 
             (valueChange)="onFieldValueChange(field.id, $event)">
           </app-input>
+          <!-- Hiển thị lỗi nếu có -->
+          <div *ngIf="getFieldError(field.id)" class="text-sm text-red-600 mt-1">
+            {{ getFieldError(field.id) }}
+          </div>
         </div>
       </ng-container>
     </ng-container>
@@ -38,8 +42,9 @@
     <!-- Sign in button -->
     <button
       type="submit"
-      class="w-full h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium transition-colors">
-      {{ config.submitLabel || 'Sign In' }}
+      [disabled]="isSubmitting"
+      class="w-full h-12 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-md font-medium transition-colors">
+      {{ isSubmitting ? 'Signing in...' : (config.submitLabel || 'Sign In') }}
     </button>
 
     <!-- Divider -->
@@ -59,8 +64,8 @@
       <button
         *ngFor="let button of config.socialButtons"
         type="button"
-        [disabled]="button.disabled"
-        class="h-12 border border-gray-300 rounded-md bg-white hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-medium transition-colors"
+        [disabled]="button.disabled || isSubmitting"
+        class="h-12 border border-gray-300 rounded-md bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm font-medium transition-colors"
         (click)="onSocialButtonClick(button.provider)">
         <nz-icon 
           *ngIf="button.icon && isIconObject(button.icon)" 
