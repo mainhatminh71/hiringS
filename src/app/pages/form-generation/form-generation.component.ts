@@ -40,14 +40,16 @@ export class FormGenerationComponent implements OnDestroy, OnInit {
     this.toolboxItems().map(item => ({ type: item.componentType }))
   );
   ngOnInit(): void {
-    this.fieldRegistry.loadRegistry().subscribe({
-      next: () => {
-        
-      },
-      error: (err) => {
-        console.error('Failed to load field registry:', err);
-      }
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.fieldRegistry.loadRegistry().subscribe({
+        next: () => {
+          // Registry loaded
+        },
+        error: (err) => {
+          console.error('Failed to load field registry:', err);
+        }
+      });
+    }
   }
 
   constructor(
