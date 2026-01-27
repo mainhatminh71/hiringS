@@ -1,5 +1,6 @@
 import { Directive, ElementRef, HostListener, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
-
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
 type ResizeHandle = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w';
 
 @Directive({
@@ -24,7 +25,8 @@ export class ResizeDirective {
   private startLeft = 0;
   constructor(
     private el: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   @HostListener('mousedown', ['$event'])
@@ -205,6 +207,7 @@ export class ResizeDirective {
       this.renderer.removeStyle(document.body, 'user-select');
     };
     private getCurrentLeftOffset(): number {
+      if (!isPlatformBrowser(this.platformId)) return 0;
       const transform = getComputedStyle(this.el.nativeElement).transform;
       if (transform && transform !== 'none') {
         const matrix = new DOMMatrix(transform);
@@ -213,6 +216,7 @@ export class ResizeDirective {
       return 0;
     }
     private getCanvasBounds(): { width: number; left: number } {
+      if (!isPlatformBrowser(this.platformId)) return {width: 1436, left: 32};
       const gridContainer = this.el.nativeElement.parentElement;
       if (gridContainer) {
         const containerRect = gridContainer.getBoundingClientRect();
