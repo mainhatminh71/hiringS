@@ -1,0 +1,177 @@
+@switch (field.type) {
+    @case ('text') {
+      <div class="space-y-2 field-container">
+        <label [for]="getFieldId('preview')" class="block text-sm font-medium">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+        <input 
+          [id]="getFieldId('preview')"
+          type="text"
+          [placeholder]="getConfig('placeholder') || getLabel()"
+          [disabled]="true"
+          [maxLength]="getConfig('maxLength')"
+          [attr.aria-label]="getLabel()"
+          title="Field"
+          [title]="getLabel()"
+          class="w-full px-3 py-2 border border-gray-300 rounded">
+      </div>
+    }
+    
+    @case ('email') {
+      <div class="space-y-2 field-container">
+        <label [for]="getFieldId('preview-email')" class="block text-sm font-medium">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+        <input 
+          [id]="getFieldId('preview-email')"
+          type="email"
+          [placeholder]="getConfig('placeholder') || getLabel()"
+          [disabled]="true"
+          [attr.aria-label]="getLabel()"
+          title="Field"
+          [title]="getLabel()"
+          class="w-full px-3 py-2 border border-gray-300 rounded">
+      </div>
+    }
+    
+    @case ('textarea') {
+      <div class="space-y-2 field-container">
+        <label [for]="getFieldId('preview-textarea')" class="block text-sm font-medium">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+        <textarea 
+          [id]="getFieldId('preview-textarea')"
+          [placeholder]="getConfig('placeholder') || getLabel()"
+          [rows]="getConfig('rows') || 4"
+          [disabled]="true"
+          [attr.aria-label]="getLabel()"
+          title="Field"
+          [title]="getLabel()"
+          class="w-full px-3 py-2 border border-gray-300 rounded resize-none"></textarea>
+      </div>
+    }
+    
+    @case ('select') {
+      <div class="space-y-2 field-container">
+        <label [for]="getFieldId('preview-select')" class="block text-sm font-medium">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+        <select 
+          [id]="getFieldId('preview-select')"
+          [disabled]="true" 
+          [attr.aria-label]="getLabel()"
+          title="Field"
+          [title]="getLabel()"
+          class="w-full px-3 py-2 border border-gray-300 rounded">
+          <option value="">-- Select --</option>
+          @for (opt of getConfig('options') || []; track opt.value) {
+            <option [value]="opt.value">{{ opt.label }}</option>
+          }
+        </select>
+      </div>
+    }
+    
+    @case ('radio') {
+      <div class="space-y-2 field-container">
+        <label class="block text-sm font-medium mb-2">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+        <div class="space-y-2">
+          @for (opt of getConfig('options') || []; track opt.value) {
+            <label class="flex items-center gap-2 cursor-default">
+              <input 
+                type="radio" 
+                [disabled]="true" 
+                [name]="field.id"
+                [attr.aria-label]="opt.label"
+                [title]="opt.label"
+                class="cursor-default">
+              <span class="text-sm">{{ opt.label }}</span>
+            </label>
+          }
+        </div>
+      </div>
+    }
+    
+    @case ('checkbox') {
+      <div class="flex items-center gap-2 field-container">
+        <input 
+          [id]="getFieldId('preview-checkbox')"
+          type="checkbox" 
+          [checked]="getConfig('checked')"
+          [disabled]="true"
+          [attr.aria-label]="getLabel()"
+          title="Field"
+          [title]="getLabel()"
+          class="cursor-default">
+        <label [for]="getFieldId('preview-checkbox')" class="text-sm font-medium cursor-default">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+      </div>
+    }
+    
+    @case ('date') {
+      <div class="space-y-2 field-container">
+        <label [for]="getFieldId('preview-date')" class="block text-sm font-medium">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+        <input 
+          [id]="getFieldId('preview-date')"
+          type="date"
+          [disabled]="true"
+          placeholder="Field"
+          [attr.aria-label]="getLabel()"
+          title="Field"
+          [title]="getLabel()"
+          class="w-full px-3 py-2 border border-gray-300 rounded">
+      </div>
+    }
+    
+    @case ('file') {
+      <div class="space-y-2 field-container">
+        <label class="block text-sm font-medium">
+          {{ getConfig('label') }}
+          @if (getConfig('required')) {
+            <span class="text-red-500 ml-1">*</span>
+          }
+        </label>
+        <div class="border-2 border-dashed border-gray-300 rounded px-4 py-3 text-center file-upload-container">
+          <input 
+            [id]="getFieldId('preview-file')"
+            type="file"
+            [disabled]="true"
+            [accept]="getConfig('accept')"
+            [multiple]="getConfig('multiple')"
+            placeholder="Field"
+            [attr.aria-label]="getLabel()"
+            title="Field"
+            [title]="getLabel()"
+            class="hidden">
+          <label [for]="getFieldId('preview-file')" class="text-sm text-gray-500 cursor-default">
+            Click to upload file
+          </label>
+        </div>
+      </div>
+    }
+  }

@@ -1,0 +1,32 @@
+componentType: file
+displayName: File Upload
+icon: attach_file
+category: Input
+defaultConfig:
+  label: Upload File
+  required: false
+  disabled: false
+  accept: "*/*"
+  multiple: false
+  gridPosition:
+    start: 1
+    span: 12
+configurableProps:
+  - name: label
+    type: string
+    label: Label
+    default: Upload File
+  - name: accept
+    type: string
+    label: Acceptable File Types
+    default: "*/*"
+  - name: multiple
+    type: boolean
+    label: Allow Multiple Files
+    default: false
+  - name: gridPosition
+    type: object
+    label: Grid Location
+    default:
+      start: 1
+      span: 12

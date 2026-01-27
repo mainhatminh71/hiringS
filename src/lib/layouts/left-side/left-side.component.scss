@@ -1,0 +1,29 @@
+::ng-deep {
+    .p-sidebar {
+      z-index: 9999 !important;
+      background-color: white !important;
+      background: white !important;
+      opacity: 1 !important;
+      
+      &.p-sidebar-active {
+        z-index: 9999 !important;
+        background-color: white !important;
+        opacity: 1 !important;
+      }
+      
+      // Đảm bảo header và content cũng không trong suốt
+      .p-sidebar-header {
+        background-color: white !important;
+        opacity: 1 !important;
+      }
+      
+      .p-sidebar-content {
+        background-color: white !important;
+        opacity: 1 !important;
+      }
+    }
+    
+    .p-sidebar-mask {
+      z-index: 9998 !important;
+    }
+  }

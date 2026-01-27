@@ -1,11 +1,14 @@
-/* stylelint-disable at-rule-no-unknown */
 /* You can add global styles to this file, and also import other style files */
 
 // Tailwind CSS v3 directives
-// @tailwind directives are processed by PostCSS/Tailwind, not standard CSS
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 // Import all styles from lib/styles
 @import './lib/styles/index';
+
+// Sidebar margin khi mở
+body.sidebar-open .sidebar-margin {
+  margin-left: 24rem; // w-96 = 24rem
+}

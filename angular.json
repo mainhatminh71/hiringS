@@ -26,14 +26,11 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/favicon.ico",
               {
-                "glob": "**/*",
-                "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
+                "glob": "**/*.yaml",
+                "input": "src/assets/field-schemas",
+                "output": "/assets/field-schemas"
               }
             ],
             "styles": [

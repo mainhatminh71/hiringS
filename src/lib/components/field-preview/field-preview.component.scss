@@ -1,0 +1,173 @@
+// Animation sketch in khi component xuất hiện
+@keyframes sketchIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.01) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// Animation sketch border khi hover (vì input disabled nên không có focus)
+@keyframes sketchBorder {
+  0% {
+    border-color: #d1d5db;
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+  50% {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+  100% {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+}
+
+// Animation cho radio và checkbox
+@keyframes sketchRadio {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Animation cho file upload container
+@keyframes sketchFile {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+    border-color: transparent;
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.01);
+    border-color: #d1d5db;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    border-color: #d1d5db;
+  }
+}
+
+// Container animation - áp dụng cho tất cả field
+.field-container {
+  animation: sketchIn 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  
+  // Label không flex, giữ nguyên kích thước
+  label {
+    flex-shrink: 0;
+  }
+  
+  // Input/textarea/select để flex và stretch
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  textarea,
+  select {
+    flex: 1;
+    min-height: 40px;
+  }
+  
+  // Textarea đặc biệt - cho phép mở rộng tự do hơn
+  textarea {
+    flex: 1;
+    min-height: 60px;
+  }
+}
+
+// Input, textarea, select - animation khi xuất hiện và hover
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select {
+  animation: sketchIn 0.4s ease-out;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  flex: 1;
+  min-height: 40px;
+  
+  &:hover:not(:disabled) {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+}
+
+// Textarea - cho phép mở rộng tự do theo container
+textarea {
+  animation: sketchIn 0.4s ease-out;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  flex: 1;
+  min-height: 60px;
+  height: 100%;
+  resize: none;
+  
+  &:hover:not(:disabled) {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+}
+
+// Radio buttons animation
+input[type="radio"] {
+  animation: sketchRadio 0.3s ease-out;
+  transition: transform 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    transform: scale(1.1);
+  }
+}
+
+// Checkbox animation
+input[type="checkbox"] {
+  animation: sketchRadio 0.3s ease-out;
+  transition: transform 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    transform: scale(1.1);
+  }
+}
+
+// File upload container animation
+.file-upload-container {
+  animation: sketchFile 0.4s ease-out;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+  
+  &:hover {
+    border-color: #3b82f6;
+    transform: scale(1.01);
+  }
+}

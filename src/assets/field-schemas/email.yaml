@@ -1,0 +1,27 @@
+componentType: email
+displayName: Email Input
+icon: email
+category: Input
+defaultConfig:
+  label: Email
+  placeholder: Enter your email
+  required: true
+  disabled: false
+  gridPosition:
+    start: 1
+    span: 12
+configurableProps:
+  - name: label
+    type: string
+    label: Label
+    default: Email
+  - name: placeholder
+    type: string
+    label: Placeholder
+    default: Enter your email
+  - name: gridPosition
+    type: object
+    label: Grid Location
+    default:
+      start: 1
+      span: 12

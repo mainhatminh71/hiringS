@@ -1,0 +1,21 @@
+<div class="p-6">
+    <h2 class="mb-6 text-2xl font-semibold">Make an application form</h2>
+    <div class="flex flex-wrap gap-4">
+      @for (app of applications; track app.title) {
+        <app-application-form-card routerLink="/form-generation">
+        </app-application-form-card>
+      }
+    </div>
+  </div>
+  <div class="p-6">
+    <h2 class="mb-6 text-2xl font-semibold">Select a template</h2>
+    <div class="flex flex-wrap gap-4">
+      @for (app of applications; track app.title) {
+        <a routerLink="/form-generation" class="block">
+            <app-application-form-card>
+            </app-application-form-card>
+        </a>
+        
+      }
+    </div>
+  </div>

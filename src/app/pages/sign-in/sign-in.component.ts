@@ -12,6 +12,7 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ButtonConfig } from '../../../lib/core/models/button-config.model';
 import { AuthProvider } from '../../../lib/core/models/user.model';
 import { AuthService } from '../../../lib/core/services/auth.service';
+import { ApplicationFormCardComponent } from '../../../lib/components/application-form-card/application-form-card.component';
 
 
 @Component({
@@ -160,7 +161,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         console.log('Token:', token);
         console.log('User:', user);
         this.isSubmitting = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['/application-selection']);
       },
       error: (err) => {
         console.error('Social sign in error:', err);

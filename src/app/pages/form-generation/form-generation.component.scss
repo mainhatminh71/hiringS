@@ -1,0 +1,38 @@
+.resize-handle {
+    z-index: 20;
+    background: transparent;
+    pointer-events: auto;
+    
+    &:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid #3b82f6;
+    }
+  }
+  
+  body.resizing {
+    cursor: nwse-resize !important;
+    -webkit-user-select: none;
+    user-select: none;
+    
+    * {
+      cursor: nwse-resize !important;
+    }
+  }
+  
+  // Allow components to resize freely
+  [appResize] {
+    position: relative;
+    box-sizing: border-box;
+    
+    &[style*="width"] {
+      grid-column: auto !important;
+    }
+  }
+  
+  // Ensure field preview fills container
+  app-field-preview {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }

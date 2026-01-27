@@ -1,0 +1,87 @@
+@switch (prop.type) {
+    @case ('string') {
+      <label [for]="getInputId()" class="block text-sm font-medium mb-1">{{ prop.label }}</label>
+      <input 
+        type="text"
+        [id]="getInputId()"
+        [value]="getValue()"
+        (input)="onValueChange($any($event.target).value)"
+        [placeholder]="prop.label || 'Enter value'"
+        [attr.aria-label]="prop.label"
+        title="Input field"
+        [title]="prop.label || 'Input field'"
+        class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+    }
+    
+    @case ('boolean') {
+      <label class="flex items-center gap-2">
+        <input 
+          type="checkbox"
+          [checked]="getValue()"
+          (change)="onValueChange($any($event.target).checked)"
+          class="rounded">
+        <span class="text-sm font-medium">{{ prop.label }}</span>
+      </label>
+    }
+    
+    @case ('number') {
+      <label [for]="getInputId()" class="block text-sm font-medium mb-1">{{ prop.label }}</label>
+      <input 
+        type="number"
+        [id]="getInputId()"
+        [value]="getValue()"
+        (input)="onValueChange(+$any($event.target).value)"
+        [placeholder]="prop.label || 'Enter number'"
+        [attr.aria-label]="prop.label"
+        [title]="prop.label || 'Number input'"
+        title="Number input"
+        class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+    }
+    
+    @case ('array-of-objects') {
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium">{{ prop.label }}</label>
+          <button 
+            (click)="addOption()"
+            type="button"
+            class="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600">
+            + Thêm
+          </button>
+        </div>
+        <div class="space-y-2">
+          @for (opt of getOptions(); track $index; let i = $index) {
+            <div class="flex gap-2 items-center p-2 border border-gray-200 rounded">
+              <label [for]="getOptionInputId(i, 'value')" class="sr-only">Option value</label>
+              <input 
+                type="text"
+                [id]="getOptionInputId(i, 'value')"
+                [value]="opt.value"
+                (input)="updateOption(i, 'value', $any($event.target).value)"
+                placeholder="Value"
+                aria-label="Option value"
+                title="Option value"
+                class="flex-1 px-2 py-1 text-sm border border-gray-300 rounded">
+              <label [for]="getOptionInputId(i, 'label')" class="sr-only">Option label</label>
+              <input 
+                type="text"
+                [id]="getOptionInputId(i, 'label')"
+                [value]="opt.label"
+                (input)="updateOption(i, 'label', $any($event.target).value)"
+                placeholder="Label"
+                aria-label="Option label"
+                title="Option label"
+                class="flex-1 px-2 py-1 text-sm border border-gray-300 rounded">
+              <button 
+                (click)="removeOption(i)"
+                type="button"
+                [attr.aria-label]="'Remove option ' + (i + 1)"
+                class="px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600">
+                ×
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
