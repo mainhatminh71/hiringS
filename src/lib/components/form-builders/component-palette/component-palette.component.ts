@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {DragDropModule, CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { UIBlockService } from '../../../core/services/ui-block.service';
 import { UIBlock } from '../../../core/models/ui-block.model';
-import { inject } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { PLATFORM_ID } from '@angular/core';
 @Component({
   selector: 'app-component-palette',
   imports: [CommonModule, DragDropModule],
@@ -14,12 +13,15 @@ import { OnInit } from '@angular/core';
 })
 export class ComponentPaletteComponent implements OnInit {
   private uiBlockService = inject(UIBlockService);
+  private platformId = inject(PLATFORM_ID);
 
   blocks: UIBlock[] = [];
-  blocksByCategory: {[key: string]: UIBlock[]} = {};
+  blocksByCategory: { [key: string]: UIBlock[] } = {};
 
   ngOnInit(): void {
-    this.loadBlocks();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadBlocks();
+    }
   }
   loadBlocks() {
     this.uiBlockService.getAllBlocks().subscribe(blocks => {
