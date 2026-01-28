@@ -1,0 +1,53 @@
+
+<div class="component-palette">
+    <div class="palette-header">
+      <h3>Components</h3>
+    </div>
+    
+    <div class="palette-content">
+      <!-- Basic Components -->
+      <div class="category-section" *ngIf="blocksByCategory['basic']?.length">
+        <h4>Basic</h4>
+        <div class="block-list">
+          <div 
+            *ngFor="let block of blocksByCategory['basic']"
+            class="block-item"
+            cdkDrag
+            [cdkDragData]="block">
+            <i [class]="block.icon"></i>
+            <span>{{ block.displayName }}</span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Advanced Components -->
+      <div class="category-section" *ngIf="blocksByCategory['advanced']?.length">
+        <h4>Advanced</h4>
+        <div class="block-list">
+          <div 
+            *ngFor="let block of blocksByCategory['advanced']"
+            class="block-item"
+            cdkDrag
+            [cdkDragData]="block">
+            <i [class]="block.icon"></i>
+            <span>{{ block.displayName }}</span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Layout Components -->
+      <div class="category-section" *ngIf="blocksByCategory['layout']?.length">
+        <h4>Layout</h4>
+        <div class="block-list">
+          <div 
+            *ngFor="let block of blocksByCategory['layout']"
+            class="block-item"
+            cdkDrag
+            [cdkDragData]="block">
+            <i [class]="block.icon"></i>
+            <span>{{ block.displayName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

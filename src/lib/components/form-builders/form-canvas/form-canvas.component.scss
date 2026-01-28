@@ -1,0 +1,140 @@
+.form-canvas {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+
+  .canvas-drop-zone {
+    flex: 1;
+    padding: 2rem;
+    min-height: 100%;
+    position: relative;
+    background-color: #ffffff;
+    overflow-y: auto;
+
+    // Drop zone highlight when dragging
+    &.cdk-drop-list-dragging {
+      background-color: #f0fdfa;
+    }
+  }
+
+  .canvas-field {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #14b8a6;
+      box-shadow: 0 2px 8px rgba(20, 184, 166, 0.1);
+    }
+
+    &.selected {
+      border-color: #14b8a6;
+      background-color: #f0fdfa;
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+    }
+
+    .field-preview {
+      .field-content {
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background-color: #f9fafb;
+        border-radius: 0.25rem;
+        min-height: 2.5rem;
+        display: flex;
+        align-items: center;
+      }
+
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 0.25rem;
+      }
+
+      span {
+        color: #6b7280;
+        font-size: 0.875rem;
+      }
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 24px;
+      height: 24px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background-color: #ef4444;
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #dc2626;
+        transform: scale(1.1);
+      }
+    }
+
+    &:hover .delete-btn {
+      display: flex;
+    }
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 400px;
+    color: #9ca3af;
+    font-size: 1rem;
+    text-align: center;
+    padding: 2rem;
+
+    &::before {
+      content: "📋";
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    p {
+      margin: 0;
+      font-style: italic;
+      color: #6b7280;
+    }
+  }
+}
+
+// Scrollbar styling
+.canvas-drop-zone::-webkit-scrollbar {
+  width: 8px;
+}
+
+.canvas-drop-zone::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.canvas-drop-zone::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+
+  &:hover {
+    background: #94a3b8;
+  }
+}
+

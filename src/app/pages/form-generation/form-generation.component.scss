@@ -1,0 +1,48 @@
+.form-builder-container {
+  height: calc(100vh - 64px); // Adjust based on your header height
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+
+  .builder-layout {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+
+  .palette-section {
+    width: 280px;
+    min-width: 280px;
+    flex-shrink: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .canvas-section {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    background-color: #ffffff;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .form-builder-container {
+    .builder-layout {
+      flex-direction: column;
+    }
+
+    .palette-section {
+      width: 100%;
+      height: 200px;
+      border-right: none;
+      border-bottom: 2px solid #14b8a6;
+    }
+
+    .canvas-section {
+      height: calc(100% - 200px);
+    }
+  }
+}
+

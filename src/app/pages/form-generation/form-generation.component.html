@@ -1,1 +1,20 @@
-<p>form-generation works!</p>
+<!-- form-generation.component.html -->
+<div class="form-builder-container">
+    <div class="builder-layout">
+      <!-- Left: Component Palette -->
+      <div class="palette-section">
+        <app-component-palette></app-component-palette>
+      </div>
+  
+      <!-- Right: Form Canvas -->
+      <div class="canvas-section">
+        <app-form-canvas
+          [blocks]="instances"
+          [selectedInstanceId]="selectedInstanceId"
+          (instanceAdded)="onInstanceAdded($event)"
+          (instanceSelected)="onInstanceSelected($event)"
+          (instanceRemoved)="onInstanceRemoved($event)">
+        </app-form-canvas>
+      </div>
+    </div>
+  </div>

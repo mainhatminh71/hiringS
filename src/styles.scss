@@ -5,6 +5,15 @@
 @tailwind components;
 @tailwind utilities;
 
+// PrimeNG styles - Note: PrimeNG v19 uses @primeuix/styled for theming
+// CSS theme files are no longer included in PrimeNG v19 package
+// If you need to use PrimeNG components, you can:
+// 1. Use CDN links in index.html:
+//    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeng@19/resources/themes/lara-light-blue/theme.css" />
+//    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeng@19/resources/primeng.min.css" />
+// 2. Or use the new @primeuix/styled theming system
+// PrimeIcons is imported via angular.json
+
 // Import all styles from lib/styles
 @import './lib/styles/index';
 

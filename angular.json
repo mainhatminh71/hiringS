@@ -31,12 +31,18 @@
                 "glob": "**/*.yaml",
                 "input": "src/assets/field-schemas",
                 "output": "/assets/field-schemas"
+              },
+              {
+                "glob": "**/*.yaml",
+                "input": "src/assets/configs",
+                "output": "/assets/configs"
               }
             ],
             "styles": [
               "src/theme.less",
               "src/styles.scss",
-              "node_modules/survey-core/survey-core.min.css"
+              "node_modules/survey-core/survey-core.min.css",
+              "node_modules/primeicons/primeicons.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
