@@ -35,7 +35,8 @@
             ],
             "styles": [
               "src/theme.less",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/survey-core/survey-core.min.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",

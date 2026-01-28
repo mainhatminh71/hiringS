@@ -1,0 +1,24 @@
+id: "checkbox"
+componentType: "checkbox"
+displayName: "Checkbox"
+icon: "pi pi-check-square"
+category: "basic"
+defaultConfig:
+  label: "Checkbox"
+  checked: false
+  required: false
+  disabled: false
+  binary: true
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Checkbox"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
+  - name: "disabled"
+    type: "boolean"
+    label: "Disabled"
+    default: false

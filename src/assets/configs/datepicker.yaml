@@ -1,0 +1,29 @@
+id: "datepicker"
+componentType: "datepicker"
+displayName: "Date Picker"
+icon: "pi pi-calendar"
+category: "basic"
+defaultConfig:
+  label: "Date"
+  required: false
+  disabled: false
+  showTime: false
+  showIcon: true
+  dateFormat: "mm/dd/yy"
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Date"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
+  - name: "showTime"
+    type: "boolean"
+    label: "Show Time"
+    default: false
+  - name: "dateFormat"
+    type: "string"
+    label: "Date Format"
+    default: "mm/dd/yy"

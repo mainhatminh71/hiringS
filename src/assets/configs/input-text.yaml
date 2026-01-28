@@ -1,0 +1,52 @@
+id: "input-text"
+componentType: "input"
+displayName: "Text Input"
+icon: "pi pi-pencil"
+category: "basic"
+defaultConfig:
+  type: "text"
+  label: "Text Input"
+  placeholder: "Enter text"
+  required: false
+  disabled: false
+  size: "default"
+  maxLength: null
+  minLength: null
+  pattern: null
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Text Input"
+    required: true
+  - name: "placeholder"
+    type: "string"
+    label: "Placeholder"
+    default: "Enter text"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
+  - name: "disabled"
+    type: "boolean"
+    label: "Disabled"
+    default: false
+  - name: "size"
+    type: "string"
+    label: "Size"
+    default: "default"
+    options:
+      - label: "Small"
+        value: "small"
+      - label: "Default"
+        value: "default"
+      - label: "Large"
+        value: "large"
+  - name: "maxLength"
+    type: "number"
+    label: "Max Length"
+    default: null
+  - name: "minLength"
+    type: "number"
+    label: "Min Length"
+    default: null

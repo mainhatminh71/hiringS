@@ -1,0 +1,13 @@
+# src/assets/configs/ui-blocks/index.yaml
+blocks:
+  - file: "input-text.yaml"
+  - file: "input-email.yaml"
+  - file: "input-password.yaml"
+  - file: "select.yaml"
+  - file: "checkbox.yaml"
+  - file: "radio.yaml"
+  - file: "textarea.yaml"
+  - file: "datepicker.yaml"
+  - file: "file-upload.yaml"
+  - file: "button.yaml"
+  - file: "divider.yaml"

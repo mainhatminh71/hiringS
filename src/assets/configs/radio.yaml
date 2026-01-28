@@ -1,0 +1,32 @@
+id: "radio"
+componentType: "radio"
+displayName: "Radio Button"
+icon: "pi pi-circle"
+category: "basic"
+defaultConfig:
+  label: "Radio Group"
+  required: false
+  disabled: false
+  options:
+    - label: "Option 1"
+      value: "option1"
+    - label: "Option 2"
+      value: "option2"
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Group Label"
+    default: "Radio Group"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
+  - name: "options"
+    type: "array-of-objects"
+    label: "Options"
+    default: []
+    schema:
+      - name: "label"
+        type: "string"
+      - name: "value"
+        type: "string"

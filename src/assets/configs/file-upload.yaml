@@ -1,0 +1,33 @@
+id: "file-upload"
+componentType: "file-upload"
+displayName: "File Upload"
+icon: "pi pi-upload"
+category: "advanced"
+defaultConfig:
+  label: "Upload File"
+  required: false
+  disabled: false
+  multiple: false
+  accept: "*"
+  maxFileSize: 1000000
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Upload File"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
+  - name: "multiple"
+    type: "boolean"
+    label: "Multiple Files"
+    default: false
+  - name: "accept"
+    type: "string"
+    label: "Accept File Types"
+    default: "*"
+  - name: "maxFileSize"
+    type: "number"
+    label: "Max File Size (bytes)"
+    default: 1000000

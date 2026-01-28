@@ -1,0 +1,42 @@
+id: "select"
+componentType: "select"
+displayName: "Dropdown Select"
+icon: "pi pi-list"
+category: "basic"
+defaultConfig:
+  label: "Select Option"
+  placeholder: "Choose an option"
+  required: false
+  disabled: false
+  multiple: false
+  options:
+    - label: "Option 1"
+      value: "option1"
+    - label: "Option 2"
+      value: "option2"
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Select Option"
+  - name: "placeholder"
+    type: "string"
+    label: "Placeholder"
+    default: "Choose an option"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
+  - name: "multiple"
+    type: "boolean"
+    label: "Multiple Selection"
+    default: false
+  - name: "options"
+    type: "array-of-objects"
+    label: "Options"
+    default: []
+    schema:
+      - name: "label"
+        type: "string"
+      - name: "value"
+        type: "string"

@@ -1,0 +1,25 @@
+id: "input-email"
+componentType: "input"
+displayName: "Email Input"
+icon: "pi pi-envelope"
+category: "basic"
+defaultConfig:
+  type: "email"
+  label: "Email"
+  placeholder: "Enter email"
+  required: true
+  disabled: false
+  size: "default"
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Email"
+  - name: "placeholder"
+    type: "string"
+    label: "Placeholder"
+    default: "Enter email"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: true
