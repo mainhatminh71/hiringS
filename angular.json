@@ -36,6 +36,11 @@
                 "glob": "**/*.yaml",
                 "input": "src/assets/configs",
                 "output": "/assets/configs"
+              },
+              {
+                "glob": "*.min.css",
+                "input": "node_modules/survey-core",
+                "output": "/assets/survey-themes"
               }
             ],
             "styles": [

@@ -1,5 +1,5 @@
 id: "input-email"
-componentType: "input"
+componentType: "input-email"
 displayName: "Email Input"
 icon: "pi pi-envelope"
 category: "basic"

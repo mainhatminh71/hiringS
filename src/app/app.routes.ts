@@ -7,18 +7,35 @@ import { ApplicationSelectionComponent } from './pages/application-selection/app
 import {ComponentPaletteComponent} from '../lib/components/form-builders/component-palette/component-palette.component';
 import {FormCanvasComponent} from '../lib/components/form-builders/form-canvas/form-canvas.component';
 import { FormGenerationComponent } from './pages/form-generation/form-generation.component';
+import { EmptyLayoutComponent } from '../lib/layouts/empty-layout/empty-layout.component';
+import { MainLayoutComponent } from '../lib/layouts/main-layout/main-layout.component';
 export const routes: Routes = [
-  { path: '', redirectTo: '/careers', pathMatch: 'full' },
-  { path: 'careers', component: CareersComponent },
-  { path: 'sign-in', 
-    component: SignInComponent,
-  resolve: { formConfig: formConfigResolver } ,
-  data: { formType: 'signIn' }},
-  { path: 'sign-up', component: SignUpComponent,
-  resolve: { formConfig: formConfigResolver } ,
-  data: { formType: 'signUp' }},
-  {path: 'application-selection', component: ApplicationSelectionComponent,},
-  {path: 'component-palette', component: ComponentPaletteComponent},
-  {path: 'form-canvas', component: FormCanvasComponent},
-  {path: 'form-generation', component: FormGenerationComponent},
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', redirectTo: '/careers', pathMatch: 'full' },
+      { path: 'careers', component: CareersComponent },
+      { path: 'sign-in', 
+        component: SignInComponent,
+        resolve: { formConfig: formConfigResolver },
+        data: { formType: 'signIn' }
+      },
+      { path: 'sign-up', 
+        component: SignUpComponent,
+        resolve: { formConfig: formConfigResolver },
+        data: { formType: 'signUp' }
+      },
+      { path: 'application-selection', component: ApplicationSelectionComponent },
+      { path: 'component-palette', component: ComponentPaletteComponent },
+      { path: 'form-canvas', component: FormCanvasComponent },
+    ]
+  },
+  {
+    path: '',
+    component: EmptyLayoutComponent,
+    children: [
+      {path: 'form-generation', component: FormGenerationComponent},
+    ]
+  },
 ];

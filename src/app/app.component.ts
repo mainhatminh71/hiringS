@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
-import { MainLayoutComponent } from '../lib/layouts/main-layout/main-layout.component';
-import {OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../lib/core/services/auth.service';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
-  imports: [MainLayoutComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  standalone: true
 })
 export class AppComponent implements OnInit{
   title = 'hiringS';

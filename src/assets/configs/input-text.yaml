@@ -1,11 +1,11 @@
 id: "input-text"
-componentType: "input"
+componentType: "input-text"
 displayName: "Text Input"
 icon: "pi pi-pencil"
 category: "basic"
 defaultConfig:
   type: "text"
-  label: "Text Input"
+  label: "Input"
   placeholder: "Enter text"
   required: false
   disabled: false

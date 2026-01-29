@@ -1,33 +1,16 @@
 <!-- form-canvas.component.html -->
 <div class="form-canvas">
-    <div 
-      class="canvas-drop-zone"
-      cdkDropList
-      (cdkDropListDropped)="onDrop($event)">
-      
-      <div 
-        *ngFor="let instance of blocks; trackBy: trackByInstanceId"
-        class="canvas-field"
-        [class.selected]="selectedInstanceId === instance.id"
-        (click)="onSelect(instance.id)">
-        
-        <!-- Temporary renderer until field-renderer component is created -->
-        <div class="field-preview">
-          <label>{{ instance.config['label'] || instance.componentType }}</label>
-          <div class="field-content">
-            <span>{{ instance.componentType }}</span>
-          </div>
-        </div>
-        
-        <button 
-          class="delete-btn"
-          (click)="onDelete(instance.id); $event.stopPropagation()">
-          ×
-        </button>
-      </div>
-  
-      <div *ngIf="blocks.length === 0" class="empty-state">
-        <p>Drag components here to build your form</p>
+  <div
+    class="canvas-scroll-wrapper"
+    cdkScrollable
+    cdkDropList
+    id="canvasDropList"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    <div class="canvas-drop-zone">
+      <div class="survey-frame" *ngIf="surveyModel">
+        <survey [model]="surveyModel"></survey>
       </div>
     </div>
+  </div>
 </div>
