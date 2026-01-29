@@ -29,6 +29,15 @@ export class FormGenerationComponent {
       this.selectedInstanceId = undefined;
     }
   }
+
+  onInstanceUpdated(updated: UIBlockInstance) {
+    this.instances = this.instances.map(instance =>
+      instance.id === updated.id ? updated : instance
+    );
+    if (this.selectedInstanceId === updated.id) {
+      this.selectedInstance = updated;
+    }
+  }
   onInstanceLabelUpdate(payload: {id: string, label: string}) {
     this.instances = this.instances.map(instance => 
       instance.id === payload.id
@@ -37,14 +46,6 @@ export class FormGenerationComponent {
     )
     if (this.selectedInstanceId === payload.id) {
       this.selectedInstance = this.instances.find(instance => instance.id === payload.id);
-    }
-  }
-  onInstanceUpdated(instance: UIBlockInstance) {
-    this.instances = this.instances.map(inst => 
-      inst.id === instance.id ? instance : inst
-    );
-    if (this.selectedInstanceId === instance.id) {
-      this.selectedInstance = instance;
     }
   }
 }

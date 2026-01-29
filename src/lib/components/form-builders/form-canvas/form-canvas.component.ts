@@ -66,6 +66,17 @@ export class FormCanvasComponent implements OnChanges {
     this.instanceRemoved.emit(instanceId);
   }
 
+  private emitLabelUpdate(instanceId: string, label: string) {
+    const instance = this.blocks.find(block => block.id === instanceId);
+    if (!instance) {
+      return;
+    }
+    this.instanceUpdated.emit({
+      ...instance,
+      config: { ...instance.config, label },
+    });
+  }
+
   trackByInstanceId(_index: number, instance: UIBlockInstance): string {
     return instance.id;
   }
@@ -97,6 +108,41 @@ export class FormCanvasComponent implements OnChanges {
           this.onDelete(id);
         });
         questionEl.appendChild(btn);
+      }
+
+      const titleEl =
+        (questionEl.querySelector('.sv-question__title .sv-string-viewer') as HTMLElement | null) ||
+        (questionEl.querySelector('.sv-question__title') as HTMLElement | null) ||
+        (questionEl.querySelector('.sv-string-viewer') as HTMLElement | null);
+
+      if (titleEl && titleEl.dataset['canvasEditable'] !== '1') {
+        titleEl.dataset['canvasEditable'] = '1';
+        titleEl.setAttribute('contenteditable', 'true');
+        titleEl.setAttribute('role', 'textbox');
+        titleEl.setAttribute('spellcheck', 'false');
+        titleEl.classList.add('canvas-editable-label');
+
+        titleEl.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            (event.target as HTMLElement).blur();
+          }
+        });
+
+        titleEl.addEventListener('blur', () => {
+          const nextLabel = (titleEl.textContent || '').trim();
+          const fallback = options.question.title || options.question.name || '';
+          const finalLabel = nextLabel || fallback;
+
+          if (!nextLabel) {
+            titleEl.textContent = finalLabel;
+          }
+
+          if (finalLabel && finalLabel !== options.question.title) {
+            options.question.title = finalLabel;
+            this.emitLabelUpdate(id, finalLabel);
+          }
+        });
       }
 
       if (questionEl.dataset['canvasSelectable'] !== '1') {

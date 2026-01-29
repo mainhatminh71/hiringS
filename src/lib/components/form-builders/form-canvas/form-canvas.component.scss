@@ -231,6 +231,17 @@
       padding-right: 2rem;
     }
 
+    .canvas-editable-label {
+      cursor: text;
+      outline: none;
+      border-radius: 0px;
+      padding: 2px 4px;
+
+      &:focus {
+        box-shadow: 0 0 0 2px var(--theme-primary-rgba, rgba(20, 184, 166, 0.35));
+      }
+    }
+
     .canvas-question-clickable {
       cursor: pointer;
     }
