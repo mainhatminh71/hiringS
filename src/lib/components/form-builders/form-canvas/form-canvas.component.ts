@@ -4,7 +4,13 @@ import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ViewChild } from '@angular/core';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-
+import { setupDeleteButton,setupEditableTitle,
+  setupEditableOptions,
+  setupSelectable,
+  applySelectedStateToElement,
+  SetupContext,
+  setupEditableSurveyTitle,
+  SurveyTitleContext} from '../../../core/helpers/canvas-setup.helper';
 import { Model as SurveyModel } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
 
@@ -29,6 +35,7 @@ export class FormCanvasComponent implements OnChanges {
   @Output() instanceUpdated = new EventEmitter<UIBlockInstance>();
   @Output() instanceRemoved = new EventEmitter<string>();
   @Output() instanceSelected = new EventEmitter<string>();
+  @Output() surveyTitleUpdated = new EventEmitter<string>();
 
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable;
 
@@ -77,6 +84,15 @@ export class FormCanvasComponent implements OnChanges {
     });
   }
 
+  private emitOptionsUpdate(instanceId: string, options: Array<{label: string, value: string}>) {
+    const instance = this.blocks.find(block => block.id === instanceId);
+    if (!instance) return;
+    this.instanceUpdated.emit({
+      ...instance,
+      config: {...instance.config, options}
+    })
+  }
+
   trackByInstanceId(_index: number, instance: UIBlockInstance): string {
     return instance.id;
   }
@@ -95,73 +111,34 @@ export class FormCanvasComponent implements OnChanges {
   
       const id = options.question.name;
       this.questionEls.set(id, questionEl);
-  
-      if (!questionEl.querySelector('.canvas-delete-btn')) {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'canvas-delete-btn';
-        btn.textContent = 'Delete';
-        btn.setAttribute('aria-label', 'Delete');
-        btn.setAttribute('style', 'color: #ef4444; padding-top: 10px; font-size: 16px;');
-        btn.addEventListener('click', (event) => {
-          event.stopPropagation();
-          this.onDelete(id);
-        });
-        questionEl.appendChild(btn);
-      }
 
-      const titleEl =
-        (questionEl.querySelector('.sv-question__title .sv-string-viewer') as HTMLElement | null) ||
-        (questionEl.querySelector('.sv-question__title') as HTMLElement | null) ||
-        (questionEl.querySelector('.sv-string-viewer') as HTMLElement | null);
+      const context: SetupContext = {
+        instanceId: id,
+        blocks: this.blocks,
+        onDelete: (instanceId) => this.onDelete(instanceId),
+        onSelect: (instanceId) => this.onSelect(instanceId),
+        onLabelUpdate: (instanceId, label) => this.emitLabelUpdate(instanceId, label),
+        onOptionsUpdate: (instanceId, options) => this.emitOptionsUpdate(instanceId, options),
+        onTitleUpdate: () => {}, 
+        selectedInstanceId: this.selectedInstanceId,
+      };
 
-      if (titleEl && titleEl.dataset['canvasEditable'] !== '1') {
-        titleEl.dataset['canvasEditable'] = '1';
-        titleEl.setAttribute('contenteditable', 'true');
-        titleEl.setAttribute('role', 'textbox');
-        titleEl.setAttribute('spellcheck', 'false');
-        titleEl.classList.add('canvas-editable-label');
-
-        titleEl.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter') {
-            event.preventDefault();
-            (event.target as HTMLElement).blur();
-          }
-        });
-
-        titleEl.addEventListener('blur', () => {
-          const nextLabel = (titleEl.textContent || '').trim();
-          const fallback = options.question.title || options.question.name || '';
-          const finalLabel = nextLabel || fallback;
-
-          if (!nextLabel) {
-            titleEl.textContent = finalLabel;
-          }
-
-          if (finalLabel && finalLabel !== options.question.title) {
-            options.question.title = finalLabel;
-            this.emitLabelUpdate(id, finalLabel);
-          }
-        });
-      }
-
-      if (questionEl.dataset['canvasSelectable'] !== '1') {
-        questionEl.dataset['canvasSelectable'] = '1';
-        questionEl.classList.add('canvas-question-clickable');
-        questionEl.addEventListener('click', (event) => {
-          event.stopPropagation();
-          this.onSelect(id);
-        });
-        questionEl.addEventListener('focusin', () => {
-          this.onSelect(id);
-        });
-      }
-  
-      questionEl.classList.toggle(
-        'canvas-question-selected',
-        this.selectedInstanceId === id
-      );
+      setupDeleteButton(questionEl, context);
+      setupEditableTitle(questionEl, options.question, context);
+      setupEditableOptions(questionEl, options.question, context);
+      setupSelectable(questionEl, context);
+      applySelectedStateToElement(questionEl, context);
     });
+    model.onAfterRenderSurvey.add((_sender, options) => {
+      const surveyEl = options.htmlElement as HTMLElement;
+      if (!surveyEl) return;
+    
+      const titleContext: SurveyTitleContext = {
+        onTitleUpdate: (title) => this.surveyTitleUpdated.emit(title),
+      };
+    
+      setupEditableSurveyTitle(surveyEl, titleContext);
+    });   
   
     this.surveyModel = model;
   }
@@ -230,15 +207,24 @@ export class FormCanvasComponent implements OnChanges {
           })),
         };
 
-      case 'checkbox':
+      case 'checkbox': {
+        const options = (cfg['options'] as any[] | undefined || []);
+        const isBinary = !!cfg['binary'] && options.length === 0;
+        if (isBinary) {
+          return {
+            ...base,
+            type: 'boolean',
+          };
+        }
         return {
           ...base,
           type: 'checkbox',
-          choices: (cfg['options'] as any[] | undefined || []).map(o => ({
+          choices: options.map(o => ({
             text: o.label,
             value: o.value,
           })),
         };
+      }
 
       case 'radio':
         return {

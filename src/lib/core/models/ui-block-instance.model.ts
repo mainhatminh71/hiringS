@@ -9,13 +9,5 @@ export interface UIBlockInstance {
   componentType: ComponentType;
   config: Record<string, any>; // Current configuration (merged from defaultConfig)
   createdAt: Date;
-  position?: {
-    x?: number;
-    y?: number;
-    order?: number; // Order in the form
-  };
-  gridPosition?: {
-    start?: number;
-    span?: number;
-  };
+
 }
