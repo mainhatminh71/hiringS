@@ -1,13 +1,22 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:prod",
+  "buildCommand": "node scripts/replace-env.js && npm run build:ssr",
   "outputDirectory": "dist/hiring-s/browser",
   "installCommand": "npm install",
   "framework": null,
+  "functions": {
+    "api/index.mjs": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "/api/index.mjs"
+    },
+    {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/api/index.mjs"
     }
   ],
   "headers": [
