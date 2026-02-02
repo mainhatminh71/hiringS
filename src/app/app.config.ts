@@ -4,7 +4,6 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
-import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { PlusOutline } from '@ant-design/icons-angular/icons';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
@@ -26,7 +25,7 @@ export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideNzI18n(en_US),
-    importProvidersFrom(FormsModule, NzNotificationModule),
+    importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
     provideNzIcons([PlusOutline]),
     provideHttpClient(), 

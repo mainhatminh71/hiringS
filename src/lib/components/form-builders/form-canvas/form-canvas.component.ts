@@ -42,6 +42,7 @@ export class FormCanvasComponent implements OnChanges {
   @Output() instanceRemoved = new EventEmitter<string>();
   @Output() instanceSelected = new EventEmitter<string>();
   @Output() surveyTitleUpdated = new EventEmitter<string>();
+  
 
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable;
 

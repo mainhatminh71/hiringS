@@ -159,12 +159,15 @@ export class FormGenerationComponent implements OnInit {
           error: () => {
             this.isSaving = false;
             this.notificationService.error('Error', 'Failed to create form');
-          }
+           }
         });
       }
     } catch {
       this.isSaving = false;
       this.notificationService.error('Error', 'Failed to save form');
     }
+  }
+  getInstanceCount(): number {
+    return this.instances.length;
   }
 }

@@ -1,10 +1,29 @@
-<a [routerLink]="routerLink" class="inline-flex">
-  <nz-card
-    [nzBordered]="true"
-    class="bg-white shadow-md rounded-lg overflow-hidden flex flex-row items-center justify-between cursor-pointer"
-    style="width: 320px; height: 208px; min-width: 320px;"
-    nzHoverable
-  >
-    <ng-content></ng-content>
-  </nz-card>
-</a>
+<div class="relative w-full h-full group">
+  <a [routerLink]="routerLink" class="app-form-card">
+    <nz-card
+      [nzBordered]="variant === 'default'"
+      [nzBodyStyle]="{ padding: '0', height: '100%' }"
+      class="app-form-card__container"
+      [class.app-form-card__container--dashed]="variant === 'dashed'"
+      [nzHoverable]="variant === 'default'"
+    >
+      <div class="app-form-card__body">
+        <div class="app-form-card__content">
+          <ng-content></ng-content>
+        </div>
+        <div *ngIf="showSwatch" class="app-form-card__aside" aria-hidden="true">
+          <span class="app-form-card__swatch" [style.backgroundColor]="themeColor || '#6366f1'"></span>
+        </div>
+      </div>
+    </nz-card>
+  </a>
+
+  <!-- Checkbox Overlay -->
+  <div *ngIf="selectable" 
+       class="absolute top-3 right-3 z-20 transition-opacity duration-200"
+       [class.opacity-0]="!selected" 
+       [class.group-hover:opacity-100]="true"
+       (click)="$event.stopPropagation(); $event.preventDefault()">
+    <label nz-checkbox [ngModel]="selected" (ngModelChange)="onSelectedChange($event)"></label>
+  </div>
+</div>

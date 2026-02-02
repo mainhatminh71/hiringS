@@ -6,7 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-     
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       maxWidth: {
         'container': '1600px',
       },
@@ -14,4 +16,3 @@ module.exports = {
   },
   plugins: [],
 }
-
