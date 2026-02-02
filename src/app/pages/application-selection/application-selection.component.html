@@ -1,18 +1,30 @@
 <div class="p-6">
-    <h2 class="mb-6 text-2xl font-semibold">Make an application form</h2>
-    <div class="flex flex-wrap gap-4">
-      @for (app of applications; track app.title) {
-        <app-application-form-card>
-        </app-application-form-card>
-      }
-    </div>
+  <h2 class="mb-6 text-2xl font-semibold">Make an application form</h2>
+  <div class="flex flex-wrap gap-4">
+    <a [routerLink]="'/form-generation'" class="inline-flex">
+      <nz-card
+        [nzBordered]="true"
+        [nzBodyStyle]="{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }"
+        class="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer"
+        style="width: 320px; height: 208px; min-width: 320px;"
+        nzHoverable
+      >
+        <div class="flex flex-col items-center justify-center gap-2 text-center w-full h-full">
+          <div class="text-lg font-semibold flex items-center gap-2">
+            <nz-icon nzType="plus" nzTheme="outline"></nz-icon>
+          </div>
+          <div class="text-sm text-gray-500">Blank form</div>
+        </div>
+      </nz-card>
+    </a>
+    @for (app of applications; track app.id) {
+    <app-application-form-card [routerLink]="'/form-generation/' + app.id">
+      <div class="p-4 flex flex-col gap-2">
+        <div class="text-lg font-semibold">
+          {{app.name || 'MewMew'}}
+        </div>
+      </div>
+    </app-application-form-card>
+    }
   </div>
-  <div class="p-6">
-    <h2 class="mb-6 text-2xl font-semibold">Select a template</h2>
-    <div class="flex flex-wrap gap-4">
-      @for (app of applications; track app.title) {
-        <app-application-form-card>
-        </app-application-form-card>
-      }
-    </div>
-  </div>
+</div>

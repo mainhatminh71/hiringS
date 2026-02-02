@@ -10,6 +10,10 @@
   [style.--palette-item-hover-bg]="themeService.currentTheme().includes('dark') ? '#1f2937' : '#f3f4f6'">
   <div class="palette-header" [style.background-color]="themeService.currentThemeBackgrounds().sidebar"
     [style.border-bottom-color]="themeService.currentThemeBackgrounds().border">
+    <button class="palette-back-btn" type="button" title="Mewmew" (click)="onBack()">
+      <i class="pi pi-arrow-left"></i>
+      <span>Back</span>
+    </button>
     <h3 [style.color]="themeService.currentTheme().includes('dark') ? '#e5e7eb' : '#111827'">
       Components
     </h3>

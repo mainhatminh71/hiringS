@@ -108,6 +108,9 @@ export class FormCanvasComponent implements OnChanges {
     const json = this.blocksToSurveyJson(this.blocks);
     const model = new SurveyModel(json);
     applySurveyTheme(model, this.themeKey);
+
+    model.showCompletedPage = false;
+    model.completedHtml = '';
   
     model.onAfterRenderQuestion.add((_sender, options) => {
       const questionEl = options.htmlElement as HTMLElement;
@@ -146,7 +149,8 @@ export class FormCanvasComponent implements OnChanges {
     
       setupEditableSurveyTitle(surveyEl, titleContext);
     });   
-    model.onComplete.add((_sender, option) => {
+    model.onCompleting.add((_sender, options) => {
+      options.allowComplete = false;
       this.formCompleted.emit();
     })
   

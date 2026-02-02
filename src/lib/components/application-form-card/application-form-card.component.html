@@ -1,10 +1,10 @@
-<a [routerLink]="routerLink" class="block">
-    <nz-card
-      [nzBordered]="true"
-      class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-between cursor-pointer"
-      style="width: 208px; height: 320px; min-width: 208px;"
-      nzHoverable
-    >
-      <ng-content></ng-content>
-    </nz-card>
-  </a>
+<a [routerLink]="routerLink" class="inline-flex">
+  <nz-card
+    [nzBordered]="true"
+    class="bg-white shadow-md rounded-lg overflow-hidden flex flex-row items-center justify-between cursor-pointer"
+    style="width: 320px; height: 208px; min-width: 320px;"
+    nzHoverable
+  >
+    <ng-content></ng-content>
+  </nz-card>
+</a>

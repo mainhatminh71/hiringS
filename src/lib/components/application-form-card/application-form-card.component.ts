@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NzCardModule} from 'ng-zorro-antd/card';
-import { Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-application-form-card',
-  imports: [CommonModule, NzCardModule, RouterModule],
+  imports: [CommonModule, NzCardModule, RouterLink],
   templateUrl: './application-form-card.component.html',
-  styleUrl: './application-form-card.component.scss'
+  styleUrl: './application-form-card.component.scss',
+  standalone: true
 })
 export class ApplicationFormCardComponent {
-  @Input() routerLink?: string;
+  @Input() routerLink: string = '/form-generation';
 }

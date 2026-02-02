@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { RightPropertySideComponent } from '../../../lib/components/right-property-side/right-property-side.component';
 import {ApplicationFormService} from '../../../lib/core/services/application-form.service';
 import { ApplicationForm } from '../../../lib/core/models/application-form.model';
+import { ActivatedRoute } from '@angular/router';
+import { OnInit } from '@angular/core';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
 @Component({
   selector: 'app-form-generation',
   imports: [ComponentPaletteComponent, FormCanvasComponent, CommonModule, RightPropertySideComponent],
@@ -14,7 +17,7 @@ import { ApplicationForm } from '../../../lib/core/models/application-form.model
   styleUrl: './form-generation.component.scss',
   standalone: true
 })
-export class FormGenerationComponent {
+export class FormGenerationComponent implements OnInit {
   selectedInstanceId?: string;
   selectedInstance?: UIBlockInstance;
   instances: UIBlockInstance[] = [];
@@ -24,6 +27,26 @@ export class FormGenerationComponent {
   formService = inject(ApplicationFormService);
   formName: string = 'Application Form';
   isSaving = false;
+  private route = inject(ActivatedRoute);
+  notificationService = inject(NzNotificationService);
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (!id)  {
+        this.instances = [];
+        this.formName = 'Application Form';
+        return;
+      }
+      this.formService.getForm(id).subscribe({
+        next: form => {
+          if (!form) return;
+          this.instances = form.instances ?? [];
+          this.formName = form.name ?? 'Application Form';
+          if (form.themeKey) this.themeService.setTheme(form.themeKey);
+        }
+      })
+    })
+  }
   onInstanceAdded(instance: UIBlockInstance) {
     this.instances = [...this.instances, instance];
   }
@@ -54,6 +77,7 @@ export class FormGenerationComponent {
       this.optionsDrawerVisible = false;
     }
   }
+
 
   onInstanceUpdated(updated: UIBlockInstance) {
     this.instances = this.instances.map(instance =>
@@ -103,21 +127,44 @@ export class FormGenerationComponent {
     if (this.instances.length === 0 || this.isSaving) return;
     this.isSaving = true;
     try {
-      const applicationForm: ApplicationForm = {
-        id: `form-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        name: this.formName,
-        instances: this.instances,
-        themeKey: this.themeService.currentTheme(),
-        themeColor: this.themeService.currentThemeColor(),
-      } as ApplicationForm;
-  
-      this.formService.createForm(applicationForm).subscribe({
-        next: () => { this.isSaving = false; },
-        error: () => { this.isSaving = false; }
-      });
-      this.instances = [];
+      const id = this.route.snapshot.paramMap.get('id');
+      if (id) {
+        this.formService.updateForm(id, {
+          name: this.formName,
+          instances: this.instances,
+          themeKey: this.themeService.currentTheme(),
+        }).subscribe({
+          next: () => {
+            this.isSaving = false;
+            this.notificationService.success('Success', 'Form updated successfully');
+          },
+          error: () => {
+            this.isSaving = false;
+            this.notificationService.error('Error', 'Failed to update form');
+          }
+        });
+      } else {
+        const applicationForm: ApplicationForm = {
+          id: `form-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          name: this.formName,
+          instances: this.instances,
+          themeKey: this.themeService.currentTheme(),
+          themeColor: this.themeService.currentThemeColor(),
+        } as ApplicationForm;
+        this.formService.createForm(applicationForm).subscribe({
+          next: () => {
+            this.isSaving = false;
+            this.notificationService.success('Success', 'Form created successfully');
+          },
+          error: () => {
+            this.isSaving = false;
+            this.notificationService.error('Error', 'Failed to create form');
+          }
+        });
+      }
     } catch {
       this.isSaving = false;
+      this.notificationService.error('Error', 'Failed to save form');
     }
   }
 }

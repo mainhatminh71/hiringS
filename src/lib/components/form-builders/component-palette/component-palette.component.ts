@@ -6,6 +6,7 @@ import { UIBlock } from '../../../core/models/ui-block.model';
 import { PLATFORM_ID } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme.service';
 import { UIBlockInstance } from '../../../core/models/ui-block-instance.model';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-component-palette',
   imports: [CommonModule, DragDropModule],
@@ -17,6 +18,7 @@ export class ComponentPaletteComponent implements OnInit {
   private uiBlockService = inject(UIBlockService);
   private platformId = inject(PLATFORM_ID);
   themeService = inject(ThemeService);
+  private router = inject(Router);
 
   @Input() selectedInstanceId?: string;
   @Input() selectedInstance?: UIBlockInstance;
@@ -91,5 +93,8 @@ export class ComponentPaletteComponent implements OnInit {
     if (this.selectedInstanceId) {
       this.labelUpdated.emit({ id: this.selectedInstanceId, label: value });
     }
+  }
+  onBack() {
+    this.router.navigate(['/application-selection']);
   }
 }

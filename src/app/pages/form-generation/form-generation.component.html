@@ -11,6 +11,7 @@
     <!-- Right: Form Canvas -->
     <div class="canvas-section">
       <app-form-canvas [blocks]="instances" [selectedInstanceId]="selectedInstanceId"
+        [formName]="formName"
         [themeKey]="themeService.currentTheme()" (instanceAdded)="onInstanceAdded($event)"
         (instanceUpdated)="onInstanceUpdated($event)" (instanceSelected)="onInstanceSelected($event)"
         (instanceRemoved)="onInstanceRemoved($event)" (optionClicked)="onOptionClicked($event)"

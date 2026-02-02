@@ -36,6 +36,7 @@ export const routes: Routes = [
     component: EmptyLayoutComponent,
     children: [
       {path: 'form-generation', component: FormGenerationComponent},
+      {path: 'form-generation/:id', component: FormGenerationComponent},
     ]
   },
 ];
