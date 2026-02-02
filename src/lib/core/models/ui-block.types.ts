@@ -1,4 +1,4 @@
-export type ComponentType = 'input-text' | 'input-email' | 'input-password' | 'select' | 'checkbox' | 'radio' | 'textarea' | 'datepicker' | 'file-upload' | 'button' | 'divider';
+export type ComponentType = 'input-text' | 'input-email' | 'input-password' | 'input-number' | 'select' | 'checkbox' | 'radio' | 'textarea' | 'datepicker' | 'file-upload' | 'button' | 'divider';
 export type CategoryRule = 'basic' | 'advanced' | 'layout';
 export type PropType = 'string' | 'number' | 'boolean' | 'array' | 'object' | 'array-of-objects';
 export interface Option {

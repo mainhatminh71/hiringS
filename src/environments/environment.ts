@@ -12,6 +12,9 @@ export const environment = {
       measurementId: "G-5KB91QBCP2",
       firebaseEmail: environmentSecret.firebase.firebaseEmail,
       firebasePassword: environmentSecret.firebase.firebasePassword
+    },
+    mongodb: {
+      connectionString: environmentSecret.mongodb.connectionString
     }
   };
 export const testCustomerId = 'tech-v3';

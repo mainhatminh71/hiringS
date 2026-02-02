@@ -28,6 +28,12 @@ export class FormCanvasComponent implements OnChanges {
   @Input() blocks: UIBlockInstance[] = [];
   @Input() selectedInstanceId?: string;
   @Input() themeKey: SurveyThemeKey = 'default-dark';
+  @Input() formName: string = 'Application Form';
+  
+
+  @Output() optionClicked = new EventEmitter<string>();
+  @Output() formCompleted = new EventEmitter<void>();
+
 
   private questionEls = new Map<string, HTMLElement>();
 
@@ -49,7 +55,7 @@ export class FormCanvasComponent implements OnChanges {
   surveyModel?: SurveyModel;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['blocks'] || changes['themeKey']) {
+    if (changes['blocks'] || changes['themeKey'] || changes['formName']) {
       this.updateSurveyModel();
     }
     if (changes['selectedInstanceId']) {
@@ -121,6 +127,7 @@ export class FormCanvasComponent implements OnChanges {
         onOptionsUpdate: (instanceId, options) => this.emitOptionsUpdate(instanceId, options),
         onTitleUpdate: () => {}, 
         selectedInstanceId: this.selectedInstanceId,
+        onOptionClick: (instanceId) => this.optionClicked.emit(instanceId),
       };
 
       setupDeleteButton(questionEl, context);
@@ -139,6 +146,9 @@ export class FormCanvasComponent implements OnChanges {
     
       setupEditableSurveyTitle(surveyEl, titleContext);
     });   
+    model.onComplete.add((_sender, option) => {
+      this.formCompleted.emit();
+    })
   
     this.surveyModel = model;
   }
@@ -150,7 +160,7 @@ export class FormCanvasComponent implements OnChanges {
 
   private blocksToSurveyJson(blocks: UIBlockInstance[]): any {
     return {
-      title: 'Application Form',
+      title: this.formName,
       showQuestionNumbers: 'off',
       pages: [
         {
@@ -188,7 +198,23 @@ export class FormCanvasComponent implements OnChanges {
           type: 'text',
           inputType: 'password',
           placeholder: (cfg['placeholder'] as string) || '',
+          required: false
         };
+
+      case 'input-number': {
+        const min = cfg['min'] as number | null | undefined;
+        const max = cfg['max'] as number | null | undefined;
+        const step = cfg['step'] as number | null | undefined;
+        return {
+          ...base,
+          type: 'text',
+          inputType: 'number',
+          placeholder: (cfg['placeholder'] as string) || '',
+          min: min ?? undefined,
+          max: max ?? undefined,
+          step: step ?? undefined,
+        };
+      }
 
       case 'textarea':
         return {

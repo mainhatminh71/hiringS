@@ -1,0 +1,78 @@
+.options-editor {
+    padding: 16px;
+    .label-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+    
+      label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #595959;
+      }
+    }
+  
+    .no-options-message {
+      text-align: center;
+      padding: 40px 20px;
+      color: #8c8c8c;
+    }
+  
+    .options-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+  
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+  
+    .options-list {
+      .option-item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 12px;
+        border: 1px solid #e8e8e8;
+        border-radius: 4px;
+        margin-bottom: 12px;
+        background: #fafafa;
+  
+        &:hover {
+          border-color: #14b8a6;
+          background: #f0fdfa;
+        }
+  
+        .option-inputs {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+  
+          .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+  
+            label {
+              font-size: 12px;
+              font-weight: 500;
+              color: #595959;
+            }
+          }
+        }
+      }
+  
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #8c8c8c;
+        font-size: 14px;
+      }
+    }
+  }

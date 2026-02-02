@@ -10,6 +10,9 @@ export const environment = {
       measurementId: "G-5KB91QBCP2",
       firebaseEmail: 'FIREBASE_EMAIL',
       firebasePassword: 'FIREBASE_PASSWORD'
+    },
+    mongodb: {
+      connectionString: 'MONGODB_CONNECTION_STRING'
     }
   };
 export const testCustomerId = 'tech-v3';

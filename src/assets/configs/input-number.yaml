@@ -1,28 +1,32 @@
-id: "input-password"
-componentType: "input-password"
-displayName: "Password Input"
-icon: "pi pi-lock"
+id: "input-number"
+componentType: "input-number"
+displayName: "Number Input"
+icon: "pi pi-hashtag"
 category: "basic"
 defaultConfig:
-  type: "password"
-  label: "Password"
-  placeholder: "Enter password"
+  type: "number"
+  label: "Number"
+  placeholder: "Enter number"
+  required: false
   disabled: false
   size: "default"
+  min: null
+  max: null
+  step: null
 configurableProps:
   - name: "label"
     type: "string"
     label: "Label"
-    default: "Password"
+    default: "Number"
     required: true
   - name: "placeholder"
     type: "string"
     label: "Placeholder"
-    default: "Enter password"
+    default: "Enter number"
   - name: "required"
     type: "boolean"
     label: "Required"
-    default: true
+    default: false
   - name: "disabled"
     type: "boolean"
     label: "Disabled"
@@ -38,4 +42,16 @@ configurableProps:
         value: "default"
       - label: "Large"
         value: "large"
+  - name: "min"
+    type: "number"
+    label: "Min"
+    default: null
+  - name: "max"
+    type: "number"
+    label: "Max"
+    default: null
+  - name: "step"
+    type: "number"
+    label: "Step"
+    default: null
 

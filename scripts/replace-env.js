@@ -10,7 +10,8 @@ let content = fs.readFileSync(envFile, 'utf8');
 const replacements = {
   "FIREBASE_API_KEY": process.env.FIREBASE_API_KEY || 'FIREBASE_API_KEY',
   "FIREBASE_EMAIL": process.env.FIREBASE_EMAIL || 'FIREBASE_EMAIL',
-  "FIREBASE_PASSWORD": process.env.FIREBASE_PASSWORD || 'FIREBASE_PASSWORD'
+  "FIREBASE_PASSWORD": process.env.FIREBASE_PASSWORD || 'FIREBASE_PASSWORD',
+  'MONGODB_CONNECTION_STRING': process.env.MONGODB_CONNECTION_STRING || 'MONGODB_CONNECTION_STRING'
 };
 
 // Replace values in single quotes

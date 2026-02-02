@@ -1,3 +1,5 @@
+
+
 export interface SetupContext {
     instanceId: string;
     blocks: any[];
@@ -5,7 +7,8 @@ export interface SetupContext {
     onSelect: (id: string) => void;
     onLabelUpdate: (id: string, label: string) => void;
     onOptionsUpdate: (id: string, options: Array<{ label: string, value: string }>) => void;
-    onTitleUpdate: (title: string) => void;
+    onTitleUpdate: (title: string) => void; 
+    onOptionClick?: (instanceId: string) => void;
     selectedInstanceId?: string;
 }
 export interface SurveyTitleContext {
@@ -71,57 +74,62 @@ export function setupEditableOptions(questionEl: HTMLElement, question: any, con
         const choices = question.choices || [];
         if (choices.length === 0) return;
 
-        let itemContainers = questionEl.querySelectorAll('.sd-item__control-label');
+        const itemContainers = questionEl.querySelectorAll('.sd-item__control-label');
 
         itemContainers.forEach((itemEl, index) => {
             if (index >= choices.length) return;
-            const labelEl = itemEl.querySelector('span.sv-string-viewer') as HTMLElement;
             
-            if (!labelEl) {
-                console.warn('Could not find .sv-string-viewer for choice', index, itemEl);
-                return;
-            }
-
-            // Skip nếu đã setup rồi
-            if (labelEl.dataset['canvasOptionEditable'] === '1') {
+            const labelEl = itemEl.querySelector('span.sv-string-viewer') as HTMLElement;
+            if (!labelEl || labelEl.dataset['canvasOptionEditable'] === '1') {
                 return;
             }
 
             const choice = choices[index];
             const originalText = choice.text || choice.value || '';
 
-            // Setup editable
+            // Đánh dấu đã setup
             labelEl.dataset['canvasOptionEditable'] = '1';
             labelEl.dataset['optionIndex'] = index.toString();
+            
+            // Setup editable attributes
             labelEl.setAttribute('contenteditable', 'true');
             labelEl.setAttribute('role', 'textbox');
             labelEl.setAttribute('spellcheck', 'false');
+            labelEl.setAttribute('title', 'Click để chỉnh sửa'); // Tooltip
             labelEl.classList.add('canvas-editable-option');
             
-            // Style để dễ nhận biết
+            // Style cơ bản
             labelEl.style.cursor = 'text';
             labelEl.style.minWidth = '50px';
             labelEl.style.display = 'inline-block';
             labelEl.style.outline = 'none';
 
-            labelEl.addEventListener('mousedown', (event) => {
-                event.stopPropagation();
-            });
-
-            labelEl.addEventListener('click', (event) => {
-                if (document.activeElement === labelEl || labelEl === event.target) {
-                    event.stopPropagation();
+            // Ngăn event bubbling khi click vào label
+            labelEl.addEventListener('mousedown', (e) => e.stopPropagation());
+            labelEl.addEventListener('click', (e) => {
+                if (e.detail === 2 || e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (context.onOptionClick) {
+                        context.onOptionClick(context.instanceId);
+                    }
+                    return;
+                }
+                if (document.activeElement === labelEl || labelEl === e.target) {
+                    e.stopPropagation();
                 }
             });
 
-            labelEl.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
+            // Xử lý Enter để blur
+            labelEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
                     labelEl.blur();
                 }
-                event.stopPropagation();
+                e.stopPropagation();
             });
 
+            // Xử lý khi blur (save changes)
             labelEl.addEventListener('blur', () => {
                 const newText = (labelEl.textContent || '').trim();
                 const finalText = newText || originalText;
@@ -155,27 +163,21 @@ export function setupEditableOptions(questionEl: HTMLElement, question: any, con
         });
     };
 
-    // Setup ngay lập tức với delay nhỏ
+    // Setup ngay với delay nhỏ
     setTimeout(setupOptions, 150);
     
-    // Dùng MutationObserver để setup lại khi SurveyJS re-render (Angular change detection)
+    // MutationObserver để re-setup khi SurveyJS re-render
     const observer = new MutationObserver((mutations) => {
-        let shouldReSetup = false;
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'childList') {
-                // Kiểm tra xem có thêm sv-string-viewer mới không
-                mutation.addedNodes.forEach((node) => {
-                    if (node.nodeType === 1) { // Element node
-                        const el = node as HTMLElement;
-                        if (el.querySelector?.('.sv-string-viewer') || el.classList?.contains('sv-string-viewer')) {
-                            shouldReSetup = true;
-                        }
-                    }
-                });
-            }
-        });
+        const shouldReSetup = mutations.some(mutation => 
+            mutation.type === 'childList' && 
+            Array.from(mutation.addedNodes).some(node => 
+                node.nodeType === 1 && 
+                ((node as HTMLElement).querySelector?.('.sv-string-viewer') || 
+                 (node as HTMLElement).classList?.contains('sv-string-viewer'))
+            )
+        );
+        
         if (shouldReSetup) {
-            // Debounce để tránh setup quá nhiều lần
             setTimeout(setupOptions, 100);
         }
     });

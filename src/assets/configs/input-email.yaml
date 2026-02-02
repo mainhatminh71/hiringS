@@ -7,7 +7,7 @@ defaultConfig:
   type: "email"
   label: "Email"
   placeholder: "Enter email"
-  required: true
+  required: false
   disabled: false
   size: "default"
 configurableProps:

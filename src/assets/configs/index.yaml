@@ -3,6 +3,7 @@ blocks:
   - file: "input-text.yaml"
   - file: "input-email.yaml"
   - file: "input-password.yaml"
+  - file: "input-number.yaml"
   - file: "select.yaml"
   - file: "checkbox.yaml"
   - file: "radio.yaml"

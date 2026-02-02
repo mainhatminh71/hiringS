@@ -1,31 +1,26 @@
 <!-- form-generation.component.html -->
-<div 
-  class="form-builder-container"
-  [style.background-color]="themeService.currentThemeBackgrounds().main">
+<div class="form-builder-container" [style.background-color]="themeService.currentThemeBackgrounds().main">
   <div class="builder-layout">
     <!-- Left: Component Palette -->
-    <div 
-      class="palette-section"
-      [style.border-right-color]="themeService.currentThemeBackgrounds().border">
-      <app-component-palette
-  [selectedInstanceId]="selectedInstanceId"
-  [selectedInstance]="selectedInstance"
-  (deleteSelected)="onInstanceRemoved($event)"
-  (labelUpdated)="onInstanceLabelUpdate($event)">
-</app-component-palette>
+    <div class="palette-section" [style.border-right-color]="themeService.currentThemeBackgrounds().border">
+      <app-component-palette [selectedInstanceId]="selectedInstanceId" [selectedInstance]="selectedInstance"
+        (deleteSelected)="onInstanceRemoved($event)" (labelUpdated)="onInstanceLabelUpdate($event)">
+      </app-component-palette>
     </div>
 
     <!-- Right: Form Canvas -->
     <div class="canvas-section">
-      <app-form-canvas
-        [blocks]="instances"
-        [selectedInstanceId]="selectedInstanceId"
-        [themeKey]="themeService.currentTheme()"
-        (instanceAdded)="onInstanceAdded($event)"
-        (instanceUpdated)="onInstanceUpdated($event)"
-        (instanceSelected)="onInstanceSelected($event)"
-        (instanceRemoved)="onInstanceRemoved($event)">
+      <app-form-canvas [blocks]="instances" [selectedInstanceId]="selectedInstanceId"
+        [themeKey]="themeService.currentTheme()" (instanceAdded)="onInstanceAdded($event)"
+        (instanceUpdated)="onInstanceUpdated($event)" (instanceSelected)="onInstanceSelected($event)"
+        (instanceRemoved)="onInstanceRemoved($event)" (optionClicked)="onOptionClicked($event)"
+        (surveyTitleUpdated)="onSurveyTitleUpdated($event)" (formCompleted)="onFormComplete()">
       </app-form-canvas>
     </div>
+    <!-- Thêm vào cuối file, sau canvas-section -->
+    <app-right-property-side [visible]="optionsDrawerVisible" [instance]="optionsEditingInstance"
+      (visibleChange)="optionsDrawerVisible = $event" (optionsUpdated)="onOptionsUpdated($event)"
+      (labelUpdated)="onInstanceLabelUpdate($event)">
+    </app-right-property-side>
   </div>
 </div>

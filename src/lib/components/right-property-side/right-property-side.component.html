@@ -1,0 +1,67 @@
+<nz-drawer
+  [nzVisible]="visible"
+  [nzTitle]="'Edit Options'"
+  [nzPlacement]="'right'"
+  [nzWidth]="400"
+  (nzOnClose)="close()">
+  
+  <div *nzDrawerContent class="options-editor">
+    <div *ngIf="!hasOptions" class="no-options-message">
+      <p>This component doesn't have options.</p>
+    </div>
+    <div class="label-editor">
+      <label>Label</label>
+      <input
+        nz-input
+        [(ngModel)]="labelInput"
+        (blur)="updateLabel(labelInput)"
+        placeholder="Question label" />
+    </div>
+    <div *ngIf="hasOptions" class="options-list">
+      <div class="options-header">
+        <h3>Options</h3>
+        <button nz-button nzType="primary" nzSize="small" (click)="addOption()">
+          <span nz-icon nzType="plus"></span>
+          Add Option
+        </button>
+      </div>
+
+      <div class="option-item" *ngFor="let option of options; let i = index">
+        <div class="option-inputs">
+          <div class="input-group">
+            <label>Label</label>
+            <input
+              nz-input
+              [(ngModel)]="option.label"
+              (blur)="updateOptionLabel(i, option.label)"
+              placeholder="Option label" />
+          </div>
+          
+          <div class="input-group">
+            <label>Value</label>
+            <input
+              nz-input
+              [(ngModel)]="option.value"
+              (blur)="updateOptionValue(i, option.value)"
+              placeholder="option_value" />
+          </div>
+        </div>
+
+        <button
+          nz-button
+          nzType="text"
+          nzDanger
+          nzSize="small"
+          title="Remove Option"
+          (click)="removeOption(i)"
+          [disabled]="options.length <= 1">
+          <span nz-icon nzType="delete"></span>
+        </button>
+      </div>
+
+      <div *ngIf="options.length === 0" class="empty-state">
+        <p>No options yet. Click "Add Option" to get started.</p>
+      </div>
+    </div>
+  </div>
+</nz-drawer>

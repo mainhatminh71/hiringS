@@ -54,7 +54,10 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "externalDependencies": [
+              "mongodb"
+            ]
           },
           "configurations": {
             "production": {

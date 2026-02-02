@@ -310,6 +310,38 @@
       color: #dc2626;
     }
   }
+  // Thêm vào phần :global, sau dòng 312
+.canvas-editable-option {
+  cursor: text !important;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  
+  &:hover {
+    background-color: rgba(20, 184, 166, 0.1);
+    outline: 1px dashed rgba(20, 184, 166, 0.3);
+  }
+  
+  &:focus {
+    background-color: rgba(20, 184, 166, 0.15);
+    outline: 2px solid rgba(20, 184, 166, 0.5);
+    box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+  }
+  
+  &::after {
+    content: '✎';
+    opacity: 0;
+    margin-left: 4px;
+    font-size: 0.8em;
+    color: var(--theme-primary-color, #14b8a6);
+    transition: opacity 0.2s ease;
+  }
+  
+  &:hover::after {
+    opacity: 0.5;
+  }
+}
 }
 
 // Scrollbar styling for canvas scroll wrapper
