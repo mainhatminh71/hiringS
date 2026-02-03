@@ -1,0 +1,15 @@
+<div class="application-form-page">
+    <div class="form-container" *ngIf="!isLoading && !error && surveyModel">
+      <div class="survey-wrapper">
+        <survey [model]="surveyModel"></survey>
+      </div>
+    </div>
+  
+    <div class="loading" *ngIf="isLoading">
+      <p>Loading application form...</p>
+    </div>
+  
+    <div class="error" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+  </div>

@@ -9,6 +9,7 @@ import {FormCanvasComponent} from '../lib/components/form-builders/form-canvas/f
 import { FormGenerationComponent } from './pages/form-generation/form-generation.component';
 import { EmptyLayoutComponent } from '../lib/layouts/empty-layout/empty-layout.component';
 import { MainLayoutComponent } from '../lib/layouts/main-layout/main-layout.component';
+import { ApplicationFormComponent } from './pages/application-form/application-form.component';
 export const routes: Routes = [
   {
     path: '',
@@ -29,6 +30,7 @@ export const routes: Routes = [
       { path: 'application-selection', component: ApplicationSelectionComponent },
       { path: 'component-palette', component: ComponentPaletteComponent },
       { path: 'form-canvas', component: FormCanvasComponent },
+      { path: 'application/:id', component: ApplicationFormComponent },
     ]
   },
   {

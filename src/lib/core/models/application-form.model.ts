@@ -7,5 +7,9 @@ export interface ApplicationForm extends BaseEntity{
     instances: UIBlockInstance[];
     themeKey: SurveyThemeKey;
     themeColor: string;
+    department?: string;
+    location?: string;
+    employmentType?: string;
+    postedDate?: string;
    
 }

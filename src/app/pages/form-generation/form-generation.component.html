@@ -15,7 +15,10 @@
         [themeKey]="themeService.currentTheme()" (instanceAdded)="onInstanceAdded($event)"
         (instanceUpdated)="onInstanceUpdated($event)" (instanceSelected)="onInstanceSelected($event)"
         (instanceRemoved)="onInstanceRemoved($event)" (optionClicked)="onOptionClicked($event)"
-        (surveyTitleUpdated)="onSurveyTitleUpdated($event)" (formCompleted)="onFormComplete()">
+        (surveyTitleUpdated)="onSurveyTitleUpdated($event)" (formCompleted)="onFormComplete()"
+        (departmentUpdated)="onDepartmentUpdated($event)" (locationUpdated)="onLocationUpdated($event)"
+        (employmentTypeUpdated)="onEmploymentTypeUpdated($event)" (postedDateUpdated)="onPostedDateUpdated($event)"
+        [department]="department" [location]="location" [employmentType]="employmentType" [postedDate]="postedDate">
       </app-form-canvas>
     </div>
     <!-- Thêm vào cuối file, sau canvas-section -->

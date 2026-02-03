@@ -1,5 +1,5 @@
 import {Injectable, signal, computed} from '@angular/core';
-import  {SurveyThemeKey} from '../helpers/theme-helper';
+import  {SurveyThemeKey, getThemeColorsForUI} from '../helpers/theme-helper';
 
 @Injectable({
     providedIn: 'root'
@@ -49,38 +49,65 @@ export class ThemeService {
     'threedimensional': '#ec4899', // Trắng hồng đậm
     'threedimensional-dark': '#be185d', // Đen hồng đậm
 };
-private readonly themeBackgroundColors: Record<SurveyThemeKey, { 
+
+    // Màu chữ cứng cho mỗi theme
+    private readonly themeTextColors: Record<SurveyThemeKey, string> = {
+    'default': '#1f2937', // Chữ tối cho nền sáng
+    'default-dark': '#ffffff', // Chữ sáng cho nền tối
+    'borderless': '#1f2937',
+    'borderless-dark': '#ffffff',
+    'flat': '#1f2937',
+    'flat-dark': '#ffffff',
+    'contrast': '#1f2937', // Chữ tối cho nền vàng sáng
+    'contrast-dark': '#1f2937', // Chữ vàng cho nền đen
+    'sharp': '#1f2937',
+    'sharp-dark': '#ffffff',
+    'layered': '#1f2937',
+    'layered-dark': '#ffffff',
+    'plain': '#1f2937',
+    'plain-dark': '#ffffff',
+    'solid-dark': '#ffffff',
+    'doubleborder': '#1f2937',
+    'doubleborder-dark': '#ffffff',
+    'threedimensional': '#1f2937',
+    'threedimensional-dark': '#ffffff',
+};
+private getThemeBackgroundColors(): Record<SurveyThemeKey, { 
     sidebar: string; 
     main: string; 
     border: string;
-  }> = {
-    'default': { sidebar: '#f8f9fa', main: '#ffffff', border: '#19b394' },
-    'default-dark': { sidebar: '#1f2937', main: '#111827', border: '#fbbf24' },
-    'borderless': { sidebar: '#f8f9fa', main: '#ffffff', border: '#3b82f6' },
-    'borderless-dark': { sidebar: '#1e293b', main: '#0f172a', border: '#3b82f6' },
-    'flat': { sidebar: '#f0fdf4', main: '#ffffff', border: '#22c55e' },
-    'flat-dark': { sidebar: '#14532d', main: '#052e16', border: '#16a34a' },
-    'contrast': { sidebar: '#fef3c7', main: '#fffbeb', border: '#fbbf24' },
-    'contrast-dark': { sidebar: '#1f2937', main: '#111827', border: '#fbbf24' },
-    'sharp': { sidebar: '#f3e8ff', main: '#ffffff', border: '#7c3aed' },
-    'sharp-dark': { sidebar: '#1e1b4b', main: '#0f172a', border: '#1e3a8a' },
-    'layered': { sidebar: '#faf5ff', main: '#ffffff', border: '#a855f7' },
-    'layered-dark': { sidebar: '#3b0764', main: '#1e1b4b', border: '#581c87' },
-    'plain': { sidebar: '#eff6ff', main: '#ffffff', border: '#3b82f6' },
-    'plain-dark': { sidebar: '#1e3a8a', main: '#1e40af', border: '#1e40af' },
-    'solid-dark': { sidebar: '#0f766e', main: '#134e4a', border: '#14b8a6' },
-    'doubleborder': { sidebar: '#f3f4f6', main: '#ffffff', border: '#6b7280' },
-    'doubleborder-dark': { sidebar: '#0c4a6e', main: '#075985', border: '#0ea5e9' },
-    'threedimensional': { sidebar: '#fdf2f8', main: '#ffffff', border: '#ec4899' },
-    'threedimensional-dark': { sidebar: '#831843', main: '#9f1239', border: '#be185d' },
-  };
+    text: string;
+    primary: string;
+  }> {
+    const result: Record<SurveyThemeKey, { 
+      sidebar: string; 
+      main: string; 
+      border: string;
+      text: string;
+      primary: string;
+    }> = {} as any;
+    
+    for (const theme of this.themes) {
+      const baseColors = getThemeColorsForUI(theme);
+      result[theme] = {
+        ...baseColors,
+        text: this.themeTextColors[theme]
+      };
+    }
+    
+    return result;
+  }
+  
+  private readonly themeBackgroundColors = this.getThemeBackgroundColors();
   
   // Thêm computed signal
   currentThemeBackgrounds = computed(() => {
     return this.themeBackgroundColors[this.currentTheme()] || {
       sidebar: '#f8f9fa',
       main: '#ffffff',
-      border: '#14b8a6'
+      border: '#14b8a6',
+      text: '#1f2937',
+      primary: '#14b8a6'
     };
   });
 
@@ -110,4 +137,16 @@ private readonly themeBackgroundColors: Record<SurveyThemeKey, {
     getThemeColor(theme: SurveyThemeKey): string {
         return this.themeColors[theme] || '#14b8a6';
     }
+    getThemeColors(theme: SurveyThemeKey) {
+      const colors = this.themeBackgroundColors[theme];
+      if (colors) {
+        return colors;
+      }
+      // Fallback với màu text cứng
+      const baseColors = getThemeColorsForUI(theme);
+      return {
+        ...baseColors,
+        text: this.themeTextColors[theme] || '#1f2937'
+      };
+  }
 }

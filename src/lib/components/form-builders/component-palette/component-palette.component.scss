@@ -138,17 +138,22 @@
     gap: 0.75rem;
     padding: 0.75rem 1rem;
     background-color: var(--palette-item-bg, #ffffff);
-    border: 1px solid var(--palette-item-border-soft, rgba(15, 23, 42, 0.10));
-    border-radius: 0.5rem;
+    border: none;
+    border-bottom: 1px solid var(--palette-item-border-soft, rgba(15, 23, 42, 0.10));
+    border-radius: 0;
     cursor: grab;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    box-shadow: none;
   
+    &:last-child {
+      border-bottom: none;
+    }
+
     &:hover {
       background-color: var(--palette-item-hover-bg, #f3f4f6);
-      border-color: var(--theme-primary-rgba, rgba(20, 184, 166, 0.35));
+      border-bottom-color: var(--theme-primary-rgba, rgba(20, 184, 166, 0.35));
       transform: translateX(1px);
-      box-shadow: 0 2px 6px var(--theme-primary-rgba, rgba(20, 184, 166, 0.35));
+      box-shadow: none;
     }
   
     i {

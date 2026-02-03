@@ -29,6 +29,10 @@ export class FormGenerationComponent implements OnInit {
   isSaving = false;
   private route = inject(ActivatedRoute);
   notificationService = inject(NzNotificationService);
+  department: string = '';
+  location: string = '';
+  employmentType: string = '';
+  postedDate: string = '';
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
@@ -42,6 +46,10 @@ export class FormGenerationComponent implements OnInit {
           if (!form) return;
           this.instances = form.instances ?? [];
           this.formName = form.name ?? 'Application Form';
+          this.department = form.department ?? '';
+          this.location = form.location ?? '';
+          this.employmentType = form.employmentType ?? '';
+          this.postedDate = form.postedDate ?? '';
           if (form.themeKey) this.themeService.setTheme(form.themeKey);
         }
       })
@@ -133,6 +141,10 @@ export class FormGenerationComponent implements OnInit {
           name: this.formName,
           instances: this.instances,
           themeKey: this.themeService.currentTheme(),
+          department: this.department,
+          location: this.location,
+          employmentType: this.employmentType,
+          postedDate: this.postedDate,
         }).subscribe({
           next: () => {
             this.isSaving = false;
@@ -150,6 +162,10 @@ export class FormGenerationComponent implements OnInit {
           instances: this.instances,
           themeKey: this.themeService.currentTheme(),
           themeColor: this.themeService.currentThemeColor(),
+          department: this.department,
+          location: this.location,
+          employmentType: this.employmentType,
+          postedDate: this.postedDate,
         } as ApplicationForm;
         this.formService.createForm(applicationForm).subscribe({
           next: () => {
@@ -169,5 +185,17 @@ export class FormGenerationComponent implements OnInit {
   }
   getInstanceCount(): number {
     return this.instances.length;
+  }
+  onDepartmentUpdated(value: string) {
+    this.department = value;
+  }
+  onLocationUpdated(value: string) {
+    this.location = value;
+  }
+  onEmploymentTypeUpdated(value: string) {
+    this.employmentType = value;
+  }
+  onPostedDateUpdated(value: string) {
+    this.postedDate = value;
   }
 }

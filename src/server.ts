@@ -16,8 +16,15 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-app.use(express.json());
-
+app.use(express.json({limit: '100mb'}));
+app.use(express.urlencoded({limit: '100mb', extended: true}));
+app.use(
+  express.static(browserDistFolder, {
+    maxAge: '1y',
+    index: false,
+    redirect: false,
+  })
+)
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
@@ -114,7 +121,58 @@ app.delete('/api/forms/:id', async (req, res) => {
     return res.status(500).json({ message: 'Failed to delete form' });
   }
 });
+// Create applicant info
+app.post('/api/applicants', async (req, res) => {
+  console.log('[POST /api/applicants] hit', new Date().toISOString());
+  try {
+    const db = await connectToDatabase();
+    const now = new Date();
+    const body = typeof req.body === 'object' && req.body !== null ? req.body : {};
+    const applicantToInsert = {
+      ...body,
+      createdAt: now,
+      updatedAt: now,
+    };
+    const result = await db.collection('applicant-info').insertOne(applicantToInsert);
+    return res.status(201).json({ ...applicantToInsert, id: result.insertedId.toString() });
+  } catch (error) {
+    console.error('[POST /api/applicants] error', {
+      name: (error as any)?.name,
+      message: (error as any)?.message,
+      code: (error as any)?.code,
+    });
+    return res.status(500).json({ message: 'Failed to create applicant' });
+  }
+});
 
+// Read all applicants
+app.get('/api/applicants', async (_req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const docs = await db.collection('applicant-info').find().toArray();
+    const applicants = docs.map(({ _id, ...rest }) => ({ ...rest, id: _id.toString() }));
+    return res.json(applicants);
+  } catch {
+    return res.status(500).json({ message: 'Failed to read applicants' });
+  }
+});
+
+// Read one applicant
+app.get('/api/applicants/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!ObjectId.isValid(id)) return res.status(400).json({ message: 'Invalid id' });
+
+    const db = await connectToDatabase();
+    const doc = await db.collection('applicant-info').findOne({ _id: new ObjectId(id) });
+    if (!doc) return res.status(404).json({ message: 'Not found' });
+
+    const { _id, ...rest } = doc;
+    return res.json({ ...rest, id: _id.toString() });
+  } catch {
+    return res.status(500).json({ message: 'Failed to read applicant' });
+  }
+});
 /**
  * Handle all other requests by rendering the Angular application.
  */

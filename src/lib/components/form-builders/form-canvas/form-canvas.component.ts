@@ -17,6 +17,8 @@ import { SurveyModule } from 'survey-angular-ui';
 import { UIBlockInstance } from '../../../core/models/ui-block-instance.model';
 import { UIBlock } from '../../../core/models/ui-block.model';
 import { applySurveyTheme, SurveyThemeKey } from '../../../core/helpers/theme-helper';
+import { ThemeService } from '../../../core/services/theme.service';
+import { inject } from '@angular/core';
 @Component({
   selector: 'app-form-canvas',
   standalone: true,
@@ -29,11 +31,13 @@ export class FormCanvasComponent implements OnChanges {
   @Input() selectedInstanceId?: string;
   @Input() themeKey: SurveyThemeKey = 'default-dark';
   @Input() formName: string = 'Application Form';
-  
+  @Input() department: string = '';
+  @Input() location: string = '';
+  @Input() employmentType: string = '';
+  @Input() postedDate: string = '';
 
   @Output() optionClicked = new EventEmitter<string>();
   @Output() formCompleted = new EventEmitter<void>();
-
 
   private questionEls = new Map<string, HTMLElement>();
 
@@ -43,6 +47,12 @@ export class FormCanvasComponent implements OnChanges {
   @Output() instanceSelected = new EventEmitter<string>();
   @Output() surveyTitleUpdated = new EventEmitter<string>();
   
+  @Output() departmentUpdated = new EventEmitter<string>();
+  @Output() locationUpdated = new EventEmitter<string>();
+  @Output() employmentTypeUpdated = new EventEmitter<string>();
+  @Output() postedDateUpdated = new EventEmitter<string>();
+
+  themeService = inject(ThemeService);
 
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable;
 
@@ -80,6 +90,19 @@ export class FormCanvasComponent implements OnChanges {
     this.instanceRemoved.emit(instanceId);
   }
 
+  onDepartmentChange(value: string) {
+    this.departmentUpdated.emit(value);
+  }
+  onLocationChange(value: string) {
+    this.locationUpdated.emit(value);
+  }
+  onEmploymentTypeChange(value: string) {
+    this.employmentTypeUpdated.emit(value);
+  }
+  onPostedDateChange(value: string) {
+    this.postedDateUpdated.emit(value);
+  }
+
   private emitLabelUpdate(instanceId: string, label: string) {
     const instance = this.blocks.find(block => block.id === instanceId);
     if (!instance) {
@@ -102,6 +125,10 @@ export class FormCanvasComponent implements OnChanges {
 
   trackByInstanceId(_index: number, instance: UIBlockInstance): string {
     return instance.id;
+  }
+
+  get themeColors() {
+    return this.themeService.getThemeColors(this.themeKey);
   }
 
   private updateSurveyModel(): void {

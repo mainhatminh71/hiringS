@@ -1,5 +1,4 @@
 import {inject} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormConfigRepository } from '../repositories/form-config.repository';
 import {ApplicationForm} from '../models/application-form.model';

@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { JobCardComponent } from '../../../lib/components/job-card/job-card.component';
 import { LifeCardComponent } from '../../../lib/components/life-card/life-card.component';
+import {ApplicationFormService} from '../../../lib/core/services/application-form.service';
+import {JobCard} from '../../../lib/core/models/job-card.model';
+import {ApplicationForm} from '../../../lib/core/models/application-form.model';
+import {OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-careers',
@@ -11,52 +15,38 @@ import { LifeCardComponent } from '../../../lib/components/life-card/life-card.c
   templateUrl: './careers.component.html',
   styleUrl: './careers.component.scss'
 })
-export class CareersComponent {
-  jobOpenings = [
-    {
-      title: 'Senior Software Engineer',
-      department: 'Engineering',
-      location: 'Ho Chi Minh City, Vietnam',
-      type: 'Full-time',
-      postedDate: '2024-01-15'
-    },
-    {
-      title: 'Product Manager',
-      department: 'Product',
-      location: 'Hanoi, Vietnam',
-      type: 'Full-time',
-      postedDate: '2024-01-10'
-    },
-    {
-      title: 'UX Designer',
-      department: 'Design',
-      location: 'Ho Chi Minh City, Vietnam',
-      type: 'Full-time',
-      postedDate: '2024-01-08'
-    },
-    {
-      title: 'Data Scientist',
-      department: 'Analytics',
-      location: 'Remote',
-      type: 'Full-time',
-      postedDate: '2024-01-05'
-    },
-    {
-      title: 'DevOps Engineer',
-      department: 'Engineering',
-      location: 'Ho Chi Minh City, Vietnam',
-      type: 'Full-time',
-      postedDate: '2024-01-03'
-    },
-    {
-      title: 'Marketing Specialist',
-      department: 'Marketing',
-      location: 'Hanoi, Vietnam',
-      type: 'Full-time',
-      postedDate: '2023-12-28'
-    }
-  ];
+export class CareersComponent implements OnInit {
+  applicationFormService = inject(ApplicationFormService);
 
+  jobOpenings: JobCard[] = [];
+
+  ngOnInit(): void {
+    this.loadJobOpenings();
+  }
+
+  loadJobOpenings(): void {
+    this.applicationFormService.getAllForms().subscribe({
+      next: (forms: ApplicationForm[]) => {
+        this.jobOpenings = forms.map(form => this.mapFormToJobCard(form));
+      },
+      error: (error) => {
+        console.error('Failed to load job openings:', error);
+        // Fallback to empty array or show error message
+        this.jobOpenings = [];
+      }
+    });
+  }
+  private mapFormToJobCard(form: ApplicationForm): JobCard {
+    return {
+      title: form.name || 'Untitled Position',
+      department: form.department || 'General',
+      location: form.location || 'Not specified',
+      type: form.employmentType || 'Full-time',
+      postedDate: form.postedDate || new Date().toISOString().split('T')[0],
+      formId: form.id
+    };
+  }
+  
   lifeAtMicrosoft = [
     {
       emoji: '💼',

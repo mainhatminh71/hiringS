@@ -36,6 +36,7 @@ export class ApplicationSelectionComponent implements OnInit, OnDestroy {
   selectedIds = new Set<string>();
   private destroy$ = new Subject<void>();
   private router = inject(Router);
+
   ngOnInit(): void {
     this.loadApplications();
     this.router.events.
@@ -103,4 +104,5 @@ export class ApplicationSelectionComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
 }

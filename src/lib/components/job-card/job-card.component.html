@@ -8,5 +8,20 @@
     </div>
     <p class="job-card__posted-date">Posted: {{ job.postedDate }}</p>
   </div>
-  <a href="#" class="job-card__apply-btn" [attr.aria-label]="'Apply for ' + job.title">Apply</a>
+  <a 
+    [routerLink]="['/application', job.formId]" 
+    class="job-card__apply-btn" 
+    [attr.aria-label]="'Apply for ' + job.title"
+    *ngIf="job.formId"
+  >
+    Apply
+  </a>
+  <a 
+    href="#" 
+    class="job-card__apply-btn" 
+    [attr.aria-label]="'Apply for ' + job.title"
+    *ngIf="!job.formId"
+  >
+    Apply
+  </a>
 </div>

@@ -4,4 +4,5 @@ export interface JobCard {
     location: string,
     type: string,
     postedDate: string,
+    formId?: string;
   }
