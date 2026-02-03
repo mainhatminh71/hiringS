@@ -1,5 +1,14 @@
 <div class="application-form-page">
+    <button 
+      class="back-float-button"
+      (click)="goBack()"
+      type="button"
+      title="Back to Careers">
+      <span class="back-icon">←</span>
+      <span class="back-text">Back</span>
+    </button>
     <div class="form-container" *ngIf="!isLoading && !error && surveyModel">
+
       <div class="survey-wrapper">
         <survey [model]="surveyModel"></survey>
       </div>

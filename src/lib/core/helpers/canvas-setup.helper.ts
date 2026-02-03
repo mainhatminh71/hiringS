@@ -9,6 +9,7 @@ export interface SetupContext {
     onOptionsUpdate: (id: string, options: Array<{ label: string, value: string }>) => void;
     onTitleUpdate: (title: string) => void; 
     onOptionClick?: (instanceId: string) => void;
+    onContentUpdate?: (id: string, content: string) => void;
     selectedInstanceId?: string;
 }
 export interface SurveyTitleContext {
@@ -232,5 +233,30 @@ export function applySelectedStateToElement(questionEl: HTMLElement, context: Se
         'canvas-question-selected',
         context.selectedInstanceId === context.instanceId
     )
+}
+export function setupEditableDescriptionContent(questionEl: HTMLElement, question: any, context: SetupContext) {
+    const instance = context.blocks.find((block: any) => block.id === context.instanceId);
+    if (!instance || instance.componentType !== 'description-area') return;
+
+    const textareaEl = questionEl.querySelector('textarea') as HTMLTextAreaElement;
+    if (!textareaEl || textareaEl.dataset['canvasEditableContent'] === '1') {
+        return;
+    }
+
+    textareaEl.dataset['canvasEditableContent'] = '1';
+    const originalContent = (instance.config['content'] as string) || '';
+
+    if (textareaEl.value !== originalContent) {
+        textareaEl.value = originalContent;
+    }
+
+    textareaEl.addEventListener('blur', () => {
+        const newContent = textareaEl.value.trim();
+        const finalContent = newContent || originalContent;
+
+        if (instance && context.onContentUpdate) {
+            context.onContentUpdate(context.instanceId, finalContent);
+        }
+    });
 }
 

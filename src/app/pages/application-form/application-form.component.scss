@@ -2,6 +2,59 @@
     min-height: 100vh;
     padding: 2rem;
     background-color: #f5f5f5;
+    position: relative;
+  
+    .back-float-button {
+      position: fixed;
+      left: 24px;
+      top: 24px;
+      z-index: 1000;
+      min-width: 80px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: white;
+      border: 2px solid #0078d4;
+      border-radius: 32px;
+      box-shadow: 0 4px 16px rgba(0, 120, 212, 0.2), 
+                  0 2px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0 20px;
+      font-weight: 600;
+      
+      &:hover {
+        background: #0078d4;
+        box-shadow: 0 6px 20px rgba(0, 120, 212, 0.3), 
+                    0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+        
+        .back-icon,
+        .back-text {
+          color: white;
+        }
+      }
+      
+      &:active {
+        transform: translateY(0) scale(0.98);
+      }
+      
+      .back-icon {
+        font-size: 24px;
+        color: #0078d4;
+        line-height: 1;
+        font-weight: bold;
+        transition: color 0.2s ease;
+      }
+      
+      .back-text {
+        font-size: 16px;
+        color: #0078d4;
+        transition: color 0.2s ease;
+      }
+    }
   
     .form-container {
       max-width: 800px;

@@ -138,6 +138,9 @@ export class ApplicationFormComponent implements OnInit{
       ]
     }
   }
+  goBack() {
+    this.router.navigate(['/careers']);
+  }
   private mapBlockToSurveyElement(block: UIBlockInstance, index: number): any {
     const cfg: Record<string, any> = block.config || {};
 
@@ -261,7 +264,17 @@ export class ApplicationFormComponent implements OnInit{
           name: `divider_${index}`,
           html: '<hr />',
         };
-
+        case 'description-area':
+          const descriptionContent = (cfg['content'] as string) || '';
+        const descriptionLabel = (cfg['label'] as string) || 'Description';
+        return {
+          ...base,
+          type: 'html',
+          html: `<div class="description-area" style="padding: 1rem; background: #f9fafb; border-radius: 4px; border-left: 3px solid #0078d4; margin: 1rem 0;">
+                   <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #111827;">${descriptionLabel}</p>
+                   <p style="margin: 0; color: #374151; white-space: pre-wrap;">${descriptionContent}</p>
+                 </div>`,
+        };
       default:
         return {
           ...base,

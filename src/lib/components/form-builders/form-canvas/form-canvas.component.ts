@@ -10,7 +10,8 @@ import { setupDeleteButton,setupEditableTitle,
   applySelectedStateToElement,
   SetupContext,
   setupEditableSurveyTitle,
-  SurveyTitleContext} from '../../../core/helpers/canvas-setup.helper';
+  SurveyTitleContext,
+  setupEditableDescriptionContent} from '../../../core/helpers/canvas-setup.helper';
 import { Model as SurveyModel } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
 
@@ -156,6 +157,7 @@ export class FormCanvasComponent implements OnChanges {
         onSelect: (instanceId) => this.onSelect(instanceId),
         onLabelUpdate: (instanceId, label) => this.emitLabelUpdate(instanceId, label),
         onOptionsUpdate: (instanceId, options) => this.emitOptionsUpdate(instanceId, options),
+        onContentUpdate: (instanceId, content) => this.emitContentUpdate(instanceId, content),
         onTitleUpdate: () => {}, 
         selectedInstanceId: this.selectedInstanceId,
         onOptionClick: (instanceId) => this.optionClicked.emit(instanceId),
@@ -164,6 +166,7 @@ export class FormCanvasComponent implements OnChanges {
       setupDeleteButton(questionEl, context);
       setupEditableTitle(questionEl, options.question, context);
       setupEditableOptions(questionEl, options.question, context);
+      setupEditableDescriptionContent(questionEl, options.question, context);
       setupSelectable(questionEl, context);
       applySelectedStateToElement(questionEl, context);
     });
@@ -183,6 +186,18 @@ export class FormCanvasComponent implements OnChanges {
     })
   
     this.surveyModel = model;
+  }
+  private emitContentUpdate(instanceId: string, content: string) {
+    const instance = this.blocks.find(b => b.id === instanceId);
+    if (!instance) return;
+    const updatedInstance: UIBlockInstance = {
+      ...instance,
+      config: {
+        ...instance.config,
+        content
+      }
+    }
+    this.instanceUpdated.emit(updatedInstance);
   }
   private applySelectedState(): void {
     this.questionEls.forEach((el, id) => {
@@ -322,6 +337,14 @@ export class FormCanvasComponent implements OnChanges {
           name: `divider_${index}`,
           html: '<hr />',
         };
+        case 'description-area':
+          // Trong form builder, hiển thị như textarea để người tạo form có thể nhập description
+          return {
+            ...base,
+            type: 'comment',
+            placeholder: (cfg['content'] as string) || 'Enter description here',
+            defaultValue: (cfg['content'] as string) || '', // Set value để có thể edit
+          };
 
       default:
         return {

@@ -1,0 +1,24 @@
+id: "description-area"
+componentType: "description-area"
+displayName: "Description Area"
+icon: "pi pi-align-left"
+category: "layout"
+defaultConfig:
+  label: "Description"
+  content: "Enter description here"
+  required: false
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Description"
+    required: true
+  - name: "content"
+    type: "string"
+    label: "Content"
+    default: "Enter description here"
+    required: true
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
