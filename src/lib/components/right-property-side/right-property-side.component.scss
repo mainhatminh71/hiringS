@@ -1,5 +1,6 @@
 .options-editor {
     padding: 16px;
+    
     .label-editor {
       display: flex;
       flex-direction: column;
@@ -10,6 +11,29 @@
         font-size: 12px;
         font-weight: 500;
         color: #595959;
+      }
+    }
+    .required-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #fafafa;
+      border-radius: 4px;
+      border: 1px solid #e8e8e8;
+      
+      label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #595959;
+        cursor: pointer;
+      }
+      
+      .required-hint {
+        font-size: 12px;
+        color: #8c8c8c;
+        margin-top: 4px;
       }
     }
   

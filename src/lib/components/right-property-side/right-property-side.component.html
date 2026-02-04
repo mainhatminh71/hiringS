@@ -1,14 +1,12 @@
 <nz-drawer
   [nzVisible]="visible"
-  [nzTitle]="'Edit Options'"
+  [nzTitle]="'Edit Properties'"
   [nzPlacement]="'right'"
   [nzWidth]="400"
   (nzOnClose)="close()">
   
   <div *nzDrawerContent class="options-editor">
-    <div *ngIf="!hasOptions" class="no-options-message">
-      <p>This component doesn't have options.</p>
-    </div>
+    <!-- Label Editor - Luôn hiển thị -->
     <div class="label-editor">
       <label>Label</label>
       <input
@@ -17,6 +15,16 @@
         (blur)="updateLabel(labelInput)"
         placeholder="Question label" />
     </div>
+    
+    <!-- Required Checkbox - Luôn hiển thị cho tất cả components -->
+    <div class="required-editor">
+      <label nz-checkbox [(ngModel)]="requiredInput" (ngModelChange)="updateRequired(requiredInput)">
+        Required
+      </label>
+      <span class="required-hint">Mark this field as required</span>
+    </div>
+    
+    <!-- Options List - Chỉ hiển thị khi component có options -->
     <div *ngIf="hasOptions" class="options-list">
       <div class="options-header">
         <h3>Options</h3>
@@ -63,5 +71,7 @@
         <p>No options yet. Click "Add Option" to get started.</p>
       </div>
     </div>
+    
+    <!-- Message cho components không có options -->
   </div>
 </nz-drawer>

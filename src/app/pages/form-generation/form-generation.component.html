@@ -3,89 +3,111 @@
   <div class="builder-layout">
     <!-- Left: Component Palette -->
     <div class="palette-section" [style.border-right-color]="themeService.currentThemeBackgrounds().border">
-      <app-component-palette 
-        [selectedInstanceId]="selectedInstanceId" 
-        [selectedInstance]="selectedInstance"
-        (deleteSelected)="onInstanceRemoved($event)" 
-        (labelUpdated)="onInstanceLabelUpdate($event)">
+      <app-component-palette [selectedInstanceId]="selectedInstanceId" [selectedInstance]="selectedInstance"
+        (deleteSelected)="onInstanceRemoved($event)" (labelUpdated)="onInstanceLabelUpdate($event)">
       </app-component-palette>
     </div>
 
     <!-- Right: Form Canvas với Pages -->
     <div class="canvas-section">
-      <!-- Pagination để quản lý pages -->
-      <div class="pages-pagination-container">
-        <div class="page-selector">
-          <span class="page-label">Page:</span>
-          <nz-select 
-            [ngModel]="currentPageId" 
-            (ngModelChange)="onPageSelectChange($event)"
-            nzPlaceHolder="Select page"
-            class="page-select">
-            <nz-option 
-              *ngFor="let page of pages" 
-              [nzValue]="page.id" 
-              [nzLabel]="page.name">
-            </nz-option>
-          </nz-select>
+      <!-- Loading State -->
+      @if (isLoading) {
+        <div class="loading-container">
+          <nz-spin [nzSize]="'large'"></nz-spin>
+          <p>Loading form...</p>
         </div>
-        
-        <nz-pagination 
-          [nzPageIndex]="currentPageIndex"
-          [nzTotal]="pages.length"
-          [nzPageSize]="1"
-          [nzShowSizeChanger]="false"
-          [nzShowQuickJumper]="false"
-          [nzShowTotal]="totalTemplate"
-          (nzPageIndexChange)="onPaginationChange($event)"
-          class="form-pagination">
-        </nz-pagination>
-        
-        <button 
-          nz-button 
-          nzType="primary" 
-          nzSize="small"
-          (click)="addPage()"
-          class="add-page-btn">
-          <span nz-icon nzType="plus"></span>
-          Add Page
-        </button>
-      </div>
-      
-      <ng-template #totalTemplate let-total>
-        <span class="pagination-total">Page {{ currentPageIndex }} of {{ total }}</span>
-      </ng-template>
+      } @else {
+        <!-- Pagination để quản lý pages -->
+        <div class="pages-pagination-container"
+             [style.background-color]="themeService.getPaginationContainerColors(themeService.currentTheme()).background"
+             [style.border-bottom-color]="themeService.getPaginationContainerColors(themeService.currentTheme()).border"
+             [style.color]="themeService.getPaginationContainerColors(themeService.currentTheme()).text">
+          <div class="page-selector">
+            <span class="page-label">Page:</span>
+            <nz-select 
+              [ngModel]="currentPageId" 
+              (ngModelChange)="onPageSelectChange($event)" 
+              nzPlaceHolder="Select page"
+              class="page-select">
+              <nz-option 
+                *ngFor="let page of pages" 
+                [nzValue]="page.id" 
+                [nzLabel]="page.name">
+              </nz-option>
+            </nz-select>
+          </div>
 
-      <!-- Form Canvas cho page hiện tại -->
-      <app-form-canvas 
-        [blocks]="currentPageInstances" 
-        [selectedInstanceId]="selectedInstanceId"
-        [formName]="formName"
-        [themeKey]="themeService.currentTheme()" 
-        (instanceAdded)="onInstanceAdded($event)"
-        (instanceUpdated)="onInstanceUpdated($event)" 
-        (instanceSelected)="onInstanceSelected($event)"
-        (instanceRemoved)="onInstanceRemoved($event)" 
-        (optionClicked)="onOptionClicked($event)"
-        (surveyTitleUpdated)="onSurveyTitleUpdated($event)" 
-        (formCompleted)="onFormComplete()"
-        (departmentUpdated)="onDepartmentUpdated($event)" 
-        (locationUpdated)="onLocationUpdated($event)"
-        (employmentTypeUpdated)="onEmploymentTypeUpdated($event)" 
-        (postedDateUpdated)="onPostedDateUpdated($event)"
-        [department]="department" 
-        [location]="location" 
-        [employmentType]="employmentType" 
-        [postedDate]="postedDate">
-      </app-form-canvas>
+          <div class="pagination-center">
+            <app-themed-pagination 
+              [pageIndex]="currentPageIndex" 
+              [total]="pages.length" 
+              [pageSize]="1"
+              [showQuickJumper]="false" 
+              [themeKey]="themeService.currentTheme()"
+              (pageIndexChange)="onPaginationChange($event)">
+            </app-themed-pagination>
+          </div>
+
+          <div class="page-actions">
+            <button 
+              nz-button 
+              nzType="default" 
+              nzSize="small" 
+              (click)="removePage(currentPageId)" 
+              class="remove-page-btn"
+              [disabled]="pages.length <= 1"
+              [style.border]="'none'">
+              <span nz-icon nzType="delete"></span>
+              Remove Page
+            </button>
+
+            <button 
+              nz-button 
+              nzType="primary" 
+              nzSize="small" 
+              (click)="addPage()" 
+              class="add-page-btn"
+              [style.background-color]="themeService.currentThemeColor()"
+              [style.border]="'none'">
+              <span nz-icon nzType="plus"></span>
+              Add Page
+            </button>
+          </div>
+        </div>
+
+        <ng-template #totalTemplate let-total>
+          <span class="pagination-total">Page {{ currentPageIndex }} of {{ total }}</span>
+        </ng-template>
+
+        <!-- Form Canvas cho page hiện tại -->
+        <app-form-canvas 
+          [blocks]="currentPageInstances" 
+          [selectedInstanceId]="selectedInstanceId" 
+          [formName]="formName"
+          [themeKey]="themeService.currentTheme()" 
+          (instanceAdded)="onInstanceAdded($event)"
+          (instanceUpdated)="onInstanceUpdated($event)" 
+          (instanceSelected)="onInstanceSelected($event)"
+          (instanceRemoved)="onInstanceRemoved($event)" 
+          (optionClicked)="onOptionClicked($event)"
+          (surveyTitleUpdated)="onSurveyTitleUpdated($event)" 
+          (formCompleted)="onFormComplete()"
+          (departmentUpdated)="onDepartmentUpdated($event)" 
+          (locationUpdated)="onLocationUpdated($event)"
+          (employmentTypeUpdated)="onEmploymentTypeUpdated($event)" 
+          (postedDateUpdated)="onPostedDateUpdated($event)"
+          [department]="department" 
+          [location]="location" 
+          [employmentType]="employmentType" 
+          [postedDate]="postedDate">
+        </app-form-canvas>
+      }
     </div>
-    
-    <app-right-property-side 
-      [visible]="optionsDrawerVisible" 
-      [instance]="optionsEditingInstance"
-      (visibleChange)="optionsDrawerVisible = $event" 
-      (optionsUpdated)="onOptionsUpdated($event)"
-      (labelUpdated)="onInstanceLabelUpdate($event)">
+
+    <app-right-property-side [visible]="optionsDrawerVisible" [instance]="optionsEditingInstance"
+      (visibleChange)="optionsDrawerVisible = $event" (optionsUpdated)="onOptionsUpdated($event)"
+      (labelUpdated)="onInstanceLabelUpdate($event)" (requiredUpdated)="onRequiredUpdated($event)"
+      (visibleChange)="optionsDrawerVisible = $event">
     </app-right-property-side>
   </div>
 </div>

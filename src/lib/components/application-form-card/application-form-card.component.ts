@@ -26,4 +26,12 @@ export class ApplicationFormCardComponent {
     this.selected = value;
     this.selectedChange.emit(value);
   }
+  
+  onCheckboxAreaClick(event: MouseEvent) {
+    // Prevent card navigation khi click vào checkbox area
+    event.stopPropagation();
+    event.preventDefault();
+    // Đảm bảo event không bubble lên thẻ <a>
+    return false;
+  }
 }

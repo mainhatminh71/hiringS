@@ -1,0 +1,16 @@
+<div class="themed-pagination" [attr.data-theme]="currentTheme">
+    <nz-pagination 
+      [nzPageIndex]="pageIndex"
+      [nzTotal]="total"
+      [nzPageSize]="pageSize"
+      [nzShowSizeChanger]="showSizeChanger"
+      [nzShowQuickJumper]="showQuickJumper"
+      [nzShowTotal]="showTotal ? totalTemplate : null"
+      (nzPageIndexChange)="onPageChange($event)"
+      class="pagination">
+    </nz-pagination>
+    
+    <ng-template #totalTemplate let-total>
+      <span class="pagination-total">Page {{ pageIndex }} of {{ total }}</span>
+    </ng-template>
+  </div>

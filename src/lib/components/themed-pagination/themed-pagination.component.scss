@@ -1,0 +1,355 @@
+.themed-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .pagination {
+      ::ng-deep {
+        .ant-pagination {
+          margin: 0;
+        }
+        
+        .ant-pagination-item {
+          border-radius: 12px;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          min-width: 40px;
+          height: 40px;
+          line-height: 40px;
+          border: none !important;
+          background-color: rgba(255, 255, 255, 0.06);
+          -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+          position: relative;
+          overflow: hidden;
+          
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+              rgba(255, 255, 255, 0.08) 0%, 
+              transparent 100%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+          }
+          
+          a {
+            color: var(--pagination-text, #1f2937);
+            font-weight: 400;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.2s ease;
+          }
+          
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08),
+                        0 1px 2px rgba(0, 0, 0, 0.04);
+            background-color: rgba(255, 255, 255, 0.1);
+            
+            &::before {
+              opacity: 0.5;
+            }
+            
+            a {
+              color: var(--pagination-primary, #0078d4);
+              font-weight: 500;
+            }
+          }
+          
+          &.ant-pagination-item-active {
+            background: var(--pagination-active-bg, #0078d4);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1),
+                        0 1px 2px rgba(0, 0, 0, 0.06);
+            transform: none;
+            
+            &::before {
+              opacity: 0.3;
+              background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.12) 0%, 
+                transparent 100%);
+            }
+            
+            a {
+              color: var(--pagination-active-text, #fff);
+              font-weight: 500;
+              text-shadow: none;
+            }
+            
+            &:hover {
+              transform: translateY(-1px);
+              box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12),
+                          0 1px 3px rgba(0, 0, 0, 0.08);
+              background: var(--pagination-primary-hover, #005a9e);
+            }
+          }
+        }
+        
+        .ant-pagination-prev,
+        .ant-pagination-next {
+          border-radius: 12px;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          min-width: 40px;
+          height: 40px;
+          line-height: 40px;
+          border: none !important;
+          background-color: rgba(255, 255, 255, 0.06);
+          -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+          
+          .ant-pagination-item-link {
+            color: var(--pagination-text, #1f2937);
+            transition: all 0.2s ease;
+            border: none;
+            background: transparent;
+          }
+          
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08),
+                        0 1px 2px rgba(0, 0, 0, 0.04);
+            background-color: rgba(255, 255, 255, 0.1);
+            
+            .ant-pagination-item-link {
+              color: var(--pagination-primary, #0078d4);
+            }
+          }
+        }
+        
+        .ant-pagination-jump-prev,
+        .ant-pagination-jump-next {
+          border-radius: 10px;
+          transition: all 0.25s ease;
+          
+          &:hover {
+            transform: translateY(-1px);
+            opacity: 0.8;
+          }
+        }
+        
+        .ant-pagination-disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+          
+          &:hover {
+            transform: none;
+            box-shadow: none;
+          }
+        }
+        
+        .ant-pagination-options {
+          color: var(--pagination-text, #1f2937);
+          
+          .ant-select {
+            border-radius: 10px;
+            transition: all 0.25s ease;
+            
+            &:hover {
+              border-color: var(--pagination-primary, #0078d4);
+            }
+            
+            &.ant-select-focused {
+              border-color: var(--pagination-primary, #0078d4);
+              box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.15);
+            }
+          }
+          
+          // Quick Jumper Input styling
+          .ant-pagination-options-quick-jumper {
+            color: var(--pagination-text, #1f2937);
+            font-size: 14px;
+            opacity: 0.85;
+            
+            input {
+              border-radius: 10px;
+              transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+              background-color: rgba(255, 255, 255, 0.06);
+              border: none !important;
+              -webkit-backdrop-filter: blur(6px);
+              backdrop-filter: blur(6px);
+              box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+              color: var(--pagination-text, #1f2937);
+              height: 40px;
+              padding: 0 12px;
+              font-size: 14px;
+              min-width: 60px;
+              
+              &::placeholder {
+                color: var(--pagination-text, #1f2937);
+                opacity: 0.4;
+              }
+              
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+              }
+              
+              &:focus {
+                background-color: rgba(255, 255, 255, 0.12);
+                box-shadow: 0 0 0 2px var(--pagination-primary, #0078d4),
+                            0 2px 4px rgba(0, 0, 0, 0.08);
+                border-color: var(--pagination-primary, #0078d4);
+                outline: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .pagination-total {
+      font-size: 13px;
+      color: var(--pagination-text, #666);
+      font-weight: 400;
+      margin-right: 16px;
+      opacity: 0.8;
+    }
+  }
+  
+  // Apply theme colors cho mỗi theme
+  @each $theme in (default, default-dark, borderless, borderless-dark, flat, flat-dark, 
+                   contrast, contrast-dark, sharp, sharp-dark, layered, layered-dark, 
+                   plain, plain-dark, solid-dark, doubleborder, doubleborder-dark, 
+                   threedimensional, threedimensional-dark) {
+    .themed-pagination[data-theme="#{$theme}"] {
+      @if $theme == 'default' {
+        --pagination-primary: #2dd4bf;
+        --pagination-primary-hover: #14b8a6;
+        --pagination-active-bg: #2dd4bf;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(45, 212, 191, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'default-dark' {
+        --pagination-primary: #fcd34d;
+        --pagination-primary-hover: #fbbf24;
+        --pagination-active-bg: #fcd34d;
+        --pagination-active-text: #1f2937;
+        --pagination-border: rgba(252, 211, 77, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'borderless' {
+        --pagination-primary: #60a5fa;
+        --pagination-primary-hover: #3b82f6;
+        --pagination-active-bg: #60a5fa;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(96, 165, 250, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'borderless-dark' {
+        --pagination-primary: #60a5fa;
+        --pagination-primary-hover: #3b82f6;
+        --pagination-active-bg: #60a5fa;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(96, 165, 250, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'flat' {
+        --pagination-primary: #4ade80;
+        --pagination-primary-hover: #22c55e;
+        --pagination-active-bg: #4ade80;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(74, 222, 128, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'flat-dark' {
+        --pagination-primary: #4ade80;
+        --pagination-primary-hover: #22c55e;
+        --pagination-active-bg: #4ade80;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(74, 222, 128, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'contrast' {
+        --pagination-primary: #ffdb29;
+        --pagination-primary-hover: #fbbf24;
+        --pagination-active-bg: #fcd34d;
+        --pagination-active-text: #1f2937;
+        --pagination-border: rgba(252, 211, 77, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'contrast-dark' {
+        --pagination-primary: #fcd34d;
+        --pagination-primary-hover: #fbbf24;
+        --pagination-active-bg: #fcd34d;
+        --pagination-active-text: #1f2937;
+        --pagination-border: rgba(252, 211, 77, 0.3);
+        --pagination-text: #fcd34d;
+      } @else if $theme == 'sharp' {
+        --pagination-primary: #a78bfa;
+        --pagination-primary-hover: #8b5cf6;
+        --pagination-active-bg: #a78bfa;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(167, 139, 250, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'sharp-dark' {
+        --pagination-primary: #818cf8;
+        --pagination-primary-hover: #6366f1;
+        --pagination-active-bg: #818cf8;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(129, 140, 248, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'layered' {
+        --pagination-primary: #c084fc;
+        --pagination-primary-hover: #a855f7;
+        --pagination-active-bg: #c084fc;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(192, 132, 252, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'layered-dark' {
+        --pagination-primary: #a78bfa;
+        --pagination-primary-hover: #8b5cf6;
+        --pagination-active-bg: #a78bfa;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(167, 139, 250, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'plain' {
+        --pagination-primary: #60a5fa;
+        --pagination-primary-hover: #3b82f6;
+        --pagination-active-bg: #60a5fa;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(96, 165, 250, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'plain-dark' {
+        --pagination-primary: #818cf8;
+        --pagination-primary-hover: #6366f1;
+        --pagination-active-bg: #818cf8;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(129, 140, 248, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'solid-dark' {
+        --pagination-primary: #2dd4bf;
+        --pagination-primary-hover: #14b8a6;
+        --pagination-active-bg: #2dd4bf;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(45, 212, 191, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'doubleborder' {
+        --pagination-primary: #94a3b8;
+        --pagination-primary-hover: #64748b;
+        --pagination-active-bg: #94a3b8;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(148, 163, 184, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'doubleborder-dark' {
+        --pagination-primary: #38bdf8;
+        --pagination-primary-hover: #0ea5e9;
+        --pagination-active-bg: #38bdf8;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(56, 189, 248, 0.3);
+        --pagination-text: #ffffff;
+      } @else if $theme == 'threedimensional' {
+        --pagination-primary: #f472b6;
+        --pagination-primary-hover: #ec4899;
+        --pagination-active-bg: #f472b6;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(244, 114, 182, 0.3);
+        --pagination-text: #1f2937;
+      } @else if $theme == 'threedimensional-dark' {
+        --pagination-primary: #ec4899;
+        --pagination-primary-hover: #db2777;
+        --pagination-active-bg: #ec4899;
+        --pagination-active-text: #ffffff;
+        --pagination-border: rgba(236, 72, 153, 0.3);
+        --pagination-text: #ffffff;
+      }
+    }
+  }

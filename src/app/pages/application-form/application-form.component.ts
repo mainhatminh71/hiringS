@@ -13,9 +13,11 @@ import {RouterModule} from '@angular/router';
 import {ApplicantService} from '../../../lib/core/services/applicant.service';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 import {FormPage} from '../../../lib/core/models/form-page.model';
+import { applySurveyTheme } from '../../../lib/core/helpers/theme-helper';
+import { ThemedPaginationComponent } from '../../../lib/components/themed-pagination/themed-pagination.component';
 @Component({
   selector: 'app-application-form',
-  imports: [CommonModule, SurveyModule, RouterModule, NzPaginationModule],
+  imports: [CommonModule, SurveyModule, RouterModule, NzPaginationModule, ThemedPaginationComponent],
   templateUrl: './application-form.component.html',
   styleUrl: './application-form.component.scss',
   standalone: true
@@ -24,7 +26,7 @@ export class ApplicationFormComponent implements OnInit{
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private formService = inject(ApplicationFormService);
-  private themeService = inject(ThemeService);
+  themeService = inject(ThemeService);
   private notificationService = inject(NzNotificationService);
   private applicantService = inject(ApplicantService);
 
@@ -85,6 +87,13 @@ export class ApplicationFormComponent implements OnInit{
     const surveyJson = this.blocksToSurveyJson(pages);
     this.surveyModel = new SurveyModel(surveyJson);
     this.surveyModel.showCompleteButton = false;
+
+    // Áp dụng theme từ form.themeKey
+    if (this.form?.themeKey) {
+      applySurveyTheme(this.surveyModel, this.form.themeKey);
+    } else {
+      applySurveyTheme(this.surveyModel, 'default-dark');
+    }
     
     // Ẩn pagination mặc định của SurveyJS nếu có nhiều hơn 1 page
     if (pages.length > 1) {
@@ -313,15 +322,19 @@ export class ApplicationFormComponent implements OnInit{
         };
         case 'description-area':
           const descriptionContent = (cfg['content'] as string) || '';
-        const descriptionLabel = (cfg['label'] as string) || 'Description';
-        return {
-          ...base,
-          type: 'html',
-          html: `<div class="description-area" style="padding: 1rem; background: #f9fafb; border-radius: 4px; border-left: 3px solid #0078d4; margin: 1rem 0;">
-                   <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #111827;">${descriptionLabel}</p>
-                   <p style="margin: 0; color: #374151; white-space: pre-wrap;">${descriptionContent}</p>
-                 </div>`,
-        };
+          const descriptionLabel = (cfg['label'] as string) || 'Description';
+          
+          const themeKey = this.form?.themeKey || 'default-dark';
+          const descColors = this.themeService.getDescriptionAreaColors(themeKey);
+          
+          return {
+            ...base,
+            type: 'html',
+            html: `<div class="description-area" style="padding: 1rem; background: ${descColors.background}; border-radius: 4px; border-left: 3px solid ${descColors.border}; margin: 1rem 0;">
+                     <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: ${descColors.labelColor};">${descriptionLabel}</p>
+                     <p style="margin: 0; color: ${descColors.contentColor}; white-space: pre-wrap;">${descriptionContent}</p>
+                   </div>`,
+          };
       default:
         return {
           ...base,

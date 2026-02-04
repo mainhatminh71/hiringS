@@ -30,7 +30,7 @@ export const routes: Routes = [
       { path: 'application-selection', component: ApplicationSelectionComponent },
       { path: 'component-palette', component: ComponentPaletteComponent },
       { path: 'form-canvas', component: FormCanvasComponent },
-      { path: 'application/:id', component: ApplicationFormComponent },
+      
     ]
   },
   {
@@ -39,6 +39,7 @@ export const routes: Routes = [
     children: [
       {path: 'form-generation', component: FormGenerationComponent},
       {path: 'form-generation/:id', component: FormGenerationComponent},
+      { path: 'application/:id', component: ApplicationFormComponent },
     ]
   },
 ];

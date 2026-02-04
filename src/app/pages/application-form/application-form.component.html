@@ -1,29 +1,33 @@
-<div class="application-form-page">
+<div class="application-form-page" [style.background-color]="themeService.currentThemeBackgrounds().main">
     <button 
       class="back-float-button"
       (click)="goBack()"
       type="button"
-      title="Back to Careers">
+      title="Back to Careers"
+      [style.border-color]="themeService.getThemeColor(form?.themeKey || 'default-dark')"
+      [style.color]="themeService.getThemeColor(form?.themeKey || 'default-dark')">
+      >
       <span class="back-icon">←</span>
       <span class="back-text">Back</span>
     </button>
-    <div class="form-container" *ngIf="!isLoading && !error && surveyModel">
+    <div class="form-container" *ngIf="!isLoading && !error && surveyModel" [style.background-color]="themeService.currentThemeBackgrounds().main">
       <!-- Pagination cho form -->
-      <div class="form-pagination-wrapper" *ngIf="formPages.length > 1">
-        <nz-pagination 
-          [nzPageIndex]="currentSurveyPageIndex"
-          [nzTotal]="formPages.length"
-          [nzPageSize]="1"
-          [nzShowSizeChanger]="false"
-          [nzShowQuickJumper]="true"
-          [nzShowTotal]="totalTemplate"
-          (nzPageIndexChange)="onPaginationChange($event)"
-          class="application-form-pagination">
-        </nz-pagination>
-        
-        <ng-template #totalTemplate let-total>
-          <span class="pagination-info">Page {{ currentSurveyPageIndex }} of {{ total }}</span>
-        </ng-template>
+      <div 
+        class="form-pagination-wrapper" 
+        *ngIf="formPages.length > 1"
+        [style.background-color]="themeService.getPaginationContainerColors(form?.themeKey || 'default-dark').background"
+        [style.border-color]="themeService.getPaginationContainerColors(form?.themeKey || 'default-dark').border"
+        [style.color]="themeService.getPaginationContainerColors(form?.themeKey || 'default-dark').text">
+        <div class="pagination-center">
+          <app-themed-pagination
+            [pageIndex]="currentSurveyPageIndex"
+            [total]="formPages.length"
+            [pageSize]="1"
+            [showQuickJumper]="true"
+            [themeKey]="form?.themeKey"
+            (pageIndexChange)="onPaginationChange($event)">
+          </app-themed-pagination>
+        </div>
       </div>
 
       <div class="survey-wrapper">

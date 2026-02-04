@@ -92,3 +92,26 @@
   transform: scale(1.05);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
+
+.checkbox-overlay {
+  pointer-events: auto;
+  
+  // Khi không selected và không hover, cho phép click through
+  &.opacity-0:not(:hover) {
+    pointer-events: none;
+  }
+  
+  // Đảm bảo checkbox luôn có thể click được
+  label {
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  // Prevent text selection
+  * {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}

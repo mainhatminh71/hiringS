@@ -20,11 +20,12 @@ import { Subject } from 'rxjs';
 import { NavigationEnd } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-application-selection',
   imports: [CommonModule, ApplicationFormCardComponent, 
     RouterModule, NzCardModule, 
-    NzIconModule, RouterLink, NzButtonModule, NzModalModule],
+    NzIconModule, RouterLink, NzButtonModule, NzModalModule, NzSpinModule],
   templateUrl: './application-selection.component.html',
   styleUrl: './application-selection.component.scss'
 })
@@ -36,6 +37,9 @@ export class ApplicationSelectionComponent implements OnInit, OnDestroy {
   selectedIds = new Set<string>();
   private destroy$ = new Subject<void>();
   private router = inject(Router);
+
+  isLoading = false;
+  private instanceCountCache = new Map<string, number>();
 
   ngOnInit(): void {
     this.loadApplications();
@@ -53,13 +57,34 @@ export class ApplicationSelectionComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
   loadApplications() {
+    this.isLoading = true;
     this.applicationFormService.getAllForms().subscribe((forms) => {
       this.applications = forms;
       this.selectedIds.clear();
+      this.instanceCountCache.clear();
+      forms.forEach(form => {
+        const count = this.calculateInstanceCount(form);
+        this.instanceCountCache.set(form.id, count);
+      });
+      this.isLoading = false;
     });
   }
+  private calculateInstanceCount(form: ApplicationForm): number {
+    if (form.pages && form.pages.length > 0) {
+      return form.pages.reduce((total, page) => total + (page.instances?.length || 0), 0);
+    }
+    return form.instances?.length || 0;
+  }
   getInstanceCount(form: ApplicationForm): number {
-    return form.instances.length;
+    if (this.instanceCountCache.has(form.id)) {
+      return this.instanceCountCache.get(form.id)!;
+    }
+    const count = this.calculateInstanceCount(form);
+    this.instanceCountCache.set(form.id, count);
+    return count;
+  }
+  trackByFormId(index: number, form: ApplicationForm): string {
+    return form.id;
   }
   toggleSelection(id: string, selected: boolean) {
     if (selected) this.selectedIds.add(id);

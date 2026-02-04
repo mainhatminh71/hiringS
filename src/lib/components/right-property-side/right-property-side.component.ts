@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {NzDrawerModule} from 'ng-zorro-antd/drawer';
@@ -7,9 +7,10 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzInputModule} from 'ng-zorro-antd/input';
 import {UIBlockInstance} from '../../core/models/ui-block-instance.model';
 import {Input, Output, EventEmitter} from '@angular/core';
+import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
 @Component({
   selector: 'app-right-property-side',
-  imports: [CommonModule, FormsModule, NzDrawerModule, NzButtonModule, NzIconModule, NzInputModule],
+  imports: [CommonModule, FormsModule, NzDrawerModule, NzButtonModule, NzIconModule, NzInputModule, NzCheckboxModule],
   templateUrl: './right-property-side.component.html',
   styleUrl: './right-property-side.component.scss',
   standalone: true
@@ -20,8 +21,16 @@ export class RightPropertySideComponent {
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() optionsUpdated = new EventEmitter<{instanceId: string, options: Array<{label: string, value: string}>}>();
   @Output() labelUpdated = new EventEmitter<{id: string, label: string}>();
+  @Output() requiredUpdated = new EventEmitter<{id: string, required: boolean}>();
 
   labelInput = '';
+  requiredInput = false;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['instance'] && this.instance) {
+      this.labelInput = (this.instance.config?.['label'] as string) || '';
+      this.requiredInput = !!(this.instance.config?.['required'] as boolean);
+    }
+  }
   get options(): Array<{label: string, value: string}> {
     return (this.instance?.config['options'] as Array<{label: string, value: string}>) || [];
   }
@@ -34,6 +43,14 @@ export class RightPropertySideComponent {
   close(): void {
     this.visible = false;
     this.visibleChange.emit(false);
+  }
+
+  updateRequired(required: boolean) {
+    if (!this.instance) return;
+    this.requiredUpdated.emit({
+      id: this.instance.id,
+      required: required
+    })
   }
 
   addOption(): void {
