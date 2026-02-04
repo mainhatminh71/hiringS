@@ -11,9 +11,11 @@ import { SurveyModule } from 'survey-angular-ui';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {RouterModule} from '@angular/router';
 import {ApplicantService} from '../../../lib/core/services/applicant.service';
+import {NzPaginationModule} from 'ng-zorro-antd/pagination';
+import {FormPage} from '../../../lib/core/models/form-page.model';
 @Component({
   selector: 'app-application-form',
-  imports: [CommonModule, SurveyModule, RouterModule],
+  imports: [CommonModule, SurveyModule, RouterModule, NzPaginationModule],
   templateUrl: './application-form.component.html',
   styleUrl: './application-form.component.scss',
   standalone: true
@@ -30,6 +32,10 @@ export class ApplicationFormComponent implements OnInit{
   surveyModel?: SurveyModel;
   isLoading = true;
   error?: string;
+  formPages: FormPage[] = [];
+  currentSurveyPageIndex: number = 1;
+
+  private fieldMapping: Map<string, string> = new Map();
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
@@ -52,7 +58,20 @@ export class ApplicationFormComponent implements OnInit{
         }
         this.form = form;
         if ((form.themeKey)) this.themeService.setTheme(form.themeKey);
-        this.buildSurveyModel(form.instances || []);
+        
+        // Load pages nếu có, nếu không thì tạo từ instances
+        if (form.pages && form.pages.length > 0) {
+          this.formPages = form.pages.sort((a, b) => a.order - b.order);
+        } else {
+          this.formPages = [{
+            id: 'page1',
+            name: 'Page 1',
+            instances: form.instances || [],
+            order: 0
+          }];
+        }
+        
+        this.buildSurveyModel(this.formPages);
         this.isLoading = false;
       },
       error: () => {
@@ -61,10 +80,24 @@ export class ApplicationFormComponent implements OnInit{
       }
     })
   }
-  private buildSurveyModel(instances: UIBlockInstance[]) {
-    const surveyJson = this.blocksToSurveyJson(instances);
+  private buildSurveyModel(pages: FormPage[]) {
+    this.fieldMapping.clear();
+    const surveyJson = this.blocksToSurveyJson(pages);
     this.surveyModel = new SurveyModel(surveyJson);
     this.surveyModel.showCompleteButton = false;
+    
+    // Ẩn pagination mặc định của SurveyJS nếu có nhiều hơn 1 page
+    if (pages.length > 1) {
+      this.surveyModel.showProgressBar = 'off';
+    }
+    
+    // Track current page changes
+    this.surveyModel.onCurrentPageChanged.add((sender) => {
+      this.currentSurveyPageIndex = sender.currentPageNo + 1; // SurveyJS uses 0-based index
+    });
+    
+    // Set initial page index
+    this.currentSurveyPageIndex = 1;
 
     // Binding event cho button submit sau khi survey render
     this.surveyModel.onAfterRenderQuestion.add((sender, options) => {
@@ -111,10 +144,14 @@ export class ApplicationFormComponent implements OnInit{
       this.notificationService.error('Error', 'Form not found');
       return;
     }
+    const transformedData : Record<string, any> = {
+      ...formData,
+    _fieldMapping: Object.fromEntries(this.fieldMapping.entries()),
+    }
     const applicantData = {
       formId: this.form.id,
       formName: this.form.name,
-      data: formData
+      data: transformedData
     };
     this.applicantService.createApplicant(applicantData).subscribe({
       next: () => {
@@ -125,17 +162,23 @@ export class ApplicationFormComponent implements OnInit{
       }
     });
   }
-  private blocksToSurveyJson(block: UIBlockInstance[]) : any {
+  private blocksToSurveyJson(pages: FormPage[]) : any {
     return {
       title: this.form?.name  || 'Application Form',
       showQuestionNumbers: 'off',
       showCompleteButton: false,
-      pages: [
-        {
-          name: 'page1',
-          elements: this.form?.instances.map((b, index) => this.mapBlockToSurveyElement(b, index)) || [],
-        }
-      ]
+      pages: pages.map((page, pageIndex) => ({
+        name: `page${pageIndex + 1}`,
+        title: page.name,
+        elements: page.instances.map((b, index) => this.mapBlockToSurveyElement(b, index))
+      }))
+    }
+  }
+  
+  onPaginationChange(page: number) {
+    if (this.surveyModel && page >= 1 && page <= this.surveyModel.pageCount) {
+      this.surveyModel.currentPageNo = page - 1; // SurveyJS uses 0-based index
+      this.currentSurveyPageIndex = page;
     }
   }
   goBack() {
@@ -143,9 +186,13 @@ export class ApplicationFormComponent implements OnInit{
   }
   private mapBlockToSurveyElement(block: UIBlockInstance, index: number): any {
     const cfg: Record<string, any> = block.config || {};
+    const fieldName = this.generateFieldName(cfg['label'] as string, block.componentType, index);
+
+    this.fieldMapping.set(fieldName, block.id);
 
     const base = {
-      name: block.id,
+      id: block.id,
+      name: fieldName,
       title: (cfg['label'] as string) || block.componentType,
       isRequired: !!cfg['required'],
     };
@@ -283,4 +330,17 @@ export class ApplicationFormComponent implements OnInit{
         };
     }
   }
+  private generateFieldName(label?: string, componentType?: string, index?: number) : string {
+    if (label) {
+      return label
+      .toLowerCase()
+      .replace(/[^a-z0-9]+(.)/g, (_, char) => char.toUpperCase())
+      .replace(/[^a-z0-9]/g, '');
+    }
+    if (componentType) {
+      const cleanType =  componentType.replace(/^input-/, '');
+      return cleanType + (index !== undefined ? `_${index}` : '');
+    }
+    return `mewmew`;
+  } 
 }

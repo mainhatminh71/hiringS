@@ -10,9 +10,15 @@ import { ApplicationForm } from '../../../lib/core/models/application-form.model
 import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {NzPaginationModule} from 'ng-zorro-antd/pagination';
+import {FormPage} from '../../../lib/core/models/form-page.model';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzSelectModule} from 'ng-zorro-antd/select';
+import {FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-form-generation',
-  imports: [ComponentPaletteComponent, FormCanvasComponent, CommonModule, RightPropertySideComponent],
+  imports: [ComponentPaletteComponent, FormCanvasComponent, CommonModule, RightPropertySideComponent, NzPaginationModule, NzButtonModule, NzIconModule, NzSelectModule, FormsModule],
   templateUrl: './form-generation.component.html',
   styleUrl: './form-generation.component.scss',
   standalone: true
@@ -20,7 +26,6 @@ import {NzNotificationService} from 'ng-zorro-antd/notification';
 export class FormGenerationComponent implements OnInit {
   selectedInstanceId?: string;
   selectedInstance?: UIBlockInstance;
-  instances: UIBlockInstance[] = [];
   optionsDrawerVisible = false;
   optionsEditingInstanceId?: string;
   themeService = inject(ThemeService);
@@ -33,18 +38,33 @@ export class FormGenerationComponent implements OnInit {
   location: string = '';
   employmentType: string = '';
   postedDate: string = '';
+  pages: FormPage[] = [];
+  currentPageId: string= '';
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
-      if (!id)  {
-        this.instances = [];
+      if (!id) {
+        this.pages = [this.createNewPage('Page 1')];
+        this.currentPageId = this.pages[0].id;
         this.formName = 'Application Form';
         return;
       }
       this.formService.getForm(id).subscribe({
         next: form => {
           if (!form) return;
-          this.instances = form.instances ?? [];
+          
+          if (form.pages && form.pages.length > 0) {
+            this.pages = form.pages.sort((a, b) => a.order - b.order);
+          } else {
+            this.pages = [{
+              id: `page-${Date.now()}`,
+              name: 'Page 1',
+              instances: form.instances ?? [],
+              order: 0
+            }];
+          }
+          
+          this.currentPageId = this.pages[0]?.id || '';
           this.formName = form.name ?? 'Application Form';
           this.department = form.department ?? '';
           this.location = form.location ?? '';
@@ -55,12 +75,69 @@ export class FormGenerationComponent implements OnInit {
       })
     })
   }
+  get currentPageInstances() : UIBlockInstance[] {
+    const page = this.pages.find(p => p.id === this.currentPageId);
+    return page?.instances ?? [];
+  }
+  createNewPage(name?: string) : FormPage {
+    return {
+      id: `page-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      name: name || `Page ${this.pages.length + 1}`,
+      instances: [],
+      order: this.pages.length
+    };
+  }
+  addPage() {
+    const newPage = this.createNewPage();
+    this.pages = [...this.pages, newPage];
+    this.currentPageId = newPage.id;
+  }
+  removePage(pageId: string) {
+    if (this.pages.length <= 1) {
+      this.notificationService.error('Error', 'Cannot delete the last page');
+      return;
+    }
+    this.pages = this.pages.filter(p => p.id !== pageId);
+    if (this.currentPageId === pageId) this.currentPageId = this.pages[0].id || '';
+    this.pages = this.pages.map((p, index) => ({...p, order: index}))
+  }
+  updatePageName(pageId: string, newName: string) {
+    this.pages = this.pages.map(p => 
+      p.id === pageId ? {...p, name: newName} : p
+    )
+  }
+  get currentPageIndex(): number {
+    const index = this.pages.findIndex(p => p.id === this.currentPageId);
+    return index >= 0 ? index + 1 : 1; // Pagination bắt đầu từ 1
+  }
+  
+  onPaginationChange(page: number) {
+    if (page < 1 || page > this.pages.length) return;
+    const targetPage = this.pages[page - 1];
+    if (targetPage) {
+      this.currentPageId = targetPage.id;
+      this.selectedInstanceId = undefined;
+      this.selectedInstance = undefined;
+    }
+  }
+  
+  onPageSelectChange(pageId: string) {
+    this.currentPageId = pageId;
+    this.selectedInstanceId = undefined;
+    this.selectedInstance = undefined;
+  }
   onInstanceAdded(instance: UIBlockInstance) {
-    this.instances = [...this.instances, instance];
+    // this.instances = [...this.instances, instance];
+    const page = this.pages.find(p => p.id === this.currentPageId);
+    if (page) {
+      page.instances = [...page.instances, instance]
+      this.pages = [...this.pages]
+    }
   }
   onInstanceSelected(id: string) {
     this.selectedInstanceId = id;
-    this.selectedInstance = this.instances.find(instance => instance.id === id);
+    const allInstances = this.pages.flatMap(p => p.instances);
+    this.selectedInstance = allInstances.find(instance => instance.id === id);
   
     // Mở right side nếu component này có options (select, radio, checkbox)
     const selected = this.selectedInstance;
@@ -72,8 +149,11 @@ export class FormGenerationComponent implements OnInit {
   }
   
   onInstanceRemoved(id: string) {
-    this.instances = this.instances.filter(instance => instance.id !== id);
-  
+    // this.instances = this.instances.filter(instance => instance.id !== id);
+    this.pages = this.pages.map(page => ({
+      ...page,
+      instances: page.instances.filter(i => i.id !== id)
+    }));
     if (this.selectedInstanceId === id) {
       this.selectedInstanceId = undefined;
       this.selectedInstance = undefined;
@@ -88,21 +168,30 @@ export class FormGenerationComponent implements OnInit {
 
 
   onInstanceUpdated(updated: UIBlockInstance) {
-    this.instances = this.instances.map(instance =>
+   this.pages = this.pages.map(page => ({
+    ...page,
+    instances: page.instances.map(instance => 
       instance.id === updated.id ? updated : instance
-    );
+    )
+   }))
     if (this.selectedInstanceId === updated.id) {
       this.selectedInstance = updated;
     }
   }
   onInstanceLabelUpdate(payload: {id: string, label: string}) {
-    this.instances = this.instances.map(instance => 
-      instance.id === payload.id
-      ? {...instance, config: {...instance.config, label: payload.label}}
-      : instance
-    )
+    this.pages = this.pages.map(page => ({
+      ...page,
+      instances: page.instances.map(instance => 
+        instance.id === payload.id
+          ? {...instance, config: {...instance.config, label: payload.label}}
+          : instance
+      )
+    }));
+    
     if (this.selectedInstanceId === payload.id) {
-      this.selectedInstance = this.instances.find(instance => instance.id === payload.id);
+      this.selectedInstance = this.pages
+        .flatMap(p => p.instances)
+        .find(instance => instance.id === payload.id);
     }
   }
   onOptionClicked(instanceId: string) {
@@ -111,35 +200,50 @@ export class FormGenerationComponent implements OnInit {
   }
   
   onOptionsUpdated(payload: {instanceId: string, options: Array<{label: string, value: string}>}) {
-    const instance = this.instances.find(i => i.id === payload.instanceId);
-    if (instance) {
-      const updated = {
-        ...instance,
-        config: {
-          ...instance.config,
-          options: payload.options
+    this.pages = this.pages.map(page => ({
+      ...page,
+      instances: page.instances.map(instance => {
+        if (instance.id === payload.instanceId) {
+          return {
+            ...instance,
+            config: {
+              ...instance.config,
+              options: payload.options
+            }
+          };
         }
-      };
+        return instance;
+      })
+    }));
+    
+    const updated = this.pages
+      .flatMap(p => p.instances)
+      .find(i => i.id === payload.instanceId);
+    if (updated) {
       this.onInstanceUpdated(updated);
     }
   }
   
   get optionsEditingInstance(): UIBlockInstance | undefined {
-    return this.instances.find(i => i.id === this.optionsEditingInstanceId);
+    return this.pages
+    .flatMap(p => p.instances)
+    .find(i => i.id === this.optionsEditingInstanceId);
   }
   onSurveyTitleUpdated(title: string) {
     this.formName = title;
   }
 
   async onFormComplete() {
-    if (this.instances.length === 0 || this.isSaving) return;
+    const allInstances = this.pages.flatMap(p => p.instances);
+    if (allInstances.length === 0 || this.isSaving) return;
     this.isSaving = true;
     try {
       const id = this.route.snapshot.paramMap.get('id');
       if (id) {
         this.formService.updateForm(id, {
           name: this.formName,
-          instances: this.instances,
+          instances: allInstances,
+          pages: this.pages,
           themeKey: this.themeService.currentTheme(),
           department: this.department,
           location: this.location,
@@ -159,7 +263,8 @@ export class FormGenerationComponent implements OnInit {
         const applicationForm: ApplicationForm = {
           id: `form-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           name: this.formName,
-          instances: this.instances,
+          instances: allInstances,
+          pages: this.pages,
           themeKey: this.themeService.currentTheme(),
           themeColor: this.themeService.currentThemeColor(),
           department: this.department,
@@ -184,7 +289,7 @@ export class FormGenerationComponent implements OnInit {
     }
   }
   getInstanceCount(): number {
-    return this.instances.length;
+    return this.pages.reduce((acc, page) => acc + page.instances.length, 0);
   }
   onDepartmentUpdated(value: string) {
     this.department = value;
