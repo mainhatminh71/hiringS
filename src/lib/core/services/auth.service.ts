@@ -5,12 +5,10 @@ import { Observable, from, of, throwError } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { AuthProvider, AuthResponse } from '../models/user.model';
 import { User } from '../classes/user.class';
-import { FirebaseApiService } from './firebase-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private auth = inject(Auth);
-  private firebaseApi = inject(FirebaseApiService);
   private platformId = inject(PLATFORM_ID);
   private isBrowser = isPlatformBrowser(this.platformId);
 
