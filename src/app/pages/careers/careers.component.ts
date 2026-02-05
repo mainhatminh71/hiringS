@@ -3,47 +3,127 @@ import { CommonModule } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { JobCardComponent } from '../../../lib/components/job-card/job-card.component';
 import { LifeCardComponent } from '../../../lib/components/life-card/life-card.component';
-import {ApplicationFormService} from '../../../lib/core/services/application-form.service';
-import {JobCard} from '../../../lib/core/models/job-card.model';
-import {ApplicationForm} from '../../../lib/core/models/application-form.model';
-import Lenis from 'lenis';
+import { ThreeHeroComponent } from '../../../lib/components/three-hero/three-hero.component';
+import { ApplicationFormService } from '../../../lib/core/services/application-form.service';
+import { JobCard } from '../../../lib/core/models/job-card.model';
+import { ApplicationForm } from '../../../lib/core/models/application-form.model';
+import { ScrollAnimationService } from '../../../lib/core/services/scroll-animation.service';
+import { ThemedPaginationComponent } from '../../../lib/components/themed-pagination/themed-pagination.component';
 
 @Component({
   selector: 'app-careers',
   standalone: true,
-  imports: [CommonModule, NzIconModule, JobCardComponent, LifeCardComponent],
+  imports: [CommonModule, NzIconModule, JobCardComponent, LifeCardComponent, ThreeHeroComponent, ThemedPaginationComponent],
   templateUrl: './careers.component.html',
   styleUrl: './careers.component.scss'
 })
 export class CareersComponent implements OnInit, AfterViewInit, OnDestroy {
   applicationFormService = inject(ApplicationFormService);
+  private scrollAnimation: ScrollAnimationService = inject(ScrollAnimationService);
 
   jobOpenings: JobCard[] = [];
-  private lenis: Lenis | null = null;
-  private rafId: number | null = null;
+  isLoading = true;
+  currentPage: number = 1;
+  pageSize: number = 5;
 
   ngOnInit(): void {
     this.loadJobOpenings();
   }
 
   ngAfterViewInit(): void {
+    // Setup scroll animations
+    setTimeout(() => {
+      this.setupAnimations();
+    }, 100);
   }
 
   ngOnDestroy(): void {
-
+    if (this.scrollAnimation) {
+      this.scrollAnimation.disconnect();
+    }
   }
 
-  
+  private setupAnimations(): void {
+    if (!this.scrollAnimation) return;
+
+    // Animate sections on scroll
+    this.scrollAnimation.observeElements('.fade-in-section', {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px',
+      animationClass: 'animate-in'
+    });
+
+    // Stagger animation for cards
+    this.scrollAnimation.observeStagger('.stagger-item', {
+      staggerDelay: 100,
+      threshold: 0.1
+    });
+
+    // Animate counter numbers
+    this.animateCounters();
+  }
+
+  private animateCounters(): void {
+    if (typeof window === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const target = entry.target as HTMLElement;
+            const count = parseInt(target.getAttribute('data-count') || '0');
+            if (count > 0) {
+              this.countUp(target, 0, count, 1000);
+            }
+            observer.unobserve(target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const counterElements = document.querySelectorAll('.stat-number[data-count]');
+    counterElements.forEach((el) => observer.observe(el));
+  }
+
+  private countUp(element: HTMLElement, start: number, end: number, duration: number): void {
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.floor(start + (end - start) * this.easeOutCubic(progress));
+      element.textContent = current.toString();
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        element.textContent = end.toString();
+      }
+    };
+    requestAnimationFrame(animate);
+  }
+
+  private easeOutCubic(t: number): number {
+    return 1 - Math.pow(1 - t, 3);
+  }
 
   loadJobOpenings(): void {
+    this.isLoading = true;
     this.applicationFormService.getAllForms().subscribe({
       next: (forms: ApplicationForm[]) => {
         this.jobOpenings = forms.map(form => this.mapFormToJobCard(form));
+        this.currentPage = 1; // Reset to first page when data loads
+        this.isLoading = false;
+        // Re-setup animations after data loads
+        setTimeout(() => {
+          this.setupAnimations();
+        }, 100);
       },
       error: (error) => {
         console.error('Failed to load job openings:', error);
-        // Fallback to empty array or show error message
         this.jobOpenings = [];
+        this.currentPage = 1;
+        this.isLoading = false;
       }
     });
   }
@@ -57,25 +137,48 @@ export class CareersComponent implements OnInit, AfterViewInit, OnDestroy {
       formId: form.id
     };
   }
+
+  get paginatedJobOpenings(): JobCard[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.jobOpenings.slice(startIndex, endIndex);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.jobOpenings.length / this.pageSize);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    // Re-setup animations for new page cards
+    setTimeout(() => {
+      this.setupAnimations();
+      // Scroll to jobs section when page changes
+      const jobsSection = document.getElementById('jobs');
+      if (jobsSection) {
+        jobsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  }
   
   lifeAtMicrosoft = [
     {
-      emoji: '💼',
+      icon: 'dollar',
       title: 'Benefits',
       description: 'Explore our world-class benefits designed to help you and your family live well.'
     },
     {
-      emoji: '🤝',
+      icon: 'usergroup-add',
       title: 'Culture',
       description: 'We will only achieve our mission if we live our culture, which starts with applying a growth mindset.'
     },
     {
-      emoji: '🌍',
+      icon: 'global',
       title: 'Diversity and inclusion',
       description: 'We are committed to celebrating the diversity around us and its power to drive us forward together.'
     },
     {
-      emoji: '💡',
+      icon: 'bulb',
       title: 'Hiring Tips',
       description: 'Explore resources to help you prepare—we are here to support your interview journey.'
     }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-logo',
-  imports: [CommonModule, NzIconModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './logo.component.html',
+  styleUrl: './logo.component.scss',
   standalone: true
 })
 export class LogoComponent {

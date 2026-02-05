@@ -18,66 +18,15 @@
         </div>
       } @else {
         <!-- Pagination để quản lý pages -->
-        <div class="pages-pagination-container"
-             [style.background-color]="themeService.getPaginationContainerColors(themeService.currentTheme()).background"
-             [style.border-bottom-color]="themeService.getPaginationContainerColors(themeService.currentTheme()).border"
-             [style.color]="themeService.getPaginationContainerColors(themeService.currentTheme()).text">
-          <div class="page-selector">
-            <span class="page-label">Page:</span>
-            <nz-select 
-              [ngModel]="currentPageId" 
-              (ngModelChange)="onPageSelectChange($event)" 
-              nzPlaceHolder="Select page"
-              class="page-select">
-              <nz-option 
-                *ngFor="let page of pages" 
-                [nzValue]="page.id" 
-                [nzLabel]="page.name">
-              </nz-option>
-            </nz-select>
-          </div>
-
-          <div class="pagination-center">
-            <app-themed-pagination 
-              [pageIndex]="currentPageIndex" 
-              [total]="pages.length" 
-              [pageSize]="1"
-              [showQuickJumper]="false" 
-              [themeKey]="themeService.currentTheme()"
-              (pageIndexChange)="onPaginationChange($event)">
-            </app-themed-pagination>
-          </div>
-
-          <div class="page-actions">
-            <button 
-              nz-button 
-              nzType="default" 
-              nzSize="small" 
-              (click)="removePage(currentPageId)" 
-              class="remove-page-btn"
-              [disabled]="pages.length <= 1"
-              [style.border]="'none'">
-              <span nz-icon nzType="delete"></span>
-              Remove Page
-            </button>
-
-            <button 
-              nz-button 
-              nzType="primary" 
-              nzSize="small" 
-              (click)="addPage()" 
-              class="add-page-btn"
-              [style.background-color]="themeService.currentThemeColor()"
-              [style.border]="'none'">
-              <span nz-icon nzType="plus"></span>
-              Add Page
-            </button>
-          </div>
-        </div>
-
-        <ng-template #totalTemplate let-total>
-          <span class="pagination-total">Page {{ currentPageIndex }} of {{ total }}</span>
-        </ng-template>
+        <app-form-page-pagination
+          [pages]="pages"
+          [currentPageId]="currentPageId"
+          [themeKey]="themeService.currentTheme()"
+          (pageSelectChange)="onPageSelectChange($event)"
+          (paginationChange)="onPaginationChange($event)"
+          (addPage)="addPage()"
+          (removePage)="removePage($event)">
+        </app-form-page-pagination>
 
         <!-- Form Canvas cho page hiện tại -->
         <app-form-canvas 

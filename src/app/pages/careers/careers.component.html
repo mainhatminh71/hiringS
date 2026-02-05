@@ -1,80 +1,113 @@
 <main class="careers-page">
- 
   <!-- Hero Section -->
   <section class="hero-section">
-    <div class="hero-container">
-      <div class="hero-content">
-        <h1 class="hero-title">Win and thrive together</h1>
-        <div class="search-container">
-          <div class="search-input-wrapper">
-            <span class="search-icon-input">🔍</span>
-            <input type="text" class="search-input" placeholder="Search by job title, ID, or keyword">
-          </div>
-          <div class="search-input-wrapper">
-            <span class="location-icon">📍</span>
-            <input type="text" class="search-input" placeholder="City, state, or country/region">
-          </div>
-          <button class="find-jobs-button">Find jobs</button>
-        </div>
+    <div class="hero-background">
+      <div class="hero-gradient"></div>
+      <div class="hero-pattern">
+        <app-three-hero></app-three-hero>
       </div>
-      <div class="hero-graphic">
-        <div class="graphic-arcs">
-          <div class="arc arc-1"></div>
-          <div class="arc arc-2"></div>
-          <div class="arc arc-3"></div>
-          <div class="arc arc-4"></div>
-          <div class="arc arc-5"></div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-card-wrapper">
+        <div class="hero-card">
+          <div class="hero-card-content">
+            <h1 class="hero-card-title">Win and thrive together</h1>
+            <p class="hero-card-slogan">Join a mission-driven team</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Mission Section -->
-  <section class="mission-section">
+  <section class="mission-section fade-in-section">
     <div class="mission-container">
-      <div class="mission-video">
-        <div class="video-wrapper">
-          <div class="video-placeholder">
-            <div class="video-label">
-              <div class="video-logo">
-                <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="6" y="10" width="20" height="16" rx="2" fill="#0078d4"/>
-                  <path d="M12 10V8C12 6.89543 12.8954 6 14 6H18C19.1046 6 20 6.89543 20 8V10" stroke="white" stroke-width="1.5" fill="none"/>
-                  <line x1="11" y1="17" x2="21" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                  <line x1="11" y1="20" x2="21" y2="20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
+      <div class="mission-visual">
+        <div class="mission-image-wrapper">
+          <img 
+            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&h=900&fit=crop&q=90" 
+            alt="Job Application and Hiring Process"
+            class="mission-image"
+            loading="lazy"
+          />
+          <div class="mission-overlay">
+            <div class="mission-badge">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="10" width="20" height="16" rx="2" fill="#0078d4"/>
+                <path d="M12 10V8C12 6.89543 12.8954 6 14 6H18C19.1046 6 20 6.89543 20 8V10" stroke="white" stroke-width="1.5" fill="none"/>
+                <line x1="11" y1="17" x2="21" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="11" y1="20" x2="21" y2="20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
               <span>Our Mission</span>
             </div>
-            <div class="play-button">▶</div>
           </div>
         </div>
       </div>
       <div class="mission-content">
-        <h2 class="mission-title">Empowered by Purpose. United by Mission.</h2>
-        <p class="mission-text">When you join HiringS, you're not just stepping into a job—you're stepping into a mission-driven company where purpose is at the heart of everything we do.</p>
-        <p class="mission-text">Our mission—to empower every person and every organization on the planet to achieve more—isn't just words.</p>
-        <p class="mission-text">It's our foundation. It's what sets us apart.</p>
+        <h2 class="mission-title">
+          Empowered by Purpose.<br>
+          <span class="highlight">United by Mission.</span>
+        </h2>
+        <div class="mission-text-group">
+          <p class="mission-text">
+            When you join HiringS, you're not just stepping into a job—you're stepping into a mission-driven company where purpose is at the heart of everything we do.
+          </p>
+          <p class="mission-text">
+            Our mission—to empower every person and every organization on the planet to achieve more—isn't just words.
+          </p>
+          <p class="mission-text emphasis">
+            It's our foundation. It's what sets us apart.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Life at Microsoft Section -->
-  <section class="life-section">
+  <!-- Life at HiringS Section (Resources Style) -->
+  <section class="life-section fade-in-section">
     <div class="container">
-      <h2 class="section-title">Life at HiringS</h2>
+      <h2 class="section-title">Resources</h2>
       <app-life-card [lifeAtMicrosoft]="lifeAtMicrosoft"></app-life-card>
     </div>
   </section>
 
   <!-- Job Listings Section -->
-  <section id="jobs" class="jobs-section">
+  <section id="jobs" class="jobs-section fade-in-section">
     <div class="container">
-      <h2 class="section-title">Open Positions</h2>
-      <div class="flex flex-col gap-4">
-        <app-job-card *ngFor="let job of jobOpenings" [job]="job"></app-job-card>
+      <div class="section-header">
+        <h2 class="section-title">Open Positions</h2>
+        <p class="section-subtitle" *ngIf="jobOpenings.length > 0">
+          {{ jobOpenings.length }} position{{ jobOpenings.length > 1 ? 's' : '' }} available
+        </p>
       </div>
+      <div class="jobs-grid" *ngIf="jobOpenings.length > 0; else noJobs">
+        <div class="stagger-item" *ngFor="let job of paginatedJobOpenings">
+          <app-job-card [job]="job"></app-job-card>
+        </div>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="jobs-pagination" *ngIf="jobOpenings.length > pageSize">
+        <app-themed-pagination 
+          [pageIndex]="currentPage" 
+          [total]="jobOpenings.length" 
+          [pageSize]="pageSize"
+          [showQuickJumper]="false"
+          [showTotal]="true"
+          (pageIndexChange)="onPageChange($event)">
+        </app-themed-pagination>
+      </div>
+      <ng-template #noJobs>
+        <div class="no-jobs-message">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <h3>No positions available at the moment</h3>
+          <p>Check back soon for new opportunities!</p>
+        </div>
+      </ng-template>
     </div>
   </section>
-
 </main>
+

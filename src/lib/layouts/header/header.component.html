@@ -1,14 +1,36 @@
-<header class="bg-white border-b border-[#edebe9] py-3 sticky top-0 z-[100] shadow-sm">
-    <div class="max-w-[1600px] mx-auto px-6 flex items-center justify-between gap-6 flex-wrap md:flex-nowrap">
+<header class="header">
+  <div class="header-container">
+    <div class="header-left">
       <app-logo></app-logo>
-      <nav class="flex items-center gap-6 flex-1 justify-center order-3 w-full md:order-2 md:w-auto overflow-x-auto md:overflow-x-visible py-2 md:py-0">
-        <a href="#" class="text-sm text-[#323130] no-underline px-1 py-2 transition-colors duration-200 flex items-center gap-1 hover:text-[#0078d4]">Careers</a>
-        <a routerLink="/application-selection" class="text-sm text-[#323130] no-underline px-1 py-2 transition-colors duration-200 flex items-center gap-1 hover:text-[#0078d4]">Application Mewmew</a>
-        <a href="#" class="text-sm text-[#323130] no-underline px-1 py-2 transition-colors duration-200 flex items-center gap-1 hover:text-[#0078d4]">Location</a>
-
-      </nav>
-      <div class="flex items-center gap-4 order-2 md:order-3 flex-wrap md:flex-nowrap">
-        <a href="#" class="text-sm text-[#323130] no-underline px-1 py-2 transition-colors duration-200 flex items-center gap-1 hover:text-[#0078d4]">Join talent network</a>
-      </div>
     </div>
-  </header>
+    
+    <nav class="header-nav">
+      <a routerLink="/careers" class="nav-link">Careers</a>
+      <a routerLink="/application-selection" class="nav-link">Application</a>
+      <a href="#" class="nav-link">Resources</a>
+      <a href="#" class="nav-link">About</a>
+    </nav>
+    
+    <div class="header-right">
+      <button class="header-icon-btn" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+      <button class="header-icon-btn" aria-label="Theme toggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>

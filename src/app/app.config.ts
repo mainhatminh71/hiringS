@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
-import { PlusOutline } from '@ant-design/icons-angular/icons';
+import { PlusOutline, DollarOutline, UsergroupAddOutline, GlobalOutline, BulbOutline } from '@ant-design/icons-angular/icons';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(en_US),
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
-    provideNzIcons([PlusOutline]),
+    provideNzIcons([PlusOutline, DollarOutline, UsergroupAddOutline, GlobalOutline, BulbOutline]),
     provideHttpClient(), 
   
     provideFirebaseApp(() => {

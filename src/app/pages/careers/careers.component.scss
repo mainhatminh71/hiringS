@@ -1,75 +1,292 @@
+// ============================================
+// Variables & Mixins
+// ============================================
+$primary-color: #0078d4;
+$primary-hover: #106ebe;
+$text-primary: #323130;
+$text-secondary: #605e5c;
+$text-tertiary: #8a8886;
+$bg-primary: #ffffff;
+$bg-secondary: #faf9f8;
+$bg-tertiary: #f3f2f1;
+$accent-yellow: #ffb900;
+$accent-orange: #ff8c00;
+$accent-red: #e81123;
+$accent-purple: #6264a7;
+$accent-blue: #00bcf2;
+
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 48px;
+$spacing-xl: 80px;
+$spacing-2xl: 120px;
+
+$transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+@mixin fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity $transition-smooth, transform $transition-smooth;
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@mixin fade-in {
+  opacity: 0;
+  transition: opacity $transition-smooth;
+  
+  &.animate-in {
+    opacity: 1;
+  }
+}
+
+// ============================================
+// Base Styles
+// ============================================
 .careers-page {
   min-height: 100vh;
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  color: #323130;
-  background-color: #ffffff;
-  
-  // Lenis smooth scroll styles
-  
+  color: $text-primary;
+  background-color: $bg-primary;
+  overflow-x: hidden;
+  overflow-y: visible; // Let Lenis handle vertical scrolling
+  width: 100%;
+  max-width: 100%;
 }
 
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 $spacing-md;
 }
 
+// ============================================
 // Hero Section
+// ============================================
 .hero-section {
-  background: #fef5e6;
-  padding: 80px 0;
   position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: $spacing-2xl 0;
   overflow: hidden;
+  background: linear-gradient(135deg, #fef5e6 0%, #fff4e0 100%);
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  
+  // Smooth transition to mission section
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 1) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+
+    .hero-gradient {
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0, 120, 212, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+  }
 
   .hero-container {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    min-height: 90vh;
+  }
+
+  .hero-card-wrapper {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 $spacing-md;
+    
+    @media (min-width: 1600px) {
+      padding: 0 $spacing-xl;
+    }
   }
 
   .hero-content {
-    z-index: 2;
+    @include fade-in-up;
+    // Force visible for hero section (always in view on load)
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    
+    &.animate-in {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: $spacing-xs $spacing-sm;
+      background: rgba(0, 120, 212, 0.1);
+      border: 1px solid rgba(0, 120, 212, 0.2);
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: $primary-color;
+      margin-bottom: $spacing-lg;
+      animation: fade-in 0.8s ease-out;
+
+      span {
+        letter-spacing: 0.5px;
+      }
+    }
 
     .hero-title {
-      font-size: 68px;
+      font-size: clamp(42px, 8vw, 96px);
       font-weight: 600;
       line-height: 1.1;
-      margin: 0 0 40px;
-      color: #323130;
+      margin: 0 0 $spacing-md;
+      color: $text-primary;
+
+      .title-line {
+        display: block;
+        @include fade-in-up;
+        animation-delay: 0.1s;
+        // Force visible for hero title
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+
+        &:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        
+        &.animate-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+
+        .highlight {
+          background: linear-gradient(135deg, $primary-color 0%, $accent-blue 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+      }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(18px, 2.5vw, 24px);
+      line-height: 1.6;
+      color: $text-secondary;
+      margin: 0 0 $spacing-xl;
+      max-width: 600px;
+      @include fade-in-up;
+      animation-delay: 0.3s;
+      // Force visible for hero subtitle
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      
+      &.animate-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      .strikethrough {
+        text-decoration: line-through;
+        opacity: 0.5;
+      }
+
+      .highlight-text {
+        color: $primary-color;
+        font-weight: 600;
+      }
     }
 
     .search-container {
       display: flex;
-      gap: 12px;
-      background: #ffffff;
-      padding: 8px;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      gap: $spacing-sm;
+      background: $bg-primary;
+      padding: $spacing-sm;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      @include fade-in-up;
+      animation-delay: 0.4s;
+      // Force visible for search container
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      
+      &.animate-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
     }
 
     .search-input-wrapper {
       flex: 1;
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      background: #faf9f8;
-      border-radius: 2px;
-      border: 1px solid transparent;
+      gap: $spacing-sm;
+      padding: $spacing-sm $spacing-md;
+      background: $bg-secondary;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all $transition-base;
 
       &:focus-within {
-        background: #ffffff;
-        border-color: #0078d4;
+        background: $bg-primary;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.1);
       }
 
-      .search-icon-input,
-      .location-icon {
-        font-size: 18px;
-        color: #605e5c;
+      svg {
+        flex-shrink: 0;
+        color: $text-tertiary;
+        transition: color $transition-base;
+      }
+
+      &:focus-within svg {
+        color: $primary-color;
       }
 
       .search-input {
@@ -77,173 +294,229 @@
         border: none;
         background: transparent;
         font-size: 16px;
-        color: #323130;
+        color: $text-primary;
         outline: none;
+        font-family: inherit;
 
         &::placeholder {
-          color: #8a8886;
+          color: $text-tertiary;
         }
       }
     }
 
     .find-jobs-button {
-      background: #6264a7;
-      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      background: $primary-color;
+      color: $bg-primary;
       border: none;
-      padding: 12px 32px;
+      padding: $spacing-sm $spacing-lg;
       font-size: 16px;
       font-weight: 600;
-      border-radius: 2px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all $transition-base;
+      white-space: nowrap;
 
       &:hover {
-        background: #4f5199;
+        background: $primary-hover;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 120, 212, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      svg {
+        transition: transform $transition-base;
+      }
+
+      &:hover svg {
+        transform: translateX(4px);
       }
     }
   }
 
-  .hero-graphic {
+  .hero-card {
     position: relative;
-    height: 400px;
-    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    min-height: 600px;
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
 
-    .graphic-arcs {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-    }
+    .hero-card-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: $spacing-2xl;
+      background: transparent;
 
-    .arc {
-      position: absolute;
-      border-radius: 50% 50% 0 0;
-      opacity: 0.8;
-    }
+      .hero-card-title {
+        font-size: clamp(64px, 10vw, 140px);
+        font-weight: 100;
+        line-height: 1.1;
+        margin: 0 0 $spacing-lg;
+        color: #1a1a1a;
+        letter-spacing: 0.05em;
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        text-transform: none;
+      }
 
-    .arc-1 {
-      width: 300px;
-      height: 300px;
-      background: #ffb900;
-      bottom: 0;
-      right: 0;
-      transform: translate(30%, 0);
-    }
-
-    .arc-2 {
-      width: 250px;
-      height: 250px;
-      background: #ff8c00;
-      bottom: 20px;
-      right: 50px;
-      transform: translate(20%, 0);
-    }
-
-    .arc-3 {
-      width: 200px;
-      height: 200px;
-      background: #e81123;
-      bottom: 40px;
-      right: 100px;
-      transform: translate(15%, 0);
-    }
-
-    .arc-4 {
-      width: 180px;
-      height: 180px;
-      background: #6264a7;
-      bottom: 60px;
-      right: 150px;
-      transform: translate(10%, 0);
-    }
-
-    .arc-5 {
-      width: 150px;
-      height: 150px;
-      background: #00bcf2;
-      bottom: 80px;
-      right: 200px;
-      transform: translate(5%, 0);
+      .hero-card-slogan {
+        font-size: clamp(18px, 2.5vw, 24px);
+        font-weight: 400;
+        line-height: 1.6;
+        margin: 0;
+        color: #4a4a4a;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      }
     }
   }
 }
 
+// ============================================
 // Mission Section
+// ============================================
 .mission-section {
-  padding: 100px 0;
-  background: #ffffff;
-
-  .mission-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
+  position: relative;
+  padding: $spacing-2xl 0;
+  background: $bg-primary;
+  @include fade-in-up;
+  
+  // Smooth transition from hero
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(
+      to bottom,
+      rgba(254, 245, 230, 0.3) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
   }
 
-  .mission-video {
-    .video-wrapper {
-      position: relative;
-      padding-top: 56.25%;
-      background: #000000;
-      border-radius: 4px;
-      overflow: hidden;
+  .mission-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-2xl;
+    align-items: center;
 
-      .video-placeholder {
-        position: absolute;
-        top: 0;
-        left: 0;
+    @media (max-width: 1200px) {
+      grid-template-columns: 1fr;
+      gap: $spacing-xl;
+    }
+  }
+
+  .mission-visual {
+    .mission-image-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 600px;
+      aspect-ratio: 16 / 9;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15);
+      transition: all $transition-smooth;
+      background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+
+      @media (min-width: 1200px) {
+        min-height: 700px;
+        aspect-ratio: 16 / 10;
+      }
+
+      &:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
+      }
+
+      .mission-image {
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        object-fit: cover;
+        object-position: center;
+        transition: transform $transition-smooth;
+        display: block;
+        min-height: 600px;
+
+        @media (min-width: 1200px) {
+          min-height: 700px;
+        }
+      }
+
+      &:hover .mission-image {
+        transform: scale(1.08);
+      }
+
+      .mission-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.15) 0%,
+          transparent 30%,
+          transparent 70%,
+          rgba(0, 0, 0, 0.25) 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: $spacing-lg;
+        pointer-events: none;
+      }
+
+      .mission-badge {
         display: flex;
         align-items: center;
-        justify-content: center;
-        position: relative;
+        gap: $spacing-xs;
+        color: $bg-primary;
+        font-size: 14px;
+        font-weight: 500;
+        background: rgba(255, 255, 255, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        pointer-events: auto;
+        transition: all $transition-base;
 
-        .video-label {
-          position: absolute;
-          top: 20px;
-          left: 20px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          color: #ffffff;
-          font-size: 14px;
-
-          .video-logo {
-            width: 16px;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            svg {
-              width: 100%;
-              height: 100%;
-            }
-          }
+        &:hover {
+          background: rgba(255, 255, 255, 1);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
 
-        .play-button {
-          width: 64px;
-          height: 64px;
-          background: #e81123;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #ffffff;
-          font-size: 24px;
-          cursor: pointer;
-          transition: transform 0.2s;
+        svg {
+          width: 20px;
+          height: 20px;
+        }
 
-          &:hover {
-            transform: scale(1.1);
-          }
+        span {
+          color: #323130;
+          font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
         }
       }
     }
@@ -251,170 +524,409 @@
 
   .mission-content {
     .mission-title {
-      font-size: 48px;
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 600;
       line-height: 1.2;
-      margin: 0 0 24px;
-      color: #323130;
+      margin: 0 0 $spacing-lg;
+      color: $text-primary;
+
+      .highlight {
+        background: linear-gradient(135deg, $primary-color 0%, $accent-blue 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
     }
 
-    .mission-text {
-      font-size: 18px;
-      line-height: 1.7;
-      color: #323130;
-      margin: 0 0 20px;
+    .mission-text-group {
+      .mission-text {
+        font-size: 18px;
+        line-height: 1.8;
+        color: $text-secondary;
+        margin: 0 0 $spacing-md;
 
-      &:last-child {
-        margin-bottom: 0;
+        &.emphasis {
+          font-size: 20px;
+          font-weight: 500;
+          color: $text-primary;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }
 }
 
-// Life at Microsoft Section
+// ============================================
+// Life Section (Resources Style - Microsoft Design)
+// ============================================
 .life-section {
-  padding: 100px 0;
-  background: #ffffff;
+  position: relative;
+  padding: $spacing-2xl 0;
+  background: $bg-primary;
+  @include fade-in-up;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  
+  // Smooth transition from mission
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(250, 249, 248, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
 
   .section-title {
-    font-size: 56px;
+    font-size: clamp(36px, 5vw, 56px);
     font-weight: 600;
+    margin: 0 0 $spacing-xl;
+    color: $text-primary;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.02em;
+    padding: 0 48px;
+    max-width: 100%;
     text-align: center;
-    margin: 0 0 60px;
-    color: #323130;
+
+    @media (max-width: 768px) {
+      padding: 0 20px;
+    }
   }
 
-  .life-cards-grid {
+  .resources-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $spacing-md;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-lg;
+    }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-xl;
+    }
   }
 
-  .life-card {
-    background: #ffffff;
-    border-radius: 4px;
+  .resource-card {
+    display: flex;
+    flex-direction: column;
+    background: $bg-primary;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all $transition-base;
     cursor: pointer;
+    @include fade-in-up;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: rgba(0, 120, 212, 0.2);
     }
 
-    .life-card-image {
+    .resource-image {
       width: 100%;
-      padding-top: 60%;
-      background: #f3f2f1;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
       position: relative;
       overflow: hidden;
 
-      .image-placeholder {
+      .resource-image-placeholder {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 64px;
+        opacity: 0.6;
+        transition: transform $transition-base, opacity $transition-base;
       }
     }
 
-    .life-card-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 24px 24px 12px;
-      color: #323130;
+    &:hover .resource-image-placeholder {
+      transform: scale(1.1);
+      opacity: 0.8;
     }
 
-    .life-card-description {
-      font-size: 16px;
-      line-height: 1.5;
-      color: #605e5c;
-      margin: 0 24px 24px;
+    .resource-content {
+      padding: $spacing-md;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+
+      .resource-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        color: $text-primary;
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        letter-spacing: -0.01em;
+        transition: color $transition-base;
+      }
+
+      .resource-description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: $text-secondary;
+        margin: 0;
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      }
+    }
+
+    &:hover .resource-title {
+      color: $primary-color;
     }
   }
 }
 
+// ============================================
 // Jobs Section
+// ============================================
 .jobs-section {
-  padding: 80px 0;
-  background: #faf9f8;
+  position: relative;
+  padding: $spacing-2xl 0;
+  background: $bg-primary;
+  @include fade-in-up;
+  
+  // Smooth transition from life section
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(
+      to bottom,
+      rgba(250, 249, 248, 0.5) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .section-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
 
   .section-title {
-    font-size: 42px;
+    font-size: clamp(36px, 5vw, 56px);
     font-weight: 600;
+    margin: 0 0 $spacing-sm;
+    color: $text-primary;
+  }
+
+  .section-subtitle {
+    font-size: 18px;
+    color: $text-secondary;
+    margin: 0;
+  }
+
+  .jobs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+
+    .stagger-item {
+      @include fade-in-up;
+    }
+  }
+
+  .jobs-pagination {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: $spacing-xl;
+    padding-top: $spacing-lg;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+
+    // Custom pagination colors for careers page (Microsoft Design style)
+    ::ng-deep {
+      .themed-pagination {
+        --pagination-primary: #0078d4;
+        --pagination-primary-hover: #106ebe;
+        --pagination-active-bg: #0078d4;
+        --pagination-active-text: #ffffff;
+        --pagination-text: #323130;
+        
+        .pagination-total {
+          color: #605e5c;
+          font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .ant-pagination {
+          .ant-pagination-item {
+            background-color: #faf9f8;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            
+            a {
+              color: #323130;
+              font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            }
+            
+            &:hover {
+              background-color: #f3f2f1;
+              border-color: #0078d4;
+              
+              a {
+                color: #0078d4;
+              }
+            }
+            
+            &.ant-pagination-item-active {
+              background-color: #0078d4;
+              border-color: #0078d4;
+              box-shadow: 0 2px 8px rgba(0, 120, 212, 0.2);
+              
+              a {
+                color: #ffffff;
+                font-weight: 500;
+              }
+              
+              &:hover {
+                background-color: #106ebe;
+                border-color: #106ebe;
+                box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
+              }
+            }
+          }
+          
+          .ant-pagination-prev,
+          .ant-pagination-next {
+            background-color: #faf9f8;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            
+            .ant-pagination-item-link {
+              color: #323130;
+            }
+            
+            &:hover {
+              background-color: #f3f2f1;
+              border-color: #0078d4;
+              
+              .ant-pagination-item-link {
+                color: #0078d4;
+              }
+            }
+          }
+          
+          .ant-pagination-disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            
+            &:hover {
+              background-color: #faf9f8;
+              border-color: rgba(0, 0, 0, 0.08);
+              
+              .ant-pagination-item-link {
+                color: #323130;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .no-jobs-message {
     text-align: center;
-    margin: 0 0 60px;
-    color: #323130;
-  }
+    padding: $spacing-2xl 0;
+    color: $text-secondary;
 
-  // Jobs list styles are now handled by Tailwind CSS classes
-  // Job card styles are in job-card.component.scss
+    svg {
+      margin: 0 auto $spacing-md;
+      color: $text-tertiary;
+      opacity: 0.5;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 $spacing-sm;
+      color: $text-primary;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0;
+    }
+  }
 }
 
-// Footer
+// ============================================
+// Animations
+// ============================================
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px) rotate(-5deg);
+  }
+}
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// ============================================
 // Responsive Design
-@media (max-width: 1200px) {
-  .hero-section .hero-container,
-  .mission-section .mission-container {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-graphic {
-    display: none;
-  }
-
-  .life-section .life-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
+// ============================================
 @media (max-width: 768px) {
   .hero-section {
-    padding: 60px 0;
-
-    .hero-content .hero-title {
-      font-size: 42px;
-    }
-
-    .search-container {
-      flex-direction: column;
-    }
+    min-height: 100vh;
+    padding: $spacing-xl 0;
   }
 
-  .mission-section {
-    padding: 60px 0;
-
-    .mission-content .mission-title {
-      font-size: 36px;
-    }
+  .mission-section,
+  .life-section,
+  .jobs-section {
+    padding: $spacing-xl 0;
   }
 
-  .life-section {
-    padding: 60px 0;
-
-    .section-title {
-      font-size: 42px;
-    }
-
-    .life-cards-grid {
-      grid-template-columns: 1fr;
-    }
+  .hero-content .hero-title {
+    margin-bottom: $spacing-md;
   }
 
-  .jobs-section .section-title {
-    font-size: 32px;
+  .hero-content .hero-subtitle {
+    margin-bottom: $spacing-lg;
   }
-
-  .job-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-
-    .job-apply-button {
-      width: 100%;
-      text-align: center;
-    }
-  }
-
 }

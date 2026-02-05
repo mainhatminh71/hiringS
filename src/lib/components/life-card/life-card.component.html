@@ -1,9 +1,17 @@
-<div class="life-cards-grid">
-  <article class="life-card" *ngFor="let item of lifeAtMicrosoft">
-    <div class="life-card-image">
-      <div class="image-placeholder">{{ item.emoji }}</div>
+<div class="resources-list">
+  <article class="resource-item stagger-item" *ngFor="let item of lifeAtMicrosoft; let i = index" [class.resource-item-dark]="i % 2 === 1">
+    <div class="resource-content-wrapper">
+      <h3 class="resource-title">{{ item.title }}</h3>
+      <p class="resource-description">{{ item.description }}</p>
+      <div class="resource-visual">
+        <div class="resource-icon">
+          <nz-icon [nzType]="item.icon" nzTheme="outline"></nz-icon>
+        </div>
+        <svg class="resource-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </div>
     </div>
-    <h3 class="life-card-title">{{ item.title }}</h3>
-    <p class="life-card-description">{{ item.description }}</p>
   </article>
 </div>

@@ -25,6 +25,23 @@ html.lenis {
   height: auto;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+// Hide default scrollbar but allow scrolling
+html.lenis body {
+  overflow-x: hidden;
+  overflow-y: auto; // Allow scrolling but hide scrollbar
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html.lenis body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }

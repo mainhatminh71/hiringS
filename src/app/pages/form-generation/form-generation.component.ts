@@ -9,19 +9,14 @@ import {ApplicationFormService} from '../../../lib/core/services/application-for
 import { ApplicationForm } from '../../../lib/core/models/application-form.model';
 import { ActivatedRoute } from '@angular/router';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
-import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 import {FormPage} from '../../../lib/core/models/form-page.model';
-import {NzButtonModule} from 'ng-zorro-antd/button';
-import {NzIconModule} from 'ng-zorro-antd/icon';
-import {NzSelectModule} from 'ng-zorro-antd/select';
-import {FormsModule} from '@angular/forms';
-import { ThemedPaginationComponent } from '../../../lib/components/themed-pagination/themed-pagination.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { FormPagePaginationComponent } from '../../../lib/components/form-builders/form-page-pagination/form-page-pagination.component';
 import { Subject, of } from 'rxjs';
 import { takeUntil, switchMap, catchError } from 'rxjs/operators';
 @Component({
   selector: 'app-form-generation',
-  imports: [ComponentPaletteComponent, FormCanvasComponent, CommonModule, RightPropertySideComponent, NzPaginationModule, NzButtonModule, NzIconModule, NzSelectModule, FormsModule, ThemedPaginationComponent, NzSpinModule],
+  imports: [ComponentPaletteComponent, FormCanvasComponent, CommonModule, RightPropertySideComponent, NzSpinModule, FormPagePaginationComponent],
   templateUrl: './form-generation.component.html',
   styleUrl: './form-generation.component.scss',
   standalone: true

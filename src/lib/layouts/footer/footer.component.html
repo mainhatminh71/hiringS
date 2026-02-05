@@ -1,52 +1,58 @@
-<footer class="bg-white py-10 border-t border-[#edebe9]">
-  <div class="max-w-[1600px] mx-auto px-6 flex justify-between gap-10 flex-wrap md:flex-nowrap">
-    <div class="flex flex-col gap-4">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-center gap-2">
-          <nz-icon nzType="global" nzTheme="outline" class="text-base text-[#323130]"></nz-icon>
-          <nz-select 
-            [(ngModel)]="selectedLanguage" 
-            (ngModelChange)="onLanguageChange($event)"
-            nzPlaceHolder="Select Language"
-            class="min-w-[150px]">
-            <nz-option nzValue="en" nzLabel="English"></nz-option>
-            <nz-option nzValue="vi" nzLabel="Tiếng Việt"></nz-option>
-          </nz-select>
-        </div>
-        <div class="flex flex-wrap gap-4">
-          <a 
-            *ngFor="let link of footerLinks"
-            [href]="link.url"
-            class="text-sm text-[#323130] no-underline transition-colors duration-200 hover:text-[#0078d4]">
-            {{ link.label }}
-          </a>
-        </div>
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3 class="footer-section-title">Design</h3>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Home</a></li>
+          <li><a href="#" class="footer-link">News & Stories</a></li>
+          <li><a href="#" class="footer-link">Wallpapers</a></li>
+          <li><a href="#" class="footer-link">Culture & Careers</a></li>
+          <li><a href="#" class="footer-link">Resources</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3 class="footer-section-title">Resources</h3>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Fluent Design</a></li>
+          <li><a href="#" class="footer-link">Inclusive Design</a></li>
+          <li><a href="#" class="footer-link">Secure UX</a></li>
+          <li><a href="#" class="footer-link">Responsible AI</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3 class="footer-section-title">Company</h3>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">About</a></li>
+          <li><a href="#" class="footer-link">Careers</a></li>
+          <li><a href="#" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3 class="footer-section-title">Legal</h3>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Privacy</a></li>
+          <li><a href="#" class="footer-link">Terms</a></li>
+          <li><a href="#" class="footer-link">Trademarks</a></li>
+        </ul>
       </div>
     </div>
-    <div class="flex flex-col gap-4 items-start md:items-end">
-      <div class="flex flex-col gap-4 items-start md:items-end">
-        <div class="flex gap-3">
-          <a 
-            *ngFor="let social of socialLinks"
-            [nz-tooltip]="social.label"
-            nzTooltipPlacement="top"
-            [href]="social.url" 
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-8 h-8 flex items-center justify-center bg-[#323130] text-white rounded-full no-underline transition-colors duration-200 hover:bg-[#0078d4]" 
-            [attr.aria-label]="social.label">
-            <nz-icon [nzType]="social.icon" nzTheme="outline" class="text-base"></nz-icon>
-          </a>
-        </div>
-        <div class="flex flex-wrap gap-4 items-center text-sm">
-          <a 
-            *ngFor="let legal of legalLinks"
-            [href]="legal.url"
-            class="text-[#323130] no-underline transition-colors duration-200 hover:text-[#0078d4]">
-            {{ legal.label }}
-          </a>
-          <span class="text-[#605e5c] text-sm">© HiringS 2026</span>
-        </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span class="footer-copyright">© HiringS 2026</span>
+      </div>
+      <div class="footer-bottom-right">
+        <a href="#" class="footer-link-small">Privacy</a>
+        <span class="footer-separator">•</span>
+        <a href="#" class="footer-link-small">Terms of use</a>
+        <span class="footer-separator">•</span>
+        <a href="#" class="footer-link-small">Trademarks</a>
+        <span class="footer-separator">•</span>
+        <a href="#" class="footer-link-small">Safety & eco</a>
       </div>
     </div>
   </div>

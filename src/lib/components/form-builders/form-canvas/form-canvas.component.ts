@@ -1,8 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit, OnDestroy, PLATFORM_ID, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import { ViewChild } from '@angular/core';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { setupDeleteButton,setupEditableTitle,
   setupEditableOptions,
@@ -14,20 +13,22 @@ import { setupDeleteButton,setupEditableTitle,
   setupEditableDescriptionContent} from '../../../core/helpers/canvas-setup.helper';
 import { Model as SurveyModel } from 'survey-core';
 import { SurveyModule } from 'survey-angular-ui';
+import Lenis from 'lenis';
 
 import { UIBlockInstance } from '../../../core/models/ui-block-instance.model';
 import { UIBlock } from '../../../core/models/ui-block.model';
 import { applySurveyTheme, SurveyThemeKey } from '../../../core/helpers/theme-helper';
 import { ThemeService } from '../../../core/services/theme.service';
 import { inject } from '@angular/core';
+import { CanvasHeaderComponent } from '../canvas-header/canvas-header.component';
 @Component({
   selector: 'app-form-canvas',
   standalone: true,
-  imports: [CommonModule, DragDropModule, SurveyModule, ScrollingModule],
+  imports: [CommonModule, DragDropModule, SurveyModule, ScrollingModule, CanvasHeaderComponent],
   templateUrl: './form-canvas.component.html',
   styleUrl: './form-canvas.component.scss',
 })
-export class FormCanvasComponent implements OnChanges {
+export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
   @Input() blocks: UIBlockInstance[] = [];
   @Input() selectedInstanceId?: string;
   @Input() themeKey: SurveyThemeKey = 'default-dark';
@@ -54,14 +55,114 @@ export class FormCanvasComponent implements OnChanges {
   @Output() postedDateUpdated = new EventEmitter<string>();
 
   themeService = inject(ThemeService);
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
 
   @ViewChild(CdkScrollable) scrollable!: CdkScrollable;
+  @ViewChild('canvasScrollWrapper', { static: false }) canvasScrollWrapper!: ElementRef<HTMLElement>;
+
+  private lenis: Lenis | null = null;
+  private rafId: number | null = null;
+
+  ngOnInit(): void {
+    // Lenis sẽ được init trong ngAfterViewInit
+  }
+
+  ngAfterViewInit(): void {
+    if (this.isBrowser) {
+      // Delay để đảm bảo DOM và survey đã render
+      setTimeout(() => {
+        this.initLenis();
+      }, 300);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyLenis();
+  }
+
+  private initLenis(): void {
+    if (!this.isBrowser || !this.canvasScrollWrapper?.nativeElement) {
+      return;
+    }
+
+    // Destroy existing Lenis instance nếu có
+    if (this.lenis) {
+      this.destroyLenis();
+    }
+
+    const container = this.canvasScrollWrapper.nativeElement;
+    const content = container.querySelector('.canvas-drop-zone') as HTMLElement;
+    
+    if (!content) {
+      return;
+    }
+
+    // Đảm bảo container có đúng styles cho Lenis
+    container.style.overflow = 'hidden';
+    container.style.position = 'relative';
+    
+    // Add lenis class to container
+    container.classList.add('lenis', 'lenis-smooth');
+    
+    // Setup Lenis với wrapper và content
+    this.lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+      wrapper: container,
+      content: content,
+    });
+
+    // Setup RAF loop
+    const raf = (time: number) => {
+      if (this.lenis) {
+        this.lenis.raf(time);
+        this.rafId = requestAnimationFrame(raf);
+      }
+    };
+
+    this.rafId = requestAnimationFrame(raf);
+  }
+
+  private destroyLenis(): void {
+    if (this.rafId !== null) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+    if (this.lenis) {
+      this.lenis.destroy();
+      this.lenis = null;
+    }
+    if (this.canvasScrollWrapper?.nativeElement) {
+      this.canvasScrollWrapper.nativeElement.classList.remove('lenis', 'lenis-smooth');
+    }
+  }
 
   scrollToTop() {
-    this.scrollable?.scrollTo({ top: 0, behavior: 'smooth' });
+    if (this.lenis) {
+      this.lenis.scrollTo(0, { immediate: false });
+    } else {
+      this.scrollable?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
+
   scrollToBottom() {
-    this.scrollable?.scrollTo({ bottom: 0, behavior: 'smooth' });
+    if (this.lenis && this.canvasScrollWrapper?.nativeElement) {
+      const container = this.canvasScrollWrapper.nativeElement;
+      const content = container.querySelector('.canvas-drop-zone') as HTMLElement;
+      if (content) {
+        const maxScroll = content.scrollHeight - container.clientHeight;
+        this.lenis.scrollTo(maxScroll, { immediate: false });
+      }
+    } else {
+      this.scrollable?.scrollTo({ bottom: 0, behavior: 'smooth' });
+    }
   }
 
   surveyModel?: SurveyModel;
@@ -69,6 +170,13 @@ export class FormCanvasComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['blocks'] || changes['themeKey'] || changes['formName']) {
       this.updateSurveyModel();
+      // Re-init Lenis sau khi survey model update
+      if (this.isBrowser && this.surveyModel) {
+        setTimeout(() => {
+          this.destroyLenis();
+          this.initLenis();
+        }, 200);
+      }
     }
     if (changes['selectedInstanceId']) {
       this.applySelectedState();

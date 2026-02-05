@@ -1,5 +1,5 @@
 export interface LifeCard {
-    emoji: string,
+    icon: string, // Ant Design icon name
     title: string,
     description: string
   }

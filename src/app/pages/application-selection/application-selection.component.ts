@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApplicationFormCardComponent } from '../../../lib/components/application-form-card/application-form-card.component';
 import {RouterModule} from '@angular/router';
@@ -21,6 +21,7 @@ import { NavigationEnd } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { ScrollAnimationService } from '../../../lib/core/services/scroll-animation.service';
 @Component({
   selector: 'app-application-selection',
   imports: [CommonModule, ApplicationFormCardComponent, 
@@ -29,14 +30,16 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
   templateUrl: './application-selection.component.html',
   styleUrl: './application-selection.component.scss'
 })
-export class ApplicationSelectionComponent implements OnInit, OnDestroy {
+export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnDestroy {
   private applicationFormService = inject(ApplicationFormService);
   private message = inject(NzMessageService);
   private modal = inject(NzModalService);
+  private router = inject(Router);
+  private scrollAnimation: ScrollAnimationService = inject(ScrollAnimationService);
+  
   applications: ApplicationForm[] = [];
   selectedIds = new Set<string>();
   private destroy$ = new Subject<void>();
-  private router = inject(Router);
 
   isLoading = false;
   private instanceCountCache = new Map<string, number>();
@@ -52,9 +55,32 @@ export class ApplicationSelectionComponent implements OnInit, OnDestroy {
       this.loadApplications();
     });
   }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.setupAnimations();
+      // Force animate-in for create card (always visible at top)
+      const createCard = document.querySelector('.create-card');
+      if (createCard) {
+        createCard.classList.add('animate-in');
+      }
+    }, 100);
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    if (this.scrollAnimation) {
+      this.scrollAnimation.disconnect();
+    }
+  }
+
+  private setupAnimations(): void {
+    if (!this.scrollAnimation) return;
+    // Stagger animation for cards
+    this.scrollAnimation.observeStagger('.stagger-item', {
+      staggerDelay: 50,
+      threshold: 0.1
+    });
   }
   loadApplications() {
     this.isLoading = true;

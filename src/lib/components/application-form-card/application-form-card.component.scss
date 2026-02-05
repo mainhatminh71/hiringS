@@ -15,42 +15,99 @@
 .app-form-card__container {
   width: 100%;
   height: 100%;
-  border-radius: 16px; /* Softer corners */
+  border-radius: 16px;
   background: #ffffff;
   cursor: pointer;
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #f1f5f9;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
   
-  /* Default subtle shadow */
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  /* Microsoft Design subtle shadow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+
+  // Left accent bar
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #0078d4 0%, #00bcf2 100%);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+  
+  // Subtle pattern overlay
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 2px 2px, rgba(0, 120, 212, 0.02) 1px, transparent 0);
+    background-size: 24px 24px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
 
   ::ng-deep .ant-card-body {
     height: 100%;
+    position: relative;
+    z-index: 1;
   }
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    border-color: rgba(99, 102, 241, 0.3); /* Subtle indigo highlight */
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 120, 212, 0.3);
+
+    &::before {
+      transform: scaleY(1);
+    }
+    
+    &::after {
+      opacity: 1;
+    }
   }
 }
 
 /* Dashed Variant for "Add New" */
 .app-form-card__container--dashed {
-  border: 2px dashed #cbd5e1;
-  background-color: #f8fafc;
-  box-shadow: none;
+  border: 2px dashed rgba(0, 0, 0, 0.12);
+  background-color: #faf9f8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  &::before {
+    display: none;
+  }
+  
+  &::after {
+    background-image: 
+      radial-gradient(circle at 2px 2px, rgba(0, 120, 212, 0.03) 1px, transparent 0);
+  }
 
   &:hover {
-    border-color: #818cf8;
-    background-color: #f1f5f9;
-    transform: translateY(-1px);
-    box-shadow: none;
+    border-color: #0078d4;
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.03) 0%, rgba(0, 188, 242, 0.03) 100%);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 120, 212, 0.2), 0 4px 8px rgba(0, 120, 212, 0.1);
+    
+    &::after {
+      opacity: 1;
+    }
   }
 
   /* Reset ant-card styles for dashed variant if needed */
   ::ng-deep &.ant-card-bordered {
-    border: 2px dashed #cbd5e1;
+    border: 2px dashed rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -80,17 +137,37 @@
 
 .app-form-card__swatch {
   display: block;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px; /* Squircle */
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 200ms ease;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  // Subtle shine effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+    transform: rotate(45deg);
+    transition: transform 0.6s ease;
+  }
 }
 
 .app-form-card__container:hover .app-form-card__swatch {
-  transform: scale(1.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 1);
+  
+  &::before {
+    transform: rotate(45deg) translate(100%, 100%);
+  }
 }
 
 .checkbox-overlay {

@@ -1,70 +1,21 @@
 <!-- form-canvas.component.html -->
 <div class="form-canvas">
   <!-- Fixed Header -->
-  <div 
-    class="canvas-header"
-    [style.background-color]="themeColors.main"
-    [style.border-bottom-color]="themeColors.border"
-    [style.color]="themeColors.text"
-  >
-    <div class="header-content">
-      <div class="header-title">
-        <h2 [style.color]="themeColors.text">{{ formName }}</h2>
-      </div>
-      <div class="header-fields">
-        <div class="header-field">
-          <label [style.color]="themeColors.text">Department</label>
-          <input 
-            type="text" 
-            [value]="department"
-            (input)="onDepartmentChange($any($event.target).value)"
-            placeholder="e.g., Engineering"
-            class="header-input"
-            [style.border-color]="themeColors.border"
-            [style.color]="themeColors.text"
-          />
-        </div>
-        <div class="header-field">
-          <label [style.color]="themeColors.text">Location</label>
-          <input 
-            type="text" 
-            [value]="location"
-            (input)="onLocationChange($any($event.target).value)"
-            placeholder="e.g., Ho Chi Minh City, Vietnam"
-            class="header-input"
-            [style.border-color]="themeColors.border"
-            [style.color]="themeColors.text"
-          />
-        </div>
-        <div class="header-field">
-          <label [style.color]="themeColors.text">Employment Type</label>
-          <input 
-            type="text" 
-            [value]="employmentType"
-            (input)="onEmploymentTypeChange($any($event.target).value)"
-            placeholder="e.g., Full-time"
-            class="header-input"
-            [style.border-color]="themeColors.border"
-            [style.color]="themeColors.text"
-          />
-        </div>
-        <div class="header-field">
-          <label [style.color]="themeColors.text">Posted Date</label>
-          <input 
-            type="date" 
-            [value]="postedDate"
-            (input)="onPostedDateChange($any($event.target).value)"
-            class="header-input"
-            [style.border-color]="themeColors.border"
-            [style.color]="themeColors.text"
-            title="Posted Date"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-canvas-header
+    [formName]="formName"
+    [department]="department"
+    [location]="location"
+    [employmentType]="employmentType"
+    [postedDate]="postedDate"
+    [themeKey]="themeKey"
+    (departmentUpdated)="onDepartmentChange($event)"
+    (locationUpdated)="onLocationChange($event)"
+    (employmentTypeUpdated)="onEmploymentTypeChange($event)"
+    (postedDateUpdated)="onPostedDateChange($event)">
+  </app-canvas-header>
   <!-- Scrollable Content -->
   <div
+    #canvasScrollWrapper
     class="canvas-scroll-wrapper"
     cdkScrollable
     cdkDropList
