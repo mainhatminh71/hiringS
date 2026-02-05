@@ -14,11 +14,5 @@ export class AppComponent implements OnInit{
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.authService.handleRedirectResult().subscribe({
-      next: (result) => {
-        if (result)
-        this.router.navigate(['/']);
-      }
-    })
   }
 }

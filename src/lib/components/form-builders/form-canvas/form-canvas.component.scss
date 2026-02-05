@@ -1,17 +1,23 @@
 :host {
   display: block;
   height: 100%;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .form-canvas {
   height: 100%;
   width: 100%;
+  max-width: 100%;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   background-color: transparent;
   overflow: hidden;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 
   .canvas-header {
     position: sticky;
@@ -27,8 +33,8 @@
                 color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     // Màu chữ sẽ được set từ theme service qua inline styles
     color: inherit;
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     position: relative;
     overflow: hidden;
     
@@ -47,10 +53,13 @@
       opacity: 0.4;
     }
   
-    .header-content {
+      .header-content {
+      width: 100%;
       max-width: 100%;
+      min-width: 100%;
       position: relative;
       z-index: 1;
+      box-sizing: border-box;
       
       .header-title {
         margin-bottom: 1.5rem;
@@ -96,8 +105,8 @@
             border-radius: 10px;
             font-size: 0.9375rem;
             background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             // Màu chữ sẽ được set từ inline style
             color: inherit;
@@ -151,6 +160,7 @@
   .canvas-scroll-wrapper {
     flex: 1;
     width: 100%;
+    max-width: 100%;
     height: 100%;
     overflow-y: scroll !important;
     overflow-x: hidden !important;
@@ -160,6 +170,7 @@
 
   .canvas-drop-zone {
     width: 100%;
+    max-width: 100%;
     min-height: 100%;
     height: 100%;
     padding: 0;
@@ -176,6 +187,7 @@
 
     .survey-frame {
       width: 100%;
+      max-width: 100%;
       flex: 1;
       height: 100%;
       margin: 0;
@@ -192,6 +204,7 @@
 
         :global(.sv-root) {
           width: 100%;
+          max-width: 100%;
           height: 100%;
           min-height: 100%;
           margin: 0;
@@ -201,6 +214,7 @@
 
         :global(.sv-container-modern) {
           width: 100%;
+          max-width: 100%;
           height: 100%;
           min-height: 100%;
           margin: 0;
@@ -210,6 +224,7 @@
 
         :global(.sv-body) {
           width: 100%;
+          max-width: 100%;
           height: 100%;
           min-height: 100%;
           margin: 0;
@@ -219,6 +234,7 @@
 
         :global(.sv-page) {
           width: 100%;
+          max-width: 100%;
           margin: 0;
           padding: 0;
           display: block;
@@ -226,11 +242,43 @@
 
         :global(.sv-body__content) {
           width: 100%;
+          max-width: 100%;
+          min-width: 100%;
           height: 100%;
           min-height: 100%;
           margin: 0;
           padding: 0;
           display: block;
+          box-sizing: border-box;
+        }
+
+        :global(.sv-body__frame) {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        :global(.sv-scroll_container) {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        :global(.sv-row) {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        :global(.sv-question) {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        :global(.sv-question__content) {
+          width: 100% !important;
+          max-width: 100% !important;
         }
       }
     }
@@ -324,34 +372,76 @@
     .sv-body,
     .sv-page,
     .sv-body__content,
-    .sv-body__frame {
+    .sv-body__frame,
+    .sv-scroll_container {
       margin: 0 !important;
       padding: 0 !important;
+      box-sizing: border-box !important;
     }
 
     .sv-root {
       width: 100% !important;
+      max-width: 100% !important;
       height: 100% !important;
     }
 
     .sv-container-modern {
       width: 100% !important;
+      max-width: 100% !important;
       height: 100% !important;
     }
 
     .sv-body {
       width: 100% !important;
+      max-width: 100% !important;
       height: 100% !important;
     }
 
     .sv-page {
       width: 100% !important;
+      max-width: 100% !important;
       height: 100% !important;
     }
 
     .sv-body__content,
     .sv-body__frame {
+      width: 100% !important;
+      max-width: 100% !important;
       height: 100% !important;
+    }
+
+    .sv-scroll_container {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .sv-body__frame {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+    }
+
+    .sv-body__frame .sv-scroll_container {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 100% !important;
+    }
+
+    .sv-row {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .sv-question {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .sv-question__content {
+      width: 100% !important;
+      max-width: 100% !important;
     }
 
     .sv-question {

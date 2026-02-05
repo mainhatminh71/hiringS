@@ -1,6 +1,6 @@
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, linkWithPopup, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, OAuthProvider, GithubAuthProvider, getRedirectResult } from '@angular/fire/auth';
+import { Auth, linkWithPopup, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, OAuthProvider, GithubAuthProvider, getRedirectResult } from '@angular/fire/auth';
 import { Observable, from, of, throwError } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { AuthProvider, AuthResponse } from '../models/user.model';
@@ -30,88 +30,7 @@ export class AuthService {
     return map[providerName]?.();
   }
 
-  signUp(email: string, password: string, userData: Record<string, any>, customerConfigId?: string): Observable<AuthResponse> {
-    if (!this.isBrowser) {
-      return throwError(() => new Error('Authentication chỉ có thể thực hiện trên browser'));
-    }
 
-    return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
-      switchMap((credential) => {
-        const providers: Partial<Record<AuthProvider, string>> = {
-          password: credential.user.uid
-        };
-        const user = new User(credential.user.uid, email, providers, customerConfigId, userData);
-        return this.firebaseApi.saveUser(user).pipe(
-          switchMap(() => credential.user.getIdToken()),
-          map(token => ({ token, user }))
-        );
-      }),
-      catchError(err => throwError(() => this.handleError(err)))
-    );
-  }
-
-  signIn(email: string, password: string): Observable<AuthResponse> {
-    if (!this.isBrowser) {
-      return throwError(() => new Error('Authentication chỉ có thể thực hiện trên browser'));
-    }
-
-    return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
-      switchMap((credential) => {
-        const providers = this.getProvidersWithIds(credential.user);
-        const user = new User(credential.user.uid, credential.user.email!, providers);
-        return from(credential.user.getIdToken()).pipe(
-          map(token => ({ token, user }))
-        );
-      }),
-      catchError(err => throwError(() => this.handleError(err)))
-    );
-  }
-
-  signInWithProvider(providerName: AuthProvider): Observable<AuthResponse> {
-    if (!this.isBrowser) {
-      return throwError(() => new Error('Authentication chỉ có thể thực hiện trên browser'));
-    }
-
-    const provider = this.getProvider(providerName);
-    if (!provider) {
-      return throwError(() => new Error(`Provider ${providerName} not supported`));
-    }
-  
-    return from(signInWithPopup(this.auth, provider)).pipe(
-      switchMap((credential) => {
-        const providers = this.getProvidersWithIds(credential.user);
-        const user = new User(credential.user.uid, credential.user.email || '', providers);
-        return from(credential.user.getIdToken()).pipe(
-          map(token => ({ token, user }))
-        );
-      }),
-      catchError(err => throwError(() => this.handleError(err)))
-    );
-  }
-  
-  signUpWithProvider(providerName: AuthProvider, userData?: Record<string, any>, customerConfigId?: string): Observable<AuthResponse> {
-    if (!this.isBrowser) {
-      return throwError(() => new Error('Authentication chỉ có thể thực hiện trên browser'));
-    }
-
-    const provider = this.getProvider(providerName);
-    if (!provider) {
-      return throwError(() => new Error(`Provider ${providerName} not supported`));
-    }
-  
-    return from(signInWithPopup(this.auth, provider)).pipe(
-      switchMap((credential) => {
-        const providers = this.getProvidersWithIds(credential.user);
-        const user = new User(credential.user.uid, credential.user.email || '', providers, customerConfigId, userData);
-        
-        return this.firebaseApi.saveUser(user).pipe(
-          switchMap(() => credential.user.getIdToken()),
-          map(token => ({ token, user }))
-        );
-      }),
-      catchError(err => throwError(() => this.handleError(err)))
-    );
-  }
   handleRedirectResult(userData?: Record<string, any>, customerConfigId?: string): Observable<AuthResponse | null> {
     // Chỉ chạy trên browser, không chạy trên server-side
     if (!this.isBrowser) {
@@ -133,8 +52,7 @@ export class AuthService {
           userData
         );
         
-        return this.firebaseApi.saveUser(user).pipe(
-          switchMap(() => credential.user.getIdToken()),
+        return from(credential.user.getIdToken()).pipe(
           map(token => ({ token, user }))
         );
       }),
@@ -168,7 +86,7 @@ export class AuthService {
       switchMap((credential) => {
         const providers = this.getProvidersWithIds(credential.user);
         const user = new User(currentUser.uid, currentUser.email || '', providers);
-        return this.firebaseApi.saveUser(user).pipe(map(() => user));
+        return of(user);
       }),
       catchError(err => throwError(() => this.handleError(err)))
     );
