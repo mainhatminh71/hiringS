@@ -24,8 +24,10 @@ $transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
 @mixin fade-in-up {
-  opacity: 0;
-  transform: translateY(20px);
+  // Default: visible for production safety
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
   transition: opacity $transition-smooth, transform $transition-smooth;
   
   &.animate-in {
@@ -305,6 +307,12 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 // ============================================
 .form-card {
   min-height: 220px;
+  // Ensure cards are visible even without animation
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  
+  // Animation only when animate-in class is present
   @include fade-in-up;
   
   &.animate-in {
@@ -397,7 +405,19 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 // Stagger Animation
 // ============================================
 .stagger-item {
+  // Ensure items are visible by default
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  
+  // Apply animation mixin but override with important
   @include fade-in-up;
+  
+  // Only apply animation when animate-in is present
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 // ============================================

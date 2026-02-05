@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { RouterLink } from '@angular/router';
@@ -10,7 +10,8 @@ import {NzCheckboxModule} from 'ng-zorro-antd/checkbox';
   imports: [CommonModule, NzCardModule, RouterLink, FormsModule, NzCheckboxModule],
   templateUrl: './application-form-card.component.html',
   styleUrl: './application-form-card.component.scss',
-  standalone: true
+  standalone: true,
+  encapsulation: ViewEncapsulation.None
 })
 export class ApplicationFormCardComponent {
   @Input() routerLink: string = '/form-generation';

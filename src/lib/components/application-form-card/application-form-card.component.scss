@@ -1,6 +1,8 @@
 :host {
   display: block;
   height: 100%;
+  opacity: 1 !important; // Ensure card is always visible
+  visibility: visible !important;
 }
 
 .app-form-card {

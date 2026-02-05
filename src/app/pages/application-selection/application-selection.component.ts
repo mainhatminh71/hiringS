@@ -58,11 +58,16 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.setupAnimations();
       // Force animate-in for create card (always visible at top)
       const createCard = document.querySelector('.create-card');
       if (createCard) {
         createCard.classList.add('animate-in');
+      }
+      
+      // Setup animations and ensure cards are visible
+      this.setupAnimations();
+      if (this.applications.length > 0) {
+        this.ensureCardsVisible();
       }
     }, 100);
   }
@@ -93,6 +98,23 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
         this.instanceCountCache.set(form.id, count);
       });
       this.isLoading = false;
+      
+      // Force cards to be visible after data loads
+      setTimeout(() => {
+        this.ensureCardsVisible();
+        this.setupAnimations();
+      }, 100);
+    });
+  }
+  
+  private ensureCardsVisible(): void {
+    // Force all cards to be visible
+    const cards = document.querySelectorAll('.form-card, .stagger-item');
+    cards.forEach(card => {
+      card.classList.add('animate-in');
+      (card as HTMLElement).style.opacity = '1';
+      (card as HTMLElement).style.visibility = 'visible';
+      (card as HTMLElement).style.transform = 'translateY(0)';
     });
   }
   private calculateInstanceCount(form: ApplicationForm): number {
