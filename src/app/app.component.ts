@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { AuthService } from '../lib/core/services/auth.service';
+import { AuthService } from '../lib/core/services/auth.service'
+import { OnDestroy, AfterViewInit } from '@angular/core';
+import { LenisService } from '../lib/core/services/lenis.service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
@@ -8,11 +10,16 @@ import { AuthService } from '../lib/core/services/auth.service';
   styleUrl: './app.component.scss',
   standalone: true
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy{
   title = 'hiringS';
   private authService = inject(AuthService);
   private router = inject(Router);
+  private lenisService = inject(LenisService);
 
   ngOnInit(): void {
+    this.lenisService.init();
+  }
+  ngOnDestroy(): void {
+    this.lenisService.destroy();
   }
 }

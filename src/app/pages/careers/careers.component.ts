@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { JobCardComponent } from '../../../lib/components/job-card/job-card.component';
@@ -6,7 +6,7 @@ import { LifeCardComponent } from '../../../lib/components/life-card/life-card.c
 import {ApplicationFormService} from '../../../lib/core/services/application-form.service';
 import {JobCard} from '../../../lib/core/models/job-card.model';
 import {ApplicationForm} from '../../../lib/core/models/application-form.model';
-import {OnInit} from '@angular/core';
+import Lenis from 'lenis';
 
 @Component({
   selector: 'app-careers',
@@ -15,14 +15,25 @@ import {OnInit} from '@angular/core';
   templateUrl: './careers.component.html',
   styleUrl: './careers.component.scss'
 })
-export class CareersComponent implements OnInit {
+export class CareersComponent implements OnInit, AfterViewInit, OnDestroy {
   applicationFormService = inject(ApplicationFormService);
 
   jobOpenings: JobCard[] = [];
+  private lenis: Lenis | null = null;
+  private rafId: number | null = null;
 
   ngOnInit(): void {
     this.loadJobOpenings();
   }
+
+  ngAfterViewInit(): void {
+  }
+
+  ngOnDestroy(): void {
+
+  }
+
+  
 
   loadJobOpenings(): void {
     this.applicationFormService.getAllForms().subscribe({
