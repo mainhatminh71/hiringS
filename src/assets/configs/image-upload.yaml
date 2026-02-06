@@ -1,0 +1,29 @@
+id: "image-upload"
+componentType: "image-upload"
+displayName: "Image Upload"
+icon: "pi pi-image"
+category: "advanced"
+defaultConfig:
+  label: "Upload Image"
+  required: false
+  disabled: false
+  multiple: false
+  accept: "image/*"
+  maxFileSize: 5000000
+configurableProps:
+  - name: "label"
+    type: "string"
+    label: "Label"
+    default: "Upload Image"
+  - name: "required"
+    type: "boolean"
+    label: "Required"
+    default: false
+  - name: "multiple"
+    type: "boolean"
+    label: "Multiple Images"
+    default: false
+  - name: "maxFileSize"
+    type: "number"
+    label: "Max File Size (bytes)"
+    default: 5000000

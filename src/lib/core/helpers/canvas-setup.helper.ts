@@ -10,6 +10,7 @@ export interface SetupContext {
     onTitleUpdate: (title: string) => void; 
     onOptionClick?: (instanceId: string) => void;
     onContentUpdate?: (id: string, content: string) => void;
+    onRequiredUpdate?: (id: string, required: boolean) => void;
     selectedInstanceId?: string;
 }
 export interface SurveyTitleContext {
@@ -29,6 +30,74 @@ export function setupDeleteButton(questionEl: HTMLElement, context: SetupContext
         context.onDelete(context.instanceId);
     });
     questionEl.appendChild(btn);
+}
+export function setupRequiredToggle(questionEl: HTMLElement, question: any, context: SetupContext): void {
+    // Bỏ qua description-area
+    const instance = context.blocks.find((block: any) => block.id === context.instanceId);
+    if (instance?.componentType === 'description-area') return;
+    
+    // Kiểm tra xem đã có required toggle chưa
+    if (questionEl.querySelector('.canvas-required-toggle')) return;
+    
+    const requiredToggle = document.createElement('div');
+    requiredToggle.className = 'canvas-required-toggle';
+    requiredToggle.setAttribute('role', 'button');
+    requiredToggle.setAttribute('aria-label', 'Toggle required');
+    requiredToggle.setAttribute('tabindex', '0');
+    
+    // Lấy giá trị required từ instance config hoặc question
+    const isRequired = !!(instance?.config?.['required']) || question.isRequired || false;
+    requiredToggle.classList.toggle('required', isRequired);
+    
+    // Icon và text
+    const icon = document.createElement('span');
+    icon.className = 'required-icon';
+    icon.textContent = isRequired ? '✓' : '';
+    
+    const label = document.createElement('span');
+    label.className = 'required-label';
+    label.textContent = 'Required';
+    
+    requiredToggle.appendChild(icon);
+    requiredToggle.appendChild(label);
+    
+    // Click handler
+    requiredToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const currentRequired = requiredToggle.classList.contains('required');
+        const newRequired = !currentRequired;
+        
+        // Update question model
+        question.isRequired = newRequired;
+        
+        // Update UI
+        requiredToggle.classList.toggle('required', newRequired);
+        icon.textContent = newRequired ? '✓' : '';
+        
+        // Emit update
+        if (context.onRequiredUpdate) {
+            context.onRequiredUpdate(context.instanceId, newRequired);
+        }
+    });
+    
+    // Keyboard support
+    requiredToggle.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            requiredToggle.click();
+        }
+    });
+    
+    // Thêm vào question header hoặc title area
+    const headerEl = questionEl.querySelector('.sv-question__header') || 
+                     questionEl.querySelector('.sv-question__title') ||
+                     questionEl;
+    
+    // Tạo wrapper nếu cần
+    const toggleWrapper = document.createElement('div');
+    toggleWrapper.className = 'canvas-required-toggle-wrapper';
+    toggleWrapper.appendChild(requiredToggle);
+    headerEl.appendChild(toggleWrapper);
 }
 export function setupEditableTitle(questionEl: HTMLElement, question: any, context: SetupContext) {
     const titleEl =

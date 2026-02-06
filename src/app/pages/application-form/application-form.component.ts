@@ -303,6 +303,15 @@ export class ApplicationFormComponent implements OnInit{
           allowMultiple: !!cfg['multiple'],
         };
 
+      case 'image-upload':
+        return {
+          ...base,
+          type: 'file',
+          maxSize: cfg['maxFileSize'],
+          allowMultiple: !!cfg['multiple'],
+          acceptedFileTypes: cfg['accept'] || 'image/*',
+        };
+
       case 'button':
         const buttonType = (cfg['type'] as string) || 'button';
         const buttonLabel = (cfg['label'] as string) || 'Submit';

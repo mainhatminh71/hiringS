@@ -509,6 +509,15 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
           allowMultiple: !!cfg['multiple'],
         };
 
+      case 'image-upload':
+        return {
+          ...base,
+          type: 'file',
+          maxSize: cfg['maxFileSize'],
+          allowMultiple: !!cfg['multiple'],
+          acceptedFileTypes: cfg['accept'] || 'image/*',
+        };
+
       case 'button':
         return {
           ...base,

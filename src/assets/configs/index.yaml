@@ -13,3 +13,4 @@ blocks:
   - file: "button.yaml"
   - file: "divider.yaml"
   - file: "description-area.yaml"
+  - file: "image-upload.yaml"

@@ -50,7 +50,7 @@ export class RightPropertySideComponent {
     this.requiredUpdated.emit({
       id: this.instance.id,
       required: required
-    })
+    });
   }
 
   addOption(): void {
