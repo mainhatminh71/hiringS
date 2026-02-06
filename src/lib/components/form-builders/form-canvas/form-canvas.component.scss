@@ -30,8 +30,9 @@
     
     // Lenis smooth scroll styles
     &.lenis {
-      overflow: hidden;
+      overflow: hidden !important;
       position: relative;
+      height: 100%;
     }
     
     &.lenis-smooth {
@@ -41,6 +42,8 @@
     // Ensure content can be scrolled
     .canvas-drop-zone {
       will-change: transform;
+      min-height: 100%;
+      height: auto;
     }
   }
 

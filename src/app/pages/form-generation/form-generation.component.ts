@@ -39,6 +39,8 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
   pages: FormPage[] = [];
   currentPageId: string= '';
   isLoading = false;
+  insertIndex?: number;
+  pendingInstance?: UIBlockInstance;
   private destroy$ = new Subject<void>();
   
   ngOnInit(): void {
@@ -153,11 +155,24 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
     this.selectedInstance = undefined;
   }
   onInstanceAdded(instance: UIBlockInstance) {
-    // this.instances = [...this.instances, instance];
+    // Fallback: thêm vào cuối nếu không có vị trí cụ thể
     const page = this.pages.find(p => p.id === this.currentPageId);
     if (page) {
-      page.instances = [...page.instances, instance]
-      this.pages = [...this.pages]
+      page.instances = [...page.instances, instance];
+      this.pages = [...this.pages];
+    }
+  }
+
+  onInstanceAddedAt(payload: { instance: UIBlockInstance, index: number }) {
+    const page = this.pages.find(p => p.id === this.currentPageId);
+    if (page) {
+      // Chèn vào vị trí cụ thể
+      const newInstances = [...page.instances];
+      // Đảm bảo index không vượt quá độ dài mảng
+      const insertIndex = Math.min(payload.index, newInstances.length);
+      newInstances.splice(insertIndex, 0, payload.instance);
+      page.instances = newInstances;
+      this.pages = [...this.pages];
     }
   }
   onInstanceSelected(id: string) {
@@ -165,6 +180,9 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
     const allInstances = this.pages.flatMap(p => p.instances);
     this.selectedInstance = allInstances.find(instance => instance.id === id);
   
+    if (this.selectedInstance?.componentType === 'description-area') {
+      return;
+    }
     // Mở right side cho TẤT CẢ component types (không chỉ có options)
     // Required checkbox sẽ luôn hiển thị, options chỉ hiển thị khi component có options
     this.optionsEditingInstanceId = id;

@@ -44,6 +44,7 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
   private questionEls = new Map<string, HTMLElement>();
 
   @Output() instanceAdded = new EventEmitter<UIBlockInstance>();
+  @Output() instanceAddedAt = new EventEmitter<{instance: UIBlockInstance, index: number}>();
   @Output() instanceUpdated = new EventEmitter<UIBlockInstance>();
   @Output() instanceRemoved = new EventEmitter<string>();
   @Output() instanceSelected = new EventEmitter<string>();
@@ -53,6 +54,8 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
   @Output() locationUpdated = new EventEmitter<string>();
   @Output() employmentTypeUpdated = new EventEmitter<string>();
   @Output() postedDateUpdated = new EventEmitter<string>();
+
+  @Output() instancesReordered = new EventEmitter<{ previousIndex: number, currentIndex: number }>();
 
   themeService = inject(ThemeService);
   private platformId = inject(PLATFORM_ID);
@@ -73,7 +76,7 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
       // Delay để đảm bảo DOM và survey đã render
       setTimeout(() => {
         this.initLenis();
-      }, 300);
+      }, 500);
     }
   }
 
@@ -101,6 +104,10 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
     // Đảm bảo container có đúng styles cho Lenis
     container.style.overflow = 'hidden';
     container.style.position = 'relative';
+    container.style.height = '100%';
+    
+    // Đảm bảo content có đúng height
+    content.style.minHeight = '100%';
     
     // Add lenis class to container
     container.classList.add('lenis', 'lenis-smooth');
@@ -119,6 +126,11 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
       content: content,
     });
 
+    // Update Lenis khi content thay đổi
+    this.lenis.on('scroll', () => {
+      // Lenis tự động update scroll position
+    });
+
     // Setup RAF loop
     const raf = (time: number) => {
       if (this.lenis) {
@@ -128,6 +140,11 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
     };
 
     this.rafId = requestAnimationFrame(raf);
+    
+    // Recalculate scroll khi content thay đổi
+    if (this.lenis) {
+      this.lenis.resize();
+    }
   }
 
   private destroyLenis(): void {
@@ -175,7 +192,7 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
         setTimeout(() => {
           this.destroyLenis();
           this.initLenis();
-        }, 200);
+        }, 400);
       }
     }
     if (changes['selectedInstanceId']) {
@@ -187,8 +204,59 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
     const block: UIBlock = event.item.data;
     if (block && typeof block.createInstance === 'function') {
       const newInstance = block.createInstance();
-      this.instanceAdded.emit(newInstance);
+      
+      // Nếu drop từ palette (previousContainer !== container)
+      if (event.previousContainer !== event.container) {
+        // Tính toán vị trí chèn dựa trên vị trí chuột
+        const dropIndex = this.calculateDropIndex(event);
+        
+        if (dropIndex !== undefined && dropIndex >= 0 && dropIndex <= this.blocks.length) {
+          this.instanceAddedAt.emit({ instance: newInstance, index: dropIndex });
+        } else {
+          // Fallback: thêm vào cuối
+          this.instanceAdded.emit(newInstance);
+        }
+      } else {
+        // Reorder trong canvas
+        this.instanceAdded.emit(newInstance);
+      }
     }
+  }
+
+  private calculateDropIndex(event: CdkDragDrop<any>): number {
+    // Lấy vị trí drop từ event
+    const dropPoint = event.dropPoint || { x: 0, y: 0 };
+    
+    // Tìm tất cả các question elements
+    const questionElements: Array<{ element: HTMLElement, instanceId: string, y: number }> = [];
+    
+    this.questionEls.forEach((element, instanceId) => {
+      const rect = element.getBoundingClientRect();
+      questionElements.push({
+        element,
+        instanceId,
+        y: rect.top + rect.height / 2 // Lấy điểm giữa của question
+      });
+    });
+    
+    // Sắp xếp theo thứ tự Y (từ trên xuống dưới)
+    questionElements.sort((a, b) => a.y - b.y);
+    
+    // Tìm question gần nhất với vị trí drop
+    const dropY = dropPoint.y;
+    let insertIndex = this.blocks.length; // Mặc định chèn vào cuối
+    
+    for (let i = 0; i < questionElements.length; i++) {
+      const question = questionElements[i];
+      if (dropY < question.y) {
+        // Nếu drop ở trên question này, chèn vào trước nó
+        const instanceId = question.instanceId;
+        insertIndex = this.blocks.findIndex(b => b.id === instanceId);
+        break;
+      }
+    }
+    
+    return insertIndex;
   }
 
   onSelect(instanceId: string) {
@@ -210,6 +278,15 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
   }
   onPostedDateChange(value: string) {
     this.postedDateUpdated.emit(value);
+  }
+
+  onInstanceReorder(event: CdkDragDrop<UIBlockInstance[]>) {
+    if (event.previousIndex !== event.currentIndex) {
+      this.instancesReordered.emit({
+        previousIndex: event.previousIndex,
+        currentIndex: event.currentIndex
+      });
+    }
   }
 
   private emitLabelUpdate(instanceId: string, label: string) {
@@ -452,6 +529,7 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
             type: 'comment',
             placeholder: (cfg['content'] as string) || 'Enter description here',
             defaultValue: (cfg['content'] as string) || '', // Set value để có thể edit
+            isRequired: false
           };
 
       default:

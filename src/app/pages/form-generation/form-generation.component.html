@@ -35,6 +35,7 @@
           [formName]="formName"
           [themeKey]="themeService.currentTheme()" 
           (instanceAdded)="onInstanceAdded($event)"
+          (instanceAddedAt)="onInstanceAddedAt($event)"
           (instanceUpdated)="onInstanceUpdated($event)" 
           (instanceSelected)="onInstanceSelected($event)"
           (instanceRemoved)="onInstanceRemoved($event)" 
