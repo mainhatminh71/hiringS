@@ -265,7 +265,7 @@ private getThemeBackgroundColors(): Record<SurveyThemeKey, {
     };
   });
 
-    currentTheme = signal<SurveyThemeKey>('default-dark');
+    currentTheme = signal<SurveyThemeKey>('default');
     themesList = signal<SurveyThemeKey[]>(this.themes);
     
     // Computed signal để lấy màu của theme hiện tại

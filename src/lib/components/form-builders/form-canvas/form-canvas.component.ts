@@ -364,6 +364,16 @@ export class FormCanvasComponent implements OnChanges, OnInit, AfterViewInit, On
       };
     
       setupEditableSurveyTitle(surveyEl, titleContext);
+      
+      // Ẩn empty message khi không có elements
+      if (this.isBrowser && this.blocks.length === 0) {
+        setTimeout(() => {
+          const emptyElements = surveyEl.querySelectorAll('.sv-empty, .sd-body--empty .sv-empty');
+          emptyElements.forEach(el => {
+            (el as HTMLElement).style.display = 'none';
+          });
+        }, 100);
+      }
     });   
     model.onCompleting.add((_sender, options) => {
       options.allowComplete = false;

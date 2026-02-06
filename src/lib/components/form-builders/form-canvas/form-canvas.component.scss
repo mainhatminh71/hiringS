@@ -44,6 +44,11 @@
       will-change: transform;
       min-height: 100%;
       height: auto;
+      
+      // Khi không có elements, loại bỏ min-height
+      &:has(.sd-body--empty) {
+        min-height: 0;
+      }
     }
   }
 
@@ -58,6 +63,13 @@
     background-color: transparent;
     display: flex;
     flex-direction: column;
+    
+    // Khi không có elements, đảm bảo không có khoảng trắng
+    &:empty,
+    &:has(.sd-body--empty) {
+      min-height: 0;
+      height: auto;
+    }
 
     // Drop zone highlight when dragging
     &.cdk-drop-list-dragging {
@@ -181,6 +193,13 @@
           flex: 1 !important;
           align-items: center !important;
           justify-content: center !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+        
+        // Ẩn empty message khi không có elements
+        :global(.sd-body--empty .sv-empty) {
+          display: none !important;
         }
 
         :global(.sv-row) {
@@ -362,6 +381,8 @@
     .sd-body,
     .sd-body--empty {
       width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
       height: 100% !important;
       min-height: 100% !important;
       display: flex !important;
@@ -369,6 +390,16 @@
       flex: 1 !important;
       align-items: center !important;
       justify-content: center !important;
+    }
+    
+    // Ẩn empty message khi không có elements
+    :global(.sd-body--empty .sv-empty),
+    :global(.sd-body .sv-empty) {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
 
     .sv-body__frame {
