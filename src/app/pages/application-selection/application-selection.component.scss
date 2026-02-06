@@ -101,6 +101,50 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.create-button {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all $transition-base;
+  white-space: nowrap;
+  background: $primary-color;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 120, 212, 0.2);
+  margin-top: $spacing-md;
+  
+  &:hover {
+    background: $primary-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
+    color: #ffffff;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  nz-icon {
+    font-size: 16px;
+  }
+}
+
 .page-title {
   font-size: clamp(42px, 6vw, 64px);
   font-weight: 600;
@@ -133,7 +177,6 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 6px;
   transition: all $transition-base;
   white-space: nowrap;
-  align-self: flex-start;
   background: $danger-color;
   color: #ffffff;
   border: none;
@@ -351,6 +394,7 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   min-height: 52px;
   letter-spacing: -0.01em;
@@ -501,5 +545,67 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   
   .create-text {
     font-size: 18px;
+  }
+}
+
+// ============================================
+// Pagination
+// ============================================
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: $spacing-2xl;
+  padding: $spacing-lg 0;
+  
+  ::ng-deep .ant-pagination {
+    .ant-pagination-item {
+      border-radius: 6px;
+      transition: all $transition-base;
+      
+      &:hover {
+        border-color: $primary-color;
+      }
+      
+      &.ant-pagination-item-active {
+        background: $primary-color;
+        border-color: $primary-color;
+        
+        a {
+          color: #ffffff;
+        }
+      }
+    }
+    
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      border-radius: 6px;
+      transition: all $transition-base;
+      
+      &:hover {
+        border-color: $primary-color;
+        color: $primary-color;
+      }
+    }
+    
+    .ant-pagination-jump-prev,
+    .ant-pagination-jump-next {
+      &:hover {
+        .ant-pagination-item-link-icon {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    margin-top: $spacing-xl;
+    padding: $spacing-md 0;
+    
+    ::ng-deep .ant-pagination {
+      .ant-pagination-options {
+        display: none;
+      }
+    }
   }
 }

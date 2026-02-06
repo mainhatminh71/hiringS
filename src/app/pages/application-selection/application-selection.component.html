@@ -5,19 +5,29 @@
       <div class="header-content animate-in">
         <h1 class="page-title">Application Forms</h1>
         <p class="page-subtitle">Create and manage your application forms</p>
-      </div>
-      
-      @if (selectedIds.size > 0) {
         <button 
           nz-button 
-          nzType="primary" 
-          nzDanger 
-          (click)="deleteSelected()" 
-          class="delete-button">
-          <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
-          <span>Delete ({{selectedIds.size}})</span>
+          nzType="primary"
+          routerLink="/form-generation"
+          class="create-button">
+          <nz-icon nzType="plus" nzTheme="outline"></nz-icon>
+          <span>Create new form</span>
         </button>
-      }
+      </div>
+      
+      <div class="header-actions">
+        @if (selectedIds.size > 0) {
+          <button 
+            nz-button 
+            nzType="primary" 
+            nzDanger 
+            (click)="deleteSelected()" 
+            class="delete-button">
+            <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+            <span>Delete ({{selectedIds.size}})</span>
+          </button>
+        }
+      </div>
     </div>
 
     <!-- Content Section -->
@@ -27,23 +37,8 @@
       </div>
     } @else {
       <div class="cards-grid">
-        <!-- Blank Form Card (Create New) -->
-        <app-application-form-card 
-          routerLink="/form-generation" 
-          [showSwatch]="false"
-          [variant]="'dashed'"
-          class="create-card">
-          <div class="create-card-content">
-            <div class="create-icon-wrapper">
-              <nz-icon nzType="plus" nzTheme="outline"></nz-icon>
-            </div>
-            <div class="create-text">Create new form</div>
-            <div class="create-hint">Start from scratch</div>
-          </div>
-        </app-application-form-card>
-
         <!-- Application Forms -->
-        @for (app of applications; track trackByFormId($index, app)) {
+        @for (app of paginatedApplications; track trackByFormId($index, app)) {
           <app-application-form-card 
             [routerLink]="'/form-generation/' + app.id" 
             [themeColor]="app.themeColor"
@@ -65,6 +60,20 @@
           </app-application-form-card>
         }
       </div>
+      
+      <!-- Pagination -->
+      @if (totalPages > 1) {
+        <div class="pagination-container">
+          <nz-pagination
+            [nzPageIndex]="currentPage"
+            [nzTotal]="applications.length"
+            [nzPageSize]="pageSize"
+            [nzShowSizeChanger]="false"
+            [nzShowQuickJumper]="true"
+            (nzPageIndexChange)="onPageChange($event)">
+          </nz-pagination>
+        </div>
+      }
     }
   </div>
 </div>

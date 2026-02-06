@@ -22,11 +22,12 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ScrollAnimationService } from '../../../lib/core/services/scroll-animation.service';
+import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 @Component({
   selector: 'app-application-selection',
   imports: [CommonModule, ApplicationFormCardComponent, 
     RouterModule, NzCardModule, 
-    NzIconModule, RouterLink, NzButtonModule, NzModalModule, NzSpinModule],
+    NzIconModule, RouterLink, NzButtonModule, NzModalModule, NzSpinModule, NzPaginationModule],
   templateUrl: './application-selection.component.html',
   styleUrl: './application-selection.component.scss'
 })
@@ -43,6 +44,28 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
 
   isLoading = false;
   private instanceCountCache = new Map<string, number>();
+
+  currentPage = 1;
+  pageSize = 6;
+
+  get paginatedApplications(): ApplicationForm[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.applications.slice(startIndex, endIndex);
+  }
+  get totalPages(): number {
+    return Math.ceil(this.applications.length / this.pageSize);
+  }
+
+  public onPageChange(page: number): void {
+    this.currentPage = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(() => {
+      this.ensureCardsVisible();
+      this.setupAnimations();
+    }, 100);
+  }
 
   ngOnInit(): void {
     this.loadApplications();
