@@ -120,13 +120,18 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
         const count = this.calculateInstanceCount(form);
         this.instanceCountCache.set(form.id, count);
       });
-      this.isLoading = false;
       
-      // Force cards to be visible after data loads
-      setTimeout(() => {
-        this.ensureCardsVisible();
-        this.setupAnimations();
-      }, 100);
+      // Sử dụng requestAnimationFrame để đảm bảo DOM đã render trước khi bắt đầu animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.isLoading = false;
+          // Force cards to be visible after data loads
+          setTimeout(() => {
+            this.ensureCardsVisible();
+            this.setupAnimations();
+          }, 100);
+        });
+      });
     });
   }
   

@@ -23,12 +23,43 @@ $spacing-2xl: 120px;
 $transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @mixin fade-in-up {
-  // Default: visible for production safety
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible;
+  opacity: 0;
+  transform: translateY(30px);
   transition: opacity $transition-smooth, transform $transition-smooth;
+  will-change: opacity, transform;
   
   &.animate-in {
     opacity: 1;
@@ -45,6 +76,13 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   padding: $spacing-2xl 0;
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   position: relative;
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out forwards;
+  will-change: opacity;
+  
+  &.loaded {
+    opacity: 1;
+  }
   
   // Subtle background pattern
   &::before {
@@ -68,6 +106,16 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0 $spacing-md;
   position: relative;
   z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  }
 }
 
 // ============================================
@@ -83,6 +131,16 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   padding-bottom: $spacing-lg;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   position: relative;
+  opacity: 0;
+  transform: translateY(-20px);
+  will-change: opacity, transform;
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -93,11 +151,57 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
 .header-content {
   flex: 1;
-  @include fade-in-up;
+  opacity: 0;
+  transform: translateY(-10px);
+  will-change: opacity, transform;
   
   &.animate-in {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  }
+  
+  .page-title {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .page-subtitle {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .create-button {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                all $transition-base;
+  }
+  
+  &.animate-in {
+    .page-title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.4s;
+    }
+    
+    .page-subtitle {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.45s;
+    }
+    
+    .create-button {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.5s;
+    }
   }
 }
 
@@ -106,6 +210,16 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   align-items: center;
   gap: $spacing-sm;
   flex-wrap: wrap;
+  opacity: 0;
+  transform: translateX(20px);
+  will-change: opacity, transform;
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.35s,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+  }
   
   @media (max-width: 768px) {
     width: 100%;
@@ -216,6 +330,16 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: $spacing-lg;
   margin-bottom: $spacing-xl;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s,
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+  }
 
   @media (min-width: 1400px) {
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -449,16 +573,20 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 // Stagger Animation
 // ============================================
 .stagger-item {
-  // Ensure items are visible by default
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: translateY(0) !important;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
   
-  // Apply animation mixin but override with important
-  @include fade-in-up;
+  // Stagger delay based on data-index
+  @for $i from 0 through 20 {
+    &[data-index="#{$i}"] {
+      transition-delay: #{0.5 + ($i * 0.05)}s;
+    }
+  }
   
-  // Only apply animation when animate-in is present
-  &.animate-in {
+  .cards-grid.animate-in & {
     opacity: 1;
     transform: translateY(0);
   }
@@ -475,14 +603,26 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 500px;
   padding: $spacing-2xl 0;
   gap: $spacing-md;
+  opacity: 1;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+  will-change: opacity;
+  
+  &.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
   
   p {
     color: $text-secondary;
     font-size: 16px;
     margin: 0;
+    animation: fadeIn 0.5s ease-out 0.2s both;
   }
   
   ::ng-deep .ant-spin {
+    animation: fadeIn 0.4s ease-out;
+    
     .ant-spin-dot {
       i {
         background-color: $primary-color;
@@ -557,6 +697,16 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   align-items: center;
   margin-top: $spacing-2xl;
   padding: $spacing-lg 0;
+  opacity: 0;
+  transform: translateY(10px);
+  will-change: opacity, transform;
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.6s,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+  }
   
   ::ng-deep .ant-pagination {
     .ant-pagination-item {
@@ -607,5 +757,22 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         display: none;
       }
     }
+  }
+}
+
+// Optimize for performance
+@media (prefers-reduced-motion: reduce) {
+  .application-selection-page,
+  .page-container,
+  .page-header,
+  .header-content,
+  .header-actions,
+  .cards-grid,
+  .stagger-item,
+  .pagination-container,
+  .loading-container {
+    animation: none !important;
+    transition: opacity 0.2s ease-out !important;
+    transform: none !important;
   }
 }

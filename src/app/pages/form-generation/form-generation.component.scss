@@ -45,7 +45,7 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -89,7 +89,7 @@
     max-width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: #ffffff;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     opacity: 0;

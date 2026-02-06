@@ -1,8 +1,8 @@
-<div class="application-selection-page">
-  <div class="page-container">
+<div class="application-selection-page" [class.loaded]="!isLoading">
+  <div class="page-container" [class.animate-in]="!isLoading">
     <!-- Header Section -->
-    <div class="page-header">
-      <div class="header-content animate-in">
+    <div class="page-header" [class.animate-in]="!isLoading">
+      <div class="header-content" [class.animate-in]="!isLoading">
         <h1 class="page-title">Application Forms</h1>
         <p class="page-subtitle">Create and manage your application forms</p>
         <button 
@@ -15,7 +15,7 @@
         </button>
       </div>
       
-      <div class="header-actions">
+      <div class="header-actions" [class.animate-in]="!isLoading">
         @if (selectedIds.size > 0) {
           <button 
             nz-button 
@@ -32,11 +32,11 @@
 
     <!-- Content Section -->
     @if (isLoading) {
-      <div class="loading-container">
+      <div class="loading-container" [class.fade-out]="!isLoading">
         <nz-spin [nzSize]="'large'"></nz-spin>
       </div>
     } @else {
-      <div class="cards-grid">
+      <div class="cards-grid" [class.animate-in]="!isLoading">
         <!-- Application Forms -->
         @for (app of paginatedApplications; track trackByFormId($index, app)) {
           <app-application-form-card 
@@ -45,7 +45,8 @@
             [selectable]="true"
             [selected]="selectedIds.has(app.id)"
             (selectedChange)="toggleSelection(app.id, $event)"
-            class="form-card stagger-item">
+            class="form-card stagger-item"
+            [attr.data-index]="$index">
             <div class="form-card-content">
               <div class="form-card-title" [title]="app.name || 'Application Form'">
                 {{app.name || 'Application Form'}}
@@ -63,7 +64,7 @@
       
       <!-- Pagination -->
       @if (totalPages > 1) {
-        <div class="pagination-container">
+        <div class="pagination-container" [class.animate-in]="!isLoading">
           <nz-pagination
             [nzPageIndex]="currentPage"
             [nzTotal]="applications.length"
