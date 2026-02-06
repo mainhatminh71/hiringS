@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -35,8 +35,24 @@ interface SocialLink {
   styleUrl: './footer.component.css',
   standalone: true
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
   selectedLanguage = 'en';
+  animateIn = false;
+  private platformId = inject(PLATFORM_ID);
+  isBrowser = isPlatformBrowser(this.platformId);
+
+  ngOnInit(): void {
+    if (this.isBrowser) {
+      // Sử dụng requestAnimationFrame để đảm bảo DOM đã render
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.animateIn = true;
+        });
+      });
+    } else {
+      this.animateIn = true;
+    }
+  }
 
   footerLinks: FooterLink[] = [
     { label: 'Support', url: '/support' },

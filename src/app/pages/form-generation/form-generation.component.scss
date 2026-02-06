@@ -1,10 +1,60 @@
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .form-builder-container {
   height: 100vh;
   width: 100%;
-  overflow: hidden; // Thay đổi từ visible
+  overflow: hidden;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out forwards;
+  will-change: opacity;
+
+  &.loaded {
+    opacity: 1;
+  }
 
   .builder-layout {
     display: flex;
@@ -20,6 +70,16 @@
     flex-shrink: 0;
     height: 100%;
     overflow: visible;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
+
+    &.animate-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .canvas-section {
@@ -32,6 +92,43 @@
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+    will-change: opacity, transform;
+
+    &.animate-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .pagination-wrapper {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+      will-change: opacity, transform;
+
+      &.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .canvas-wrapper {
+      flex: 1;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                  transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+      will-change: opacity, transform;
+
+      &.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   }
   
   .loading-container {
@@ -41,11 +138,40 @@
     justify-content: center;
     height: 100%;
     gap: 16px;
+    opacity: 1;
+    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    will-change: opacity;
+    
+    &.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
     
     p {
       margin: 0;
       color: var(--text-color, #666);
       font-size: 16px;
+      animation: fadeIn 0.5s ease-out 0.2s both;
     }
+
+    // Smooth spinner animation
+    ::ng-deep .ant-spin {
+      animation: fadeIn 0.4s ease-out;
+    }
+  }
+}
+
+// Optimize for performance
+@media (prefers-reduced-motion: reduce) {
+  .form-builder-container,
+  .palette-section,
+  .canvas-section,
+  .pagination-wrapper,
+  .canvas-wrapper,
+  .loading-container {
+    animation: none !important;
+    transition: opacity 0.2s ease-out !important;
+    transform: none !important;
   }
 }

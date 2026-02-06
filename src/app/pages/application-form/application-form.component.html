@@ -1,20 +1,27 @@
-<div class="application-form-page" [style.background-color]="themeService.currentThemeBackgrounds().main">
+<div class="application-form-page" 
+     [style.background-color]="themeService.currentThemeBackgrounds().main"
+     [class.loaded]="!isLoading && !error && surveyModel">
     <button 
       class="back-float-button"
+      [class.animate-in]="!isLoading && !error && surveyModel"
       (click)="goBack()"
       type="button"
       title="Back to Careers"
       [style.border-color]="themeService.getThemeColor(form?.themeKey || 'default-dark')"
       [style.color]="themeService.getThemeColor(form?.themeKey || 'default-dark')">
       >
-      <span class="back-icon">←</span>
+      <nz-icon nzType="arrow-left" nzTheme="outline" class="back-icon"></nz-icon>
       <span class="back-text">Back</span>
     </button>
-    <div class="form-container" *ngIf="!isLoading && !error && surveyModel" [style.background-color]="themeService.currentThemeBackgrounds().main">
+    <div class="form-container" 
+         *ngIf="!isLoading && !error && surveyModel" 
+         [style.background-color]="themeService.currentThemeBackgrounds().main"
+         [class.animate-in]="!isLoading && !error && surveyModel">
       <!-- Pagination cho form -->
       <div 
         class="form-pagination-wrapper" 
         *ngIf="formPages.length > 1"
+        [class.animate-in]="!isLoading && !error && surveyModel"
         [style.background-color]="themeService.getPaginationContainerColors(form?.themeKey || 'default-dark').background"
         [style.border-color]="themeService.getPaginationContainerColors(form?.themeKey || 'default-dark').border"
         [style.color]="themeService.getPaginationContainerColors(form?.themeKey || 'default-dark').text">
@@ -30,16 +37,20 @@
         </div>
       </div>
 
-      <div class="survey-wrapper">
+      <div class="survey-wrapper" [class.animate-in]="!isLoading && !error && surveyModel">
         <survey [model]="surveyModel"></survey>
       </div>
     </div>
   
-    <div class="loading" *ngIf="isLoading">
+    <div class="loading" 
+         *ngIf="isLoading"
+         [class.fade-out]="!isLoading">
       <p>Loading application form...</p>
     </div>
   
-    <div class="error" *ngIf="error">
+    <div class="error" 
+         *ngIf="error"
+         [class.animate-in]="error">
       <p>{{ error }}</p>
     </div>
   </div>

@@ -13,6 +13,16 @@ import * as THREE from 'three';
       position: absolute;
       inset: 0;
       z-index: 0;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    
+    .three-hero-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      display: block;
     }
   `]
 })
@@ -148,8 +158,14 @@ export class ThreeHeroComponent implements OnInit, AfterViewInit, OnDestroy {
       antialias: true,
       alpha: true 
     });
-    this.renderer.setSize(container.clientWidth, container.clientHeight);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
+    this.renderer.domElement.style.width = '100%';
+    this.renderer.domElement.style.height = '100%';
+    this.renderer.domElement.style.maxWidth = '100%';
+    this.renderer.domElement.style.display = 'block';
     container.appendChild(this.renderer.domElement);
 
     // Particles với 7 màu cầu vồng - sặc sỡ hơn
@@ -218,9 +234,15 @@ export class ThreeHeroComponent implements OnInit, AfterViewInit, OnDestroy {
     const container = this.containerRef.nativeElement;
     if (!container || !this.camera || !this.renderer) return;
 
-    this.camera.aspect = container.clientWidth / container.clientHeight;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    
+    this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(container.clientWidth, container.clientHeight);
+    this.renderer.setSize(width, height);
+    this.renderer.domElement.style.width = '100%';
+    this.renderer.domElement.style.height = '100%';
+    this.renderer.domElement.style.maxWidth = '100%';
   }
 
   private animate = (): void => {

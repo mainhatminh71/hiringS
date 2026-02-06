@@ -1,8 +1,58 @@
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .application-form-page {
     min-height: 100vh;
     padding: 1rem 2rem;
     position: relative;
     transition: background-color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+    will-change: opacity;
+
+    &.loaded {
+      opacity: 1;
+    }
   
     .back-float-button {
       position: fixed;
@@ -27,7 +77,17 @@
       padding: 0 20px;
       font-weight: 400;
       color: inherit;
-      opacity: 0.9;
+      opacity: 0;
+      transform: translateX(-30px);
+      will-change: opacity, transform;
+      
+      &.animate-in {
+        opacity: 0.9;
+        transform: translateX(0);
+        transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                    all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
       
       &:hover {
         background: currentColor;
@@ -47,10 +107,11 @@
       }
       
       .back-icon {
-        font-size: 22px;
+        font-size: 18px;
         color: inherit;
         line-height: 1;
-        font-weight: 600;
+        display: flex;
+        align-items: center;
         transition: color 0.2s ease;
       }
       
@@ -68,6 +129,17 @@
       padding: 2rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      will-change: opacity, transform;
+
+      &.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+                    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+                    background-color 0.3s ease, box-shadow 0.3s ease;
+      }
     }
   
     .form-header {
@@ -111,6 +183,17 @@
       overflow: hidden;
       -webkit-backdrop-filter: blur(20px);
       backdrop-filter: blur(20px);
+      opacity: 0;
+      transform: translateY(-10px) scale(0.98);
+      will-change: opacity, transform;
+
+      &.animate-in {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+                    all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
       
       // Animated gradient overlay effect - sử dụng border color thay vì currentColor
       &::before {
@@ -177,16 +260,55 @@
 
     .survey-wrapper {
       margin-top: 1rem;
+      opacity: 0;
+      transform: translateY(10px);
+      will-change: opacity, transform;
+
+      &.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s,
+                    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+      }
     }
   
-    .loading, .error {
+    .loading {
       text-align: center;
       padding: 3rem;
       color: #6b7280;
+      opacity: 1;
+      transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+      will-change: opacity;
+      
+      &.fade-out {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      
+      p {
+        animation: fadeIn 0.5s ease-out 0.2s both;
+      }
     }
-  
+
     .error {
+      text-align: center;
+      padding: 3rem;
       color: #ef4444;
+      opacity: 0;
+      transform: translateY(10px);
+      will-change: opacity, transform;
+      
+      &.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+                    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+      }
+      
+      p {
+        animation: fadeIn 0.5s ease-out 0.3s both;
+      }
       
       button {
         margin-top: 1rem;
@@ -196,6 +318,22 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        animation: fadeInScale 0.5s ease-out 0.4s both;
       }
+    }
+  }
+
+  // Optimize for performance
+  @media (prefers-reduced-motion: reduce) {
+    .application-form-page,
+    .back-float-button,
+    .form-container,
+    .form-pagination-wrapper,
+    .survey-wrapper,
+    .loading,
+    .error {
+      animation: none !important;
+      transition: opacity 0.2s ease-out !important;
+      transform: none !important;
     }
   }

@@ -1,3 +1,37 @@
+/* Animation keyframes */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Microsoft Design Header Styles */
 .header {
   position: sticky;
@@ -9,6 +43,15 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  opacity: 0;
+  transform: translateY(-20px);
+  will-change: opacity, transform;
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeInDown 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
 }
 
 .header-container {
@@ -24,6 +67,16 @@
 
 .header-left {
   flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(-20px);
+  will-change: opacity, transform;
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  }
 }
 
 .header-nav {
@@ -32,6 +85,37 @@
   gap: 4px;
   flex: 1;
   justify-content: center;
+  opacity: 0;
+  transform: translateY(-10px);
+  will-change: opacity, transform;
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  }
+
+  .nav-link {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.animate-in .nav-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.animate-in .nav-link:nth-child(1) {
+    transition-delay: 0.3s;
+  }
+
+  &.animate-in .nav-link:nth-child(2) {
+    transition-delay: 0.35s;
+  }
 }
 
 .nav-link {
@@ -83,6 +167,37 @@
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(20px);
+  will-change: opacity, transform;
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.25s,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.25s;
+  }
+
+  .header-icon-btn {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.animate-in .header-icon-btn {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &.animate-in .header-icon-btn:nth-child(1) {
+    transition-delay: 0.4s;
+  }
+
+  &.animate-in .header-icon-btn:nth-child(2) {
+    transition-delay: 0.45s;
+  }
 }
 
 .header-icon-btn {
@@ -154,5 +269,19 @@
   .header-icon-btn svg {
     width: 16px;
     height: 16px;
+  }
+}
+
+/* Optimize for performance */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header-left,
+  .header-nav,
+  .header-right,
+  .nav-link,
+  .header-icon-btn {
+    animation: none !important;
+    transition: opacity 0.2s ease-out !important;
+    transform: none !important;
   }
 }

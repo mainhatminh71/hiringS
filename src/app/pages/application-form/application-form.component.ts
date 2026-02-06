@@ -12,12 +12,13 @@ import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {RouterModule} from '@angular/router';
 import {ApplicantService} from '../../../lib/core/services/applicant.service';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
+import {NzIconModule} from 'ng-zorro-antd/icon';
 import {FormPage} from '../../../lib/core/models/form-page.model';
 import { applySurveyTheme } from '../../../lib/core/helpers/theme-helper';
 import { ThemedPaginationComponent } from '../../../lib/components/themed-pagination/themed-pagination.component';
 @Component({
   selector: 'app-application-form',
-  imports: [CommonModule, SurveyModule, RouterModule, NzPaginationModule, ThemedPaginationComponent],
+  imports: [CommonModule, SurveyModule, RouterModule, NzPaginationModule, NzIconModule, ThemedPaginationComponent],
   templateUrl: './application-form.component.html',
   styleUrl: './application-form.component.scss',
   standalone: true
@@ -74,7 +75,13 @@ export class ApplicationFormComponent implements OnInit{
         }
         
         this.buildSurveyModel(this.formPages);
-        this.isLoading = false;
+        
+        // Sử dụng requestAnimationFrame để đảm bảo DOM đã render trước khi bắt đầu animation
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            this.isLoading = false;
+          });
+        });
       },
       error: () => {
         this.error = 'Failed to load form';

@@ -1,56 +1,64 @@
 <!-- form-generation.component.html -->
-<div class="form-builder-container" [style.background-color]="themeService.currentThemeBackgrounds().main">
+<div class="form-builder-container" 
+     [style.background-color]="themeService.currentThemeBackgrounds().main"
+     [class.loaded]="!isLoading">
   <div class="builder-layout">
     <!-- Left: Component Palette -->
-    <div class="palette-section" [style.border-right-color]="themeService.currentThemeBackgrounds().border">
+    <div class="palette-section" 
+         [style.border-right-color]="themeService.currentThemeBackgrounds().border"
+         [class.animate-in]="!isLoading">
       <app-component-palette [selectedInstanceId]="selectedInstanceId" [selectedInstance]="selectedInstance"
         (deleteSelected)="onInstanceRemoved($event)" (labelUpdated)="onInstanceLabelUpdate($event)">
       </app-component-palette>
     </div>
 
     <!-- Right: Form Canvas với Pages -->
-    <div class="canvas-section">
+    <div class="canvas-section" [class.animate-in]="!isLoading">
       <!-- Loading State -->
       @if (isLoading) {
-        <div class="loading-container">
+        <div class="loading-container" [class.fade-out]="!isLoading">
           <nz-spin [nzSize]="'large'"></nz-spin>
           <p>Loading form...</p>
         </div>
       } @else {
         <!-- Pagination để quản lý pages -->
-        <app-form-page-pagination
-          [pages]="pages"
-          [currentPageId]="currentPageId"
-          [themeKey]="themeService.currentTheme()"
-          (pageSelectChange)="onPageSelectChange($event)"
-          (paginationChange)="onPaginationChange($event)"
-          (addPage)="addPage()"
-          (removePage)="removePage($event)">
-        </app-form-page-pagination>
+        <div class="pagination-wrapper" [class.animate-in]="!isLoading">
+          <app-form-page-pagination
+            [pages]="pages"
+            [currentPageId]="currentPageId"
+            [themeKey]="themeService.currentTheme()"
+            (pageSelectChange)="onPageSelectChange($event)"
+            (paginationChange)="onPaginationChange($event)"
+            (addPage)="addPage()"
+            (removePage)="removePage($event)">
+          </app-form-page-pagination>
+        </div>
 
         <!-- Form Canvas cho page hiện tại -->
-        <app-form-canvas 
-          [blocks]="currentPageInstances" 
-          [selectedInstanceId]="selectedInstanceId" 
-          [formName]="formName"
-          [themeKey]="themeService.currentTheme()" 
-          (instanceAdded)="onInstanceAdded($event)"
-          (instanceAddedAt)="onInstanceAddedAt($event)"
-          (instanceUpdated)="onInstanceUpdated($event)" 
-          (instanceSelected)="onInstanceSelected($event)"
-          (instanceRemoved)="onInstanceRemoved($event)" 
-          (optionClicked)="onOptionClicked($event)"
-          (surveyTitleUpdated)="onSurveyTitleUpdated($event)" 
-          (formCompleted)="onFormComplete()"
-          (departmentUpdated)="onDepartmentUpdated($event)" 
-          (locationUpdated)="onLocationUpdated($event)"
-          (employmentTypeUpdated)="onEmploymentTypeUpdated($event)" 
-          (postedDateUpdated)="onPostedDateUpdated($event)"
-          [department]="department" 
-          [location]="location" 
-          [employmentType]="employmentType" 
-          [postedDate]="postedDate">
-        </app-form-canvas>
+        <div class="canvas-wrapper" [class.animate-in]="!isLoading">
+          <app-form-canvas 
+            [blocks]="currentPageInstances" 
+            [selectedInstanceId]="selectedInstanceId" 
+            [formName]="formName"
+            [themeKey]="themeService.currentTheme()" 
+            (instanceAdded)="onInstanceAdded($event)"
+            (instanceAddedAt)="onInstanceAddedAt($event)"
+            (instanceUpdated)="onInstanceUpdated($event)" 
+            (instanceSelected)="onInstanceSelected($event)"
+            (instanceRemoved)="onInstanceRemoved($event)" 
+            (optionClicked)="onOptionClicked($event)"
+            (surveyTitleUpdated)="onSurveyTitleUpdated($event)" 
+            (formCompleted)="onFormComplete()"
+            (departmentUpdated)="onDepartmentUpdated($event)" 
+            (locationUpdated)="onLocationUpdated($event)"
+            (employmentTypeUpdated)="onEmploymentTypeUpdated($event)" 
+            (postedDateUpdated)="onPostedDateUpdated($event)"
+            [department]="department" 
+            [location]="location" 
+            [employmentType]="employmentType" 
+            [postedDate]="postedDate">
+          </app-form-canvas>
+        </div>
       }
     </div>
 

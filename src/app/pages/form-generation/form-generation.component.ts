@@ -14,6 +14,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { FormPagePaginationComponent } from '../../../lib/components/form-builders/form-page-pagination/form-page-pagination.component';
 import { Subject, of } from 'rxjs';
 import { takeUntil, switchMap, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-form-generation',
   imports: [ComponentPaletteComponent, FormCanvasComponent, CommonModule, RightPropertySideComponent, NzSpinModule, FormPagePaginationComponent],
@@ -31,6 +32,7 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
   formName: string = 'Application Form';
   isSaving = false;
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   notificationService = inject(NzNotificationService);
   department: string = '';
   location: string = '';
@@ -42,6 +44,7 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
   insertIndex?: number;
   pendingInstance?: UIBlockInstance;
   private destroy$ = new Subject<void>();
+  private createdFormId?: string;
   
   ngOnInit(): void {
     this.route.paramMap
@@ -76,6 +79,11 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
             return;
           }
           
+          // Set createdFormId khi load form từ route có ID
+          if (form.id) {
+            this.createdFormId = form.id;
+          }
+          
           if (form.pages && form.pages.length > 0) {
             this.pages = form.pages.sort((a, b) => a.order - b.order);
           } else {
@@ -94,7 +102,13 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
           this.employmentType = form.employmentType ?? '';
           this.postedDate = form.postedDate ?? '';
           if (form.themeKey) this.themeService.setTheme(form.themeKey);
-          this.isLoading = false;
+          
+          // Sử dụng requestAnimationFrame để đảm bảo DOM đã render trước khi bắt đầu animation
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              this.isLoading = false;
+            });
+          });
         }
       });
   }
@@ -295,7 +309,9 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
     if (allInstances.length === 0 || this.isSaving) return;
     this.isSaving = true;
     try {
-      const id = this.route.snapshot.paramMap.get('id');
+      // Kiểm tra route param trước, sau đó mới check createdFormId
+      // Điều này đảm bảo nếu đã navigate đến route có ID thì sẽ dùng ID đó
+      const id = this.route.snapshot.paramMap.get('id') || this.createdFormId;
       if (id) {
         this.formService.updateForm(id, {
           name: this.formName,
@@ -330,7 +346,11 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
           postedDate: this.postedDate,
         } as ApplicationForm;
         this.formService.createForm(applicationForm).subscribe({
-          next: () => {
+          next: (createdForm: ApplicationForm) => {
+            this.createdFormId = createdForm.id;
+            this.router.navigate(['/form-generation', createdForm.id], { 
+              replaceUrl: true // Thay thế URL hiện tại thay vì thêm vào history
+            });
             this.isSaving = false;
             this.notificationService.success('Success', 'Form created successfully');
           },
