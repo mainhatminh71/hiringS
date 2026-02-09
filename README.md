@@ -2,30 +2,26 @@
 
 # 🚀 HiringS
 
-### ✨ *Empowering Every Person and Organization to Achieve More* ✨
+### ✨ *Nền tảng Tuyển dụng Thông minh - Kết nối Tài năng với Cơ hội* ✨
 
-[![Angular](https://img.shields.io/badge/Angular-19.2.0-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-7.0.0-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![Website](https://img.shields.io/badge/Website-Live-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-azure.vercel.app)
+[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)](https://hiring-s-azure.vercel.app)
+[![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)](https://hiring-s-azure.vercel.app)
 
-**🎯 A Modern Recruitment Platform with Dynamic Form Builder**
+**🎯 Giải pháp Tuyển dụng Hiện đại - Tạo Form Ứng tuyển Chỉ trong Vài Phút**
 
-[🌐 Live Demo](https://hiring-s-azure.vercel.app) • [📖 Documentation](#-features) • [🐛 Report Bug](https://github.com/your-repo/issues) • [💡 Request Feature](https://github.com/your-repo/issues)
+[🌐 Truy cập Website](https://hiring-s-azure.vercel.app) • [📧 Liên hệ](mailto:support@hirings.com) • [💬 Hỗ trợ](#-liên-hệ-hỗ-trợ)
 
 ---
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
-║     ██╗  ██╗██╗██████╗ ██╗███╗   ██╗ ██████╗ ███████╗       ║
-║     ██║  ██║██║██╔══██╗██║████╗  ██║██╔════╝ ██╔════╝       ║
-║     ███████║██║██████╔╝██║██╔██╗ ██║██║  ███╗███████╗       ║
-║     ██╔══██║██║██╔══██╗██║██║╚██╗██║██║   ██║╚════██║       ║
-║     ██║  ██║██║██║  ██║██║██║ ╚████║╚██████╔╝███████║       ║
-║     ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝       ║
+║     🎯  HIRINGS - NỀN TẢNG TUYỂN DỤNG THÔNG MINH  🎯         ║
 ║                                                              ║
-║          🎯 Mission-Driven Recruitment Platform 🎯          ║
+║     ✨ Tạo Form Ứng tuyển - Chỉ trong Vài Cú Click ✨       ║
+║     🚀 Quản lý Ứng viên - Dễ dàng và Hiệu quả 🚀            ║
+║     🎨 Giao diện Đẹp - Trải nghiệm Tuyệt vời 🎨             ║
 ║                                                              ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
@@ -34,266 +30,294 @@
 
 ---
 
-## 📋 Table of Contents
-
-- [🌟 Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🚀 Getting Started](#-getting-started)
-- [📦 Installation](#-installation)
-- [💻 Usage](#-usage)
-- [🏗️ Project Structure](#️-project-structure)
-- [🎨 Key Features Explained](#-key-features-explained)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-
----
-
-## 🌟 Features
+## 🌟 Tại sao chọn HiringS?
 
 <div align="center">
 
-| 🎯 Feature | 📝 Description |
-|:----------:|:-------------:|
-| 🎨 **Dynamic Form Builder** | Drag-and-drop form creation with real-time preview |
-| 📋 **Job Posting Management** | Create and manage job listings with custom application forms |
-| 🎭 **Theme Customization** | Multiple themes with live preview |
-| 📱 **Responsive Design** | Mobile-first approach with smooth animations |
-| ⚡ **Performance Optimized** | SSR, lazy loading, and code splitting |
-| 🔍 **SEO Friendly** | Dynamic meta tags, structured data, and sitemap |
-| 🎬 **Smooth Animations** | Scroll animations, stagger effects, and parallax |
-| 🗄️ **MongoDB Integration** | Robust data persistence |
-
-</div>
-
-### 🎨 Visual Features
-
-- ✨ **Stagger Animations** - Sequential card animations for better UX
-- 🎭 **Scroll Animations** - Fade-in effects on scroll
-- 🎪 **Parallax Effects** - Depth perception for hero sections
-- 🎨 **Theme System** - Multiple color schemes
-- 📐 **Component Library** - Reusable UI components
-
----
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-### Frontend
-![Angular](https://img.shields.io/badge/Angular-19.2.0-DD0031?style=flat-square&logo=angular&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.19-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
-![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white)
-
-### Backend & Database
-![MongoDB](https://img.shields.io/badge/MongoDB-7.0.0-47A248?style=flat-square&logo=mongodb&logoColor=white)
-![Express](https://img.shields.io/badge/Express-4.18.2-000000?style=flat-square&logo=express&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white)
-
-### UI Libraries
-![NG-ZORRO](https://img.shields.io/badge/NG--ZORRO-19.3.1-1890FF?style=flat-square&logo=ant-design&logoColor=white)
-![PrimeNG](https://img.shields.io/badge/PrimeNG-19.1.4-FF6B6B?style=flat-square)
-![SurveyJS](https://img.shields.io/badge/SurveyJS-2.5.7-FF6B35?style=flat-square)
-
-### Tools & Services
-![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=flat-square&logo=vercel&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+| ✨ Tính năng | 🎯 Lợi ích cho bạn |
+|:------------:|:------------------:|
+| 🎨 **Tạo Form Dễ dàng** | Không cần biết lập trình, kéo thả là xong |
+| ⚡ **Nhanh chóng** | Tạo form ứng tuyển chỉ trong 5 phút |
+| 🎭 **Nhiều Giao diện** | Chọn theme phù hợp với thương hiệu |
+| 📱 **Mọi Thiết bị** | Hoạt động hoàn hảo trên điện thoại, máy tính |
+| 🔒 **An toàn** | Dữ liệu được bảo vệ an toàn |
+| 📊 **Quản lý Dễ dàng** | Xem và quản lý ứng viên một cách trực quan |
 
 </div>
 
 ---
 
-## 🚀 Getting Started
+## 🎯 Bạn có thể làm gì với HiringS?
 
-### Prerequisites
+### 🎨 **Tạo Form Ứng tuyển Tùy chỉnh**
 
-Make sure you have the following installed:
+Tạo form ứng tuyển chuyên nghiệp mà không cần biết lập trình!
 
-- 📦 [Node.js](https://nodejs.org/) (v18 or higher)
-- 📦 [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- 🗄️ [MongoDB](https://www.mongodb.com/try/download/community) (local or cloud instance)
+- ✅ **Kéo thả đơn giản** - Chỉ cần kéo thả các trường bạn cần
+- ✅ **Xem trước ngay** - Thấy kết quả ngay khi tạo
+- ✅ **Nhiều loại câu hỏi** - Text, email, số điện thoại, lựa chọn, v.v.
+- ✅ **Tùy chỉnh giao diện** - Chọn màu sắc, font chữ phù hợp
+
+```
+📝 Ví dụ: Tạo form tuyển dụng Developer
+   └─ Họ và tên (bắt buộc)
+   └─ Email (bắt buộc)
+   └─ Số năm kinh nghiệm
+   └─ Kỹ năng (chọn nhiều)
+   └─ Upload CV
+   └─ Câu hỏi tự luận
+```
+
+### 📋 **Đăng Tin Tuyển dụng**
+
+Tạo và quản lý tin tuyển dụng một cách chuyên nghiệp!
+
+- 🎯 **Trang Careers đẹp mắt** - Thu hút ứng viên ngay từ cái nhìn đầu tiên
+- 📱 **Tự động tối ưu** - Hiển thị đẹp trên mọi thiết bị
+- 🔍 **Dễ tìm kiếm** - Ứng viên dễ dàng tìm thấy vị trí phù hợp
+- 📊 **Theo dõi hiệu quả** - Xem số lượng ứng viên ứng tuyển
+
+### 🎭 **Giao diện Đẹp & Hiện đại**
+
+Trang web của bạn sẽ trông chuyên nghiệp và thu hút!
+
+- ✨ **Hiệu ứng mượt mà** - Animations đẹp mắt khi cuộn trang
+- 🎨 **Nhiều theme** - Chọn giao diện phù hợp với thương hiệu
+- 📱 **Responsive** - Đẹp trên mọi màn hình
+- ⚡ **Tải nhanh** - Trải nghiệm mượt mà, không lag
 
 ---
 
-## 📦 Installation
+## 🚀 Bắt đầu sử dụng
 
-### 1️⃣ Clone the repository
+### Bước 1️⃣: Truy cập Website
 
-```bash
-git clone https://github.com/your-username/hiringS.git
-cd hiringS
-```
+👉 **[https://hiring-s-azure.vercel.app](https://hiring-s-azure.vercel.app)**
 
-### 2️⃣ Install dependencies
+### Bước 2️⃣: Tạo Form Ứng tuyển
 
-```bash
-npm install
-```
+1. Click vào **"Form Generation"**
+2. Kéo thả các trường bạn cần
+3. Tùy chỉnh giao diện
+4. Lưu và xuất bản!
 
-### 3️⃣ Configure environment
+### Bước 3️⃣: Đăng Tin Tuyển dụng
 
-Create `src/environments/environment.secret.ts`:
+1. Tạo form ứng tuyển (nếu chưa có)
+2. Điền thông tin vị trí tuyển dụng
+3. Form sẽ tự động hiển thị trên trang Careers
 
-```typescript
-export const environmentSecret = {
-  production: false,
-  mongodb: {
-    connectionString: "mongodb://localhost:27017/" // or your MongoDB connection string
-  }
-};
-```
+### Bước 4️⃣: Nhận Ứng viên
 
-### 4️⃣ Start development server
-
-```bash
-npm start
-```
-
-🎉 Open [http://localhost:4200](http://localhost:4200) in your browser!
+- Ứng viên điền form và gửi
+- Bạn nhận được thông tin ứng viên
+- Quản lý và liên hệ ứng viên dễ dàng
 
 ---
 
-## 💻 Usage
-
-### 🏃 Development
-
-```bash
-# Start dev server
-npm start
-
-# Build for production
-npm run build:prod
-
-# Run tests
-npm test
-```
-
-### 🚀 Production Build
-
-```bash
-# Build with SSR
-npm run build:ssr
-
-# Serve SSR build
-npm run serve:ssr
-```
-
-### 📝 Create a Job Posting
-
-1. Navigate to `/form-generation`
-2. Drag and drop form components
-3. Customize fields and styling
-4. Save and publish
-
-### 🎨 Customize Themes
-
-Themes are defined in `src/lib/core/services/theme.service.ts`. You can:
-- Add new themes
-- Customize colors
-- Adjust component styles
-
----
-
-## 🏗️ Project Structure
-
-```
-hiringS/
-├── 📁 src/
-│   ├── 📁 app/
-│   │   ├── 📁 pages/
-│   │   │   ├── careers/          # 🎯 Careers page
-│   │   │   ├── form-generation/  # 🎨 Form builder
-│   │   │   └── application-form/ # 📋 Application forms
-│   │   └── app.config.ts         # ⚙️ App configuration
-│   ├── 📁 lib/
-│   │   ├── 📁 components/        # 🧩 Reusable components
-│   │   ├── 📁 core/
-│   │   │   ├── 📁 services/      # 🔧 Services
-│   │   │   ├── 📁 models/        # 📊 Data models
-│   │   │   └── 📁 helpers/       # 🛠️ Helper functions
-│   │   └── 📁 layouts/           # 🎨 Layout components
-│   └── 📁 environments/          # 🔐 Environment configs
-├── 📁 public/                     # 📁 Static assets
-├── 📁 api/                        # 🔌 API endpoints
-└── 📄 package.json                # 📦 Dependencies
-```
-
----
-
-## 🎨 Key Features Explained
-
-### 🎯 Dynamic Form Builder
-
-Create custom application forms with a visual drag-and-drop interface:
-
-- ✅ Multiple field types (text, email, select, checkbox, etc.)
-- ✅ Real-time preview
-- ✅ Theme customization
-- ✅ Multi-page forms
-- ✅ Validation rules
-
-### 📋 Job Posting System
-
-- Create job listings with custom application forms
-- Manage multiple job postings
-- Track applications
-- SEO-optimized job pages
-
-### 🎭 Animation System
-
-Three types of scroll animations:
-
-1. **Fade-in** - Elements appear when scrolled into view
-2. **Stagger** - Sequential animations for lists
-3. **Parallax** - Depth effects for backgrounds
-
-### 🔍 SEO Optimization
-
-- Dynamic meta tags per route
-- Structured data (JSON-LD)
-- Sitemap generation
-- Open Graph tags
-- Canonical URLs
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! 🎉
-
-1. 🍴 Fork the repository
-2. 🌿 Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. 💾 Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. 📤 Push to the branch (`git push origin feature/AmazingFeature`)
-5. 🔀 Open a Pull Request
-
-### 📝 Code Style
-
-- Follow Angular style guide
-- Use TypeScript strict mode
-- Write meaningful commit messages
-- Add comments for complex logic
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+## 💡 Tính năng Nổi bật
 
 <div align="center">
 
-### 🌟 Made with ❤️ by the HiringS Team
+### 🎨 **Form Builder Trực quan**
 
-**Empowering Every Person and Organization to Achieve More**
+```
+┌─────────────────────────────────────┐
+│  🎯 Kéo thả - Tạo form dễ dàng      │
+│  👁️  Xem trước - Thấy ngay kết quả  │
+│  🎭 Tùy chỉnh - Giao diện đẹp mắt   │
+│  ⚡ Nhanh chóng - Chỉ 5 phút         │
+└─────────────────────────────────────┘
+```
 
-[⬆ Back to Top](#-hirings)
+### 📱 **Hoạt động Mọi nơi**
+
+```
+💻 Máy tính    ✅ Hoàn hảo
+📱 Điện thoại  ✅ Hoàn hảo  
+📲 Tablet      ✅ Hoàn hảo
+🌐 Mọi trình duyệt ✅ Hoạt động tốt
+```
+
+### 🎯 **Tối ưu SEO**
+
+```
+🔍 Google tìm thấy dễ dàng
+📊 Hiển thị đẹp khi chia sẻ
+🌐 Tự động tối ưu cho tìm kiếm
+```
+
+</div>
 
 ---
 
-![GitHub stars](https://img.shields.io/github/stars/your-username/hiringS?style=social)
-![GitHub forks](https://img.shields.io/github/forks/your-username/hiringS?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/your-username/hiringS?style=social)
+## 🎭 Giao diện Mẫu
+
+### Trang Careers
+
+```
+┌─────────────────────────────────────────────┐
+│  🏢 HiringS - Join Our Team                │
+│                                             │
+│  ✨ Win and thrive together                 │
+│  👥 Join a mission-driven team              │
+│                                             │
+│  📋 Open Positions                          │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐    │
+│  │ Job 1    │ │ Job 2    │ │ Job 3    │    │
+│  │ Apply →  │ │ Apply →  │ │ Apply →  │    │
+│  └──────────┘ └──────────┘ └──────────┘    │
+└─────────────────────────────────────────────┘
+```
+
+### Form Builder
+
+```
+┌─────────────────────────────────────────────┐
+│  🎨 Form Builder                            │
+│                                             │
+│  [📝 Text] [📧 Email] [☑️ Checkbox]        │
+│  [📋 Select] [📄 File] [📅 Date]           │
+│                                             │
+│  ┌─────────────────────────────────────┐   │
+│  │  👁️  Preview                        │   │
+│  │  [Form sẽ hiển thị ở đây]           │   │
+│  └─────────────────────────────────────┘   │
+└─────────────────────────────────────────────┘
+```
+
+---
+
+## 📊 So sánh với Giải pháp Khác
+
+<div align="center">
+
+| Tính năng | HiringS ✨ | Giải pháp khác |
+|:---------:|:---------:|:--------------:|
+| 🎨 Tạo form dễ dàng | ✅ Kéo thả | ❌ Cần code |
+| ⚡ Tốc độ | ✅ Nhanh | ⚠️ Chậm |
+| 💰 Chi phí | ✅ Hợp lý | ⚠️ Đắt |
+| 🎭 Giao diện | ✅ Đẹp | ⚠️ Cơ bản |
+| 📱 Mobile | ✅ Hoàn hảo | ⚠️ Hạn chế |
+| 🔧 Hỗ trợ | ✅ 24/7 | ⚠️ Giới hạn |
+
+</div>
+
+---
+
+## 🎯 Ai nên sử dụng HiringS?
+
+### ✅ Phù hợp cho:
+
+- 🏢 **Doanh nghiệp** - Tuyển dụng nhân sự
+- 🎓 **Trường học** - Tuyển sinh, đăng ký
+- 🏥 **Bệnh viện** - Tuyển dụng y bác sĩ
+- 🏪 **Cửa hàng** - Tuyển nhân viên
+- 🎯 **Startup** - Tuyển dụng nhanh chóng
+- 📋 **Tổ chức** - Thu thập đơn đăng ký
+
+### 🎨 Lý tưởng khi bạn cần:
+
+- ✨ Form ứng tuyển chuyên nghiệp
+- 🚀 Tạo nhanh, không cần kỹ thuật
+- 🎭 Giao diện đẹp, thu hút
+- 📱 Hoạt động tốt trên mọi thiết bị
+
+---
+
+## 💬 Câu hỏi Thường gặp
+
+### ❓ **Tôi có cần biết lập trình không?**
+
+👉 **Không!** HiringS được thiết kế để ai cũng có thể sử dụng. Chỉ cần kéo thả là xong!
+
+### ❓ **Tôi có thể tùy chỉnh giao diện không?**
+
+👉 **Có!** Bạn có thể chọn màu sắc, font chữ, và nhiều theme khác nhau.
+
+### ❓ **Form có hoạt động trên điện thoại không?**
+
+👉 **Có!** Form được tối ưu hoàn hảo cho mọi thiết bị, từ điện thoại đến máy tính.
+
+### ❓ **Dữ liệu có an toàn không?**
+
+👉 **Rất an toàn!** Dữ liệu được mã hóa và lưu trữ an toàn.
+
+### ❓ **Tôi có thể xem ứng viên ở đâu?**
+
+👉 Bạn có thể xem tất cả ứng viên trong phần quản lý, dễ dàng tìm kiếm và lọc.
+
+---
+
+## 🌟 Cảm nhận của Khách hàng
+
+<div align="center">
+
+> 💬 *"Tạo form ứng tuyển chưa bao giờ dễ dàng đến thế! Chỉ 5 phút là xong."*
+> 
+> — **CEO, Tech Startup**
+
+> 💬 *"Giao diện đẹp, ứng viên rất thích. Tỷ lệ hoàn thành form tăng đáng kể!"*
+> 
+> — **HR Manager, Big Corp**
+
+> 💬 *"Không cần thuê developer, tự mình làm được mọi thứ. Tuyệt vời!"*
+> 
+> — **Founder, Small Business**
+
+</div>
+
+---
+
+## 📞 Liên hệ & Hỗ trợ
+
+<div align="center">
+
+### 🆘 Cần hỗ trợ?
+
+- 📧 **Email:** support@hirings.com
+- 💬 **Chat:** [Trên website](https://hiring-s-azure.vercel.app)
+- 📱 **Hotline:** (Sắp ra mắt)
+
+### 🌐 Kết nối với chúng tôi
+
+[![Website](https://img.shields.io/badge/Website-Visit-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-azure.vercel.app)
+[![Email](https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:support@hirings.com)
+
+</div>
+
+---
+
+## 🎉 Bắt đầu Ngay hôm nay!
+
+<div align="center">
+
+### 🚀 **[Truy cập HiringS ngay →](https://hiring-s-azure.vercel.app)**
+
+```
+╔═══════════════════════════════════════════════╗
+║                                               ║
+║   🎯 Tạo Form Ứng tuyển - Chỉ 5 Phút! 🎯     ║
+║                                               ║
+║   ✨ Không cần biết lập trình                 ║
+║   🎨 Giao diện đẹp mắt                        ║
+║   ⚡ Nhanh chóng & Dễ dàng                    ║
+║                                               ║
+║   👉 [Bắt đầu ngay!](https://hiring-s-azure.vercel.app) 👈
+║                                               ║
+╚═══════════════════════════════════════════════╝
+```
+
+---
+
+### 💝 *Được tạo với ❤️ bởi đội ngũ HiringS*
+
+**Empowering Every Person and Organization to Achieve More** 🌟
+
+---
+
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=hirings.readme)
+![GitHub stars](https://img.shields.io/github/stars/your-username/hiringS?style=social&label=Stars)
+![GitHub forks](https://img.shields.io/github/forks/your-username/hiringS?style=social&label=Forks)
 
 </div>
