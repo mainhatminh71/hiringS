@@ -10,7 +10,7 @@
       "destination": "/api/index.mjs"
     },
     {
-      "source": "/((?!google).*)",
+      "source": "/((?!google[a-z0-9]+\\.html).*)",
       "destination": "/api/index.mjs"
     }
   ],
