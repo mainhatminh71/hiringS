@@ -11,12 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { environment } from '../environments/environment';
-import { provideFirebaseApp, initializeApp, getApps } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
-import { ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { SEOService } from '../lib/core/services/seo.service';
 
   
@@ -33,19 +27,6 @@ export const appConfig: ApplicationConfig = {
     {
       provide: SEOService,
       useClass: SEOService
-    },
-    provideFirebaseApp(() => {
-      const apps = getApps();
-      if (apps.length === 0) {
-        return initializeApp(environment.firebase);
-      }
-      return apps[0];
-    }),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideAnalytics(() => getAnalytics()),
-    
-    ScreenTrackingService,
-    UserTrackingService,
+    }
   ]
 };

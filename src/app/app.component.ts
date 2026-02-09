@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { AuthService } from '../lib/core/services/auth.service'
 import { OnDestroy, AfterViewInit } from '@angular/core';
 import { LenisService } from '../lib/core/services/lenis.service';
 @Component({
@@ -12,7 +11,6 @@ import { LenisService } from '../lib/core/services/lenis.service';
 })
 export class AppComponent implements OnInit, OnDestroy{
   title = 'hiringS';
-  private authService = inject(AuthService);
   private router = inject(Router);
   private lenisService = inject(LenisService);
 
