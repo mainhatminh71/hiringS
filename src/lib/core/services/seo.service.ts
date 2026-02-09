@@ -21,7 +21,7 @@ export class SEOService {
     private title = inject(Title);
     private meta = inject(Meta);
     private router = inject(Router);
-    private baseUrl = 'https://hiring-s-azure.vercel.app';
+    private baseUrl = 'https://hiring-s-rho.vercel.app';
 
     constructor() {
         this.router.events
