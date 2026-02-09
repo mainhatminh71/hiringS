@@ -9,7 +9,7 @@ import { JobCard } from '../../../lib/core/models/job-card.model';
 import { ApplicationForm } from '../../../lib/core/models/application-form.model';
 import { ScrollAnimationService } from '../../../lib/core/services/scroll-animation.service';
 import { ThemedPaginationComponent } from '../../../lib/components/themed-pagination/themed-pagination.component';
-
+import { SEOService } from '../../../lib/core/services/seo.service';
 @Component({
   selector: 'app-careers',
   standalone: true,
@@ -20,13 +20,26 @@ import { ThemedPaginationComponent } from '../../../lib/components/themed-pagina
 export class CareersComponent implements OnInit, AfterViewInit, OnDestroy {
   applicationFormService = inject(ApplicationFormService);
   private scrollAnimation: ScrollAnimationService = inject(ScrollAnimationService);
-
+  private seoService = inject(SEOService);
   jobOpenings: JobCard[] = [];
   isLoading = true;
   currentPage: number = 1;
   pageSize: number = 5;
 
   ngOnInit(): void {
+    this.seoService.updateSEO({
+      title: 'Careers at HiringS - Join Our Mission-Driven Team',
+      description: 'Explore career opportunities at HiringS. Join a mission-driven team and help empower every person and organization to achieve more. View open positions and apply today.',
+      keywords: 'careers, jobs, employment, hiring, HiringS careers, job opportunities, software engineer, product manager, designer, mission-driven company',
+      image: 'https://hiring-s-azure.vercel.app/assets/careers-og.jpg',
+      structuredData: [
+        this.seoService.generateOrganizationSchema(),
+        this.seoService.generateBreadcrumbSchema([
+          { name: 'Home', url: 'https://hiring-s-azure.vercel.app' },
+          { name: 'Careers', url: 'https://hiring-s-azure.vercel.app/careers' }
+        ])
+      ]
+    });
     this.loadJobOpenings();
   }
 
@@ -112,6 +125,13 @@ export class CareersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.applicationFormService.getAllForms().subscribe({
       next: (forms: ApplicationForm[]) => {
         this.jobOpenings = forms.map(form => this.mapFormToJobCard(form));
+        const jobSchemas = this.jobOpenings.map(job => this.seoService.generateJobPostingSchema(job));
+        this.seoService.updateSEO({
+          structuredData: [
+            this.seoService.generateOrganizationSchema(),
+            ...jobSchemas
+          ]
+        })
         this.currentPage = 1; // Reset to first page when data loads
         this.isLoading = false;
         // Re-setup animations after data loads

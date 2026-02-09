@@ -13,6 +13,7 @@ import {RouterModule} from '@angular/router';
 import {ApplicantService} from '../../../lib/core/services/applicant.service';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
 import {NzIconModule} from 'ng-zorro-antd/icon';
+import {SEOService} from '../../../lib/core/services/seo.service';
 import {FormPage} from '../../../lib/core/models/form-page.model';
 import { applySurveyTheme } from '../../../lib/core/helpers/theme-helper';
 import { ThemedPaginationComponent } from '../../../lib/components/themed-pagination/themed-pagination.component';
@@ -30,7 +31,7 @@ export class ApplicationFormComponent implements OnInit{
   themeService = inject(ThemeService);
   private notificationService = inject(NzNotificationService);
   private applicantService = inject(ApplicantService);
-
+  private seoService = inject(SEOService);
   form?: ApplicationForm;
   surveyModel?: SurveyModel;
   isLoading = true;
@@ -60,6 +61,19 @@ export class ApplicationFormComponent implements OnInit{
           return;
         }
         this.form = form;
+        this.seoService.updateSEO({
+          title: `Apply for ${form.name} - HiringS Careers`,
+          description: `Apply for ${form.name} position at HiringS. ${form.department ? `Department: ${form.department}.` : ''} ${form.location ? `Location: ${form.location}.` : ''} Join our mission-driven team.`,
+          keywords: `${form.name}, job application, ${form.department}, ${form.location}, HiringS, careers`,
+          image: 'https://hiring-s-azure.vercel.app/assets/job-application-og.jpg',
+          structuredData: this.seoService.generateJobPostingSchema({
+            title: form.name,
+            formId: form.id,
+            postedDate: form.postedDate,
+            type: form.employmentType,
+            location: form.location
+          })
+        });
         if ((form.themeKey)) this.themeService.setTheme(form.themeKey);
         
         // Load pages nếu có, nếu không thì tạo từ instances

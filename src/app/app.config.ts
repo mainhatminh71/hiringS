@@ -17,6 +17,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import { SEOService } from '../lib/core/services/seo.service';
 
   
 registerLocaleData(en);
@@ -29,7 +30,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideNzIcons([PlusOutline, DollarOutline, UsergroupAddOutline, GlobalOutline, BulbOutline]),
     provideHttpClient(), 
-  
+    {
+      provide: SEOService,
+      useClass: SEOService
+    },
     provideFirebaseApp(() => {
       const apps = getApps();
       if (apps.length === 0) {

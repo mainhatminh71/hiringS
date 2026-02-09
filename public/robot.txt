@@ -1,0 +1,15 @@
+# public/robots.txt
+User-agent: *
+Allow: /
+Allow: /careers
+Allow: /application/*
+
+# Disallow admin/internal pages
+Disallow: /application-selection
+Disallow: /form-generation
+Disallow: /form-generation/*
+Disallow: /component-palette
+Disallow: /form-canvas
+
+# Sitemap
+Sitemap: https://hiring-s-azure.vercel.app/sitemap.xml

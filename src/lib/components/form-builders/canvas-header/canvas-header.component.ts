@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../../core/services/theme.service';
 import { SurveyThemeKey } from '../../../core/helpers/theme-helper';
 import { inject } from '@angular/core';
+import { SEOService } from '../../../core/services/seo.service';
+import {OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-canvas-header',
@@ -11,7 +13,7 @@ import { inject } from '@angular/core';
   templateUrl: './canvas-header.component.html',
   styleUrl: './canvas-header.component.scss'
 })
-export class CanvasHeaderComponent {
+export class CanvasHeaderComponent  {
   @Input() formName: string = 'Application Form';
   @Input() department: string = '';
   @Input() location: string = '';
@@ -25,6 +27,8 @@ export class CanvasHeaderComponent {
   @Output() postedDateUpdated = new EventEmitter<string>();
 
   themeService = inject(ThemeService);
+
+
 
   get themeColors() {
     return this.themeService.getThemeColors(this.themeKey);

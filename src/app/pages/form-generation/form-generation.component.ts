@@ -15,6 +15,7 @@ import { FormPagePaginationComponent } from '../../../lib/components/form-builde
 import { Subject, of } from 'rxjs';
 import { takeUntil, switchMap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {SEOService} from '../../../lib/core/services/seo.service';
 @Component({
   selector: 'app-form-generation',
   imports: [ComponentPaletteComponent, FormCanvasComponent, CommonModule, RightPropertySideComponent, NzSpinModule, FormPagePaginationComponent],
@@ -34,6 +35,7 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   notificationService = inject(NzNotificationService);
+  private seoService = inject(SEOService);
   department: string = '';
   location: string = '';
   employmentType: string = '';
@@ -47,6 +49,11 @@ export class FormGenerationComponent implements OnInit, OnDestroy {
   private createdFormId?: string;
   
   ngOnInit(): void {
+    this.seoService.updateSEO({
+      title: 'Form Builder - HiringS',
+      description: 'Create and edit application forms',
+      noindex: true
+    });
     this.route.paramMap
       .pipe(
         takeUntil(this.destroy$),
