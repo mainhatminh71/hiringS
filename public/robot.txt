@@ -12,4 +12,4 @@ Disallow: /component-palette
 Disallow: /form-canvas
 
 # Sitemap
-Sitemap: https://hiring-s-azure.vercel.app/sitemap.xml
+Sitemap: https://hiring-s-rho.vercel.app/sitemap.xml

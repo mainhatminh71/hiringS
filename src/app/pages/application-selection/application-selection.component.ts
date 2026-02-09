@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ScrollAnimationService } from '../../../lib/core/services/scroll-animation.service';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
+import { SEOService } from '../../../lib/core/services/seo.service';
 @Component({
   selector: 'app-application-selection',
   imports: [CommonModule, ApplicationFormCardComponent, 
@@ -37,6 +38,7 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
   private modal = inject(NzModalService);
   private router = inject(Router);
   private scrollAnimation: ScrollAnimationService = inject(ScrollAnimationService);
+  private seoService = inject(SEOService);
   
   applications: ApplicationForm[] = [];
   selectedIds = new Set<string>();
@@ -68,6 +70,12 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngOnInit(): void {
+    // Admin page - should not be indexed
+    this.seoService.updateSEO({
+      title: 'Application Forms - HiringS',
+      description: 'Manage application forms',
+      noindex: true
+    });
     this.loadApplications();
     this.router.events.
     pipe(

@@ -6,9 +6,9 @@
 
 ![Typing SVG](https://readme-typing-svg.herokuapp.com/?lines=Welcome+to+HiringS!;Create+Job+Applications+in+Minutes;Modern+Recruitment+Platform&center=true&size=30&color=0078d4&vCenter=true)
 
-[![Website](https://img.shields.io/badge/Website-Live-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-azure.vercel.app)
-[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge&logo=check-circle&logoColor=white)](https://hiring-s-azure.vercel.app)
-[![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge&logo=tag&logoColor=white)](https://hiring-s-azure.vercel.app)
+[![Website](https://img.shields.io/badge/Website-Live-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-rho.vercel.app)
+[![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge&logo=check-circle&logoColor=white)](https://hiring-s-rho.vercel.app)
+[![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge&logo=tag&logoColor=white)](https://hiring-s-rho.vercel.app)
 
 [![GitHub stars](https://img.shields.io/github/stars/your-username/hiringS?style=social&label=Star&maxAge=2592000)](https://github.com/your-username/hiringS)
 [![GitHub forks](https://img.shields.io/github/forks/your-username/hiringS?style=social&label=Fork&maxAge=2592000)](https://github.com/your-username/hiringS)
@@ -317,10 +317,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-### 🚀 **[Visit HiringS →](https://hiring-s-azure.vercel.app)**
+### 🚀 **[Visit HiringS →](https://hiring-s-rho.vercel.app)**
 
-[![Website](https://img.shields.io/badge/Website-Visit%20Now-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-azure.vercel.app)
-[![Demo](https://img.shields.io/badge/Demo-Try%20It%20Out-FF6B6B?style=for-the-badge&logo=play-circle&logoColor=white)](https://hiring-s-azure.vercel.app)
+[![Website](https://img.shields.io/badge/Website-Visit%20Now-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-rho.vercel.app)
+[![Demo](https://img.shields.io/badge/Demo-Try%20It%20Out-FF6B6B?style=for-the-badge&logo=play-circle&logoColor=white)](https://hiring-s-rho.vercel.app)
 
 </div>
 
@@ -331,7 +331,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
 
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your-username)
-[![Website](https://img.shields.io/badge/Website-Visit-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-azure.vercel.app)
+[![Website](https://img.shields.io/badge/Website-Visit-00D9FF?style=for-the-badge&logo=vercel&logoColor=white)](https://hiring-s-rho.vercel.app)
 [![Email](https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:support@hirings.com)
 
 </div>

@@ -65,7 +65,7 @@ export class ApplicationFormComponent implements OnInit{
           title: `Apply for ${form.name} - HiringS Careers`,
           description: `Apply for ${form.name} position at HiringS. ${form.department ? `Department: ${form.department}.` : ''} ${form.location ? `Location: ${form.location}.` : ''} Join our mission-driven team.`,
           keywords: `${form.name}, job application, ${form.department}, ${form.location}, HiringS, careers`,
-          image: 'https://hiring-s-azure.vercel.app/assets/job-application-og.jpg',
+          image: 'https://hiring-s-rho.vercel.app/assets/job-application-og.jpg',
           structuredData: this.seoService.generateJobPostingSchema({
             title: form.name,
             formId: form.id,
