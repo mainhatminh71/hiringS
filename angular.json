@@ -28,6 +28,11 @@
             "assets": [
               "src/favicon.ico",
               {
+                "glob": "**/*",
+                "input": "public",
+                "output": "/"
+              },
+              {
                 "glob": "**/*.yaml",
                 "input": "src/assets/field-schemas",
                 "output": "/assets/field-schemas"

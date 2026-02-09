@@ -24,6 +24,18 @@
         }
       ]
     }
+  ],  "routes": [
+    {
+      "src": "/google.*\\.html",
+      "dest": "/$1",
+      "headers": {
+        "Content-Type": "text/html"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.mjs"
+    }
   ]
 }
 
