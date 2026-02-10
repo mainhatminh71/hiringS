@@ -331,7 +331,7 @@
 .mission-section {
   position: relative;
   padding: $spacing-2xl 0;
-  background: $bg-primary;
+  background: $color-bg-white;
   @include fade-in-up;
   
   // Smooth transition from hero
@@ -429,7 +429,7 @@
         display: flex;
         align-items: center;
         gap: $spacing-xs;
-        color: $bg-primary;
+        color: $color-bg-white;
         font-size: 14px;
         font-weight: 500;
         background: rgba(255, 255, 255, 0.95);
@@ -497,7 +497,7 @@
 .life-section {
   position: relative;
   padding: $spacing-2xl 0;
-  background: $bg-primary;
+  background: $color-bg-white;
   @include fade-in-up;
   width: 100%;
   max-width: 100%;
@@ -565,7 +565,7 @@
   .resource-card {
     display: flex;
     flex-direction: column;
-    background: $bg-primary;
+    background: $color-bg-white;
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 8px;
     overflow: hidden;
@@ -639,7 +639,7 @@
 .jobs-section {
   position: relative;
   padding: $spacing-2xl 0;
-  background: $bg-primary;
+  background: $color-bg-white;
   @include fade-in-up;
   
   // Smooth transition from life section
@@ -791,11 +791,11 @@
   .no-jobs-message {
     text-align: center;
     padding: $spacing-2xl 0;
-    color: $text-secondary;
+    color: $color-text-secondary;
 
     svg {
       margin: 0 auto $spacing-md;
-      color: $text-tertiary;
+      color: $color-text-tertiary;
       opacity: 0.5;
     }
 
