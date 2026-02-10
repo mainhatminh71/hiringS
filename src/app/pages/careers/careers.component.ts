@@ -31,12 +31,12 @@ export class CareersComponent implements OnInit, AfterViewInit, OnDestroy {
       title: 'Careers at HiringS - Join Our Mission-Driven Team',
       description: 'Explore career opportunities at HiringS. Join a mission-driven team and help empower every person and organization to achieve more. View open positions and apply today.',
       keywords: 'careers, jobs, employment, hiring, HiringS careers, job opportunities, software engineer, product manager, designer, mission-driven company',
-      image: 'https://hiring-s-rho.vercel.app/assets/careers-og.jpg',
+      image: 'https://hiring-s-azure.vercel.app/assets/careers-og.jpg',
       structuredData: [
         this.seoService.generateOrganizationSchema(),
         this.seoService.generateBreadcrumbSchema([
-          { name: 'Home', url: 'https://hiring-s-rho.vercel.app' },
-          { name: 'Careers', url: 'https://hiring-s-rho.vercel.app/careers' }
+          { name: 'Home', url: 'https://hiring-s-azure.vercel.app' },
+          { name: 'Careers', url: 'https://hiring-s-azure.vercel.app/careers' }
         ])
       ]
     });

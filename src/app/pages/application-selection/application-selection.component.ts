@@ -23,7 +23,6 @@ import { Router } from '@angular/router';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ScrollAnimationService } from '../../../lib/core/services/scroll-animation.service';
 import {NzPaginationModule} from 'ng-zorro-antd/pagination';
-import { SEOService } from '../../../lib/core/services/seo.service';
 @Component({
   selector: 'app-application-selection',
   imports: [CommonModule, ApplicationFormCardComponent, 
@@ -38,7 +37,6 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
   private modal = inject(NzModalService);
   private router = inject(Router);
   private scrollAnimation: ScrollAnimationService = inject(ScrollAnimationService);
-  private seoService = inject(SEOService);
   
   applications: ApplicationForm[] = [];
   selectedIds = new Set<string>();
@@ -70,12 +68,6 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngOnInit(): void {
-    // Admin page - should not be indexed
-    this.seoService.updateSEO({
-      title: 'Application Forms - HiringS',
-      description: 'Manage application forms',
-      noindex: true
-    });
     this.loadApplications();
     this.router.events.
     pipe(
@@ -128,18 +120,13 @@ export class ApplicationSelectionComponent implements OnInit, AfterViewInit, OnD
         const count = this.calculateInstanceCount(form);
         this.instanceCountCache.set(form.id, count);
       });
+      this.isLoading = false;
       
-      // Sử dụng requestAnimationFrame để đảm bảo DOM đã render trước khi bắt đầu animation
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          this.isLoading = false;
-          // Force cards to be visible after data loads
-          setTimeout(() => {
-            this.ensureCardsVisible();
-            this.setupAnimations();
-          }, 100);
-        });
-      });
+      // Force cards to be visible after data loads
+      setTimeout(() => {
+        this.ensureCardsVisible();
+        this.setupAnimations();
+      }, 100);
     });
   }
   

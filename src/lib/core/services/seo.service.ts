@@ -32,8 +32,6 @@ export class SEOService {
     }
     updateSEO(data: SEOData): void {
         const url = data.url || `${this.baseUrl}${this.router.url}`;
-        const type = data.type || 'website';
-        
         if (data.title) {
             this.title.setTitle(data.title);
             this.meta.updateTag({ property: 'og:title', content: data.title });
@@ -47,33 +45,21 @@ export class SEOService {
         if (data.keywords) {
             this.meta.updateTag({ name: 'keywords', content: data.keywords });
         }
-        
+        if (data.image) {
+            this.meta.updateTag({ property: 'og:image', content: data.image });
+            this.meta.updateTag({ name: 'twitter:image', content: data.image });
+        }
         const image = data.image || `${this.baseUrl}/assets/og-default.jpg`;
         this.meta.updateTag({ property: 'og:image', content: image });
         this.meta.updateTag({ name: 'twitter:image', content: image });
 
         this.meta.updateTag({ property: 'og:url', content: url });
-        this.meta.updateTag({ property: 'og:type', content: type });
-        this.meta.updateTag({ property: 'og:site_name', content: 'HiringS' });
         this.meta.updateTag({ name: 'twitter:url', content: url });
 
         if (data.noindex) {
             this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
         } else {
             this.meta.updateTag({ name: 'robots', content: 'index, follow' });
-        }
-
-        // Update structured data
-        if (data.structuredData) {
-            if (Array.isArray(data.structuredData)) {
-                // If array, combine into @graph
-                this.updateStructuredData({
-                    "@context": "https://schema.org",
-                    "@graph": data.structuredData
-                });
-            } else {
-                this.updateStructuredData(data.structuredData);
-            }
         }
     }
     private updateCanonicalUrl() : void {

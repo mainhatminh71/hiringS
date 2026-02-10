@@ -1,5 +1,7 @@
-import { FormField } from '../models/form-config.model';
+import { FormField, FormConfig } from '../models/form-config.model';
 import { InputConfig } from '../models/input-config.model';
+import { ButtonConfig, SocialProvider } from '../models/button-config.model';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 
 export function input(id: string, type: string, label: string, placeholder: string, opts: Partial<InputConfig>): FormField {
