@@ -1,58 +1,16 @@
 // ============================================
-// Variables & Mixins
+// Import Design System
 // ============================================
-$primary-color: #0078d4;
-$primary-hover: #106ebe;
-$text-primary: #323130;
-$text-secondary: #605e5c;
-$text-tertiary: #8a8886;
-$bg-primary: #ffffff;
-$bg-secondary: #faf9f8;
-$bg-tertiary: #f3f2f1;
-$accent-yellow: #ffb900;
-$accent-orange: #ff8c00;
-$accent-red: #e81123;
-$accent-purple: #6264a7;
-$accent-blue: #00bcf2;
-
-$spacing-xs: 8px;
-$spacing-sm: 16px;
-$spacing-md: 24px;
-$spacing-lg: 48px;
-$spacing-xl: 80px;
-$spacing-2xl: 120px;
-
-$transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-
-@mixin fade-in-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity $transition-smooth, transform $transition-smooth;
-  
-  &.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@mixin fade-in {
-  opacity: 0;
-  transition: opacity $transition-smooth;
-  
-  &.animate-in {
-    opacity: 1;
-  }
-}
+@import '../../../lib/styles/index';
 
 // ============================================
 // Base Styles
 // ============================================
 .careers-page {
   min-height: 100vh;
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  color: $text-primary;
-  background-color: $bg-primary;
+  font-family: $font-family-base;
+  color: $color-text-primary;
+  background-color: $color-bg-white;
   overflow-x: hidden;
   overflow-y: visible; // Let Lenis handle vertical scrolling
   width: 100%;
@@ -60,9 +18,7 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 $spacing-md;
+  @include container($container-sm);
 }
 
 // ============================================
@@ -75,7 +31,7 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   align-items: center;
   padding: $spacing-2xl 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #fef5e6 0%, #fff4e0 100%);
+  background: linear-gradient(135deg, $color-bg-warm 0%, lighten($color-bg-warm, 2%) 100%);
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -113,7 +69,7 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       right: -20%;
       width: 800px;
       height: 800px;
-      background: radial-gradient(circle, rgba(0, 120, 212, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba($color-primary, 0.1) 0%, transparent 70%);
       border-radius: 50%;
       animation: float 20s ease-in-out infinite;
     }
@@ -170,12 +126,11 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       display: inline-flex;
       align-items: center;
       padding: $spacing-xs $spacing-sm;
-      background: rgba(0, 120, 212, 0.1);
-      border: 1px solid rgba(0, 120, 212, 0.2);
+      background: rgba($color-primary, 0.1);
+      border: $border-width-thin solid rgba($color-primary, 0.2);
       border-radius: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      color: $primary-color;
+      @include text-style(sm, medium, normal);
+      color: $color-primary;
       margin-bottom: $spacing-lg;
       animation: fade-in 0.8s ease-out;
 
@@ -184,12 +139,11 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
     }
 
-    .hero-title {
-      font-size: clamp(42px, 8vw, 96px);
-      font-weight: 600;
-      line-height: 1.1;
+      .hero-title {
+      font-size: clamp($font-size-3xl, 8vw, $font-size-6xl);
+      @include text-style(3xl, semibold, tight);
       margin: 0 0 $spacing-md;
-      color: $text-primary;
+      color: $color-text-primary;
 
       .title-line {
         display: block;
@@ -209,18 +163,15 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .highlight {
-          background: linear-gradient(135deg, $primary-color 0%, $accent-blue 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+          @include gradient-text($color-primary, $color-accent-cyan);
         }
       }
     }
 
     .hero-subtitle {
-      font-size: clamp(18px, 2.5vw, 24px);
-      line-height: 1.6;
-      color: $text-secondary;
+      font-size: clamp($font-size-md, 2.5vw, $font-size-lg);
+      @include text-style(md, normal, relaxed);
+      color: $color-text-secondary;
       margin: 0 0 $spacing-xl;
       max-width: 600px;
       @include fade-in-up;
@@ -240,18 +191,18 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .highlight-text {
-        color: $primary-color;
-        font-weight: 600;
+        color: $color-primary;
+        font-weight: $font-weight-semibold;
       }
     }
 
     .search-container {
       display: flex;
       gap: $spacing-sm;
-      background: $bg-primary;
+      background: $color-bg-white;
       padding: $spacing-sm;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      border-radius: $border-radius-lg;
+      @include shadow(lg);
       @include fade-in-up;
       animation-delay: 0.4s;
       // Force visible for search container
@@ -274,66 +225,48 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       align-items: center;
       gap: $spacing-sm;
       padding: $spacing-sm $spacing-md;
-      background: $bg-secondary;
-      border-radius: 8px;
-      border: 2px solid transparent;
+      background: $color-bg-secondary;
+      border-radius: $border-radius-lg;
+      border: $border-width-base solid transparent;
       transition: all $transition-base;
+      @include focus-ring($color-primary);
 
       &:focus-within {
-        background: $bg-primary;
-        border-color: $primary-color;
-        box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.1);
+        background: $color-bg-white;
+        border-color: $color-primary;
+        box-shadow: 0 0 0 4px rgba($color-primary, 0.1);
       }
 
       svg {
         flex-shrink: 0;
-        color: $text-tertiary;
+        color: $color-text-tertiary;
         transition: color $transition-base;
       }
 
       &:focus-within svg {
-        color: $primary-color;
+        color: $color-primary;
       }
 
       .search-input {
         flex: 1;
         border: none;
         background: transparent;
-        font-size: 16px;
-        color: $text-primary;
+        @include text-style(base, normal, normal);
+        color: $color-text-primary;
         outline: none;
         font-family: inherit;
 
         &::placeholder {
-          color: $text-tertiary;
+          color: $color-text-tertiary;
         }
       }
     }
 
     .find-jobs-button {
-      display: flex;
-      align-items: center;
-      gap: $spacing-xs;
-      background: $primary-color;
-      color: $bg-primary;
-      border: none;
+      @include button-primary;
       padding: $spacing-sm $spacing-lg;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all $transition-base;
-      white-space: nowrap;
-
-      &:hover {
-        background: $primary-hover;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 16px rgba(0, 120, 212, 0.3);
-      }
-
-      &:active {
-        transform: translateY(0);
-      }
+      @include text-style(base, semibold, normal);
+      border-radius: $border-radius-lg;
 
       svg {
         transition: transform $transition-base;
@@ -367,27 +300,26 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       background: transparent;
 
       .hero-card-title {
-        font-size: clamp(64px, 10vw, 140px);
+        font-size: clamp($font-size-4xl, 10vw, 140px);
         font-weight: 100;
-        line-height: 1.1;
+        @include text-style(4xl, normal, tight);
         margin: 0 0 $spacing-lg;
-        color: #1a1a1a;
+        color: $color-bg-gray;
         letter-spacing: 0.05em;
-        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        font-family: $font-family-base;
         text-transform: none;
       }
 
       .hero-card-slogan {
-        font-size: clamp(18px, 2.5vw, 24px);
-        font-weight: 400;
-        line-height: 1.6;
+        font-size: clamp($font-size-md, 2.5vw, $font-size-lg);
+        @include text-style(md, normal, relaxed);
         margin: 0;
-        color: #4a4a4a;
+        color: darken($color-text-secondary, 10%);
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
-        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        font-family: $font-family-base;
       }
     }
   }
@@ -530,31 +462,25 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
   .mission-content {
     .mission-title {
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 600;
-      line-height: 1.2;
+      font-size: clamp($font-size-2xl, 5vw, $font-size-4xl);
+      @include text-style(2xl, semibold, normal);
       margin: 0 0 $spacing-lg;
-      color: $text-primary;
+      color: $color-text-primary;
 
       .highlight {
-        background: linear-gradient(135deg, $primary-color 0%, $accent-blue 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        @include gradient-text($color-primary, $color-accent-cyan);
       }
     }
 
     .mission-text-group {
       .mission-text {
-        font-size: 18px;
-        line-height: 1.8;
-        color: $text-secondary;
+        @include text-style(md, normal, loose);
+        color: $color-text-secondary;
         margin: 0 0 $spacing-md;
 
         &.emphasis {
-          font-size: 20px;
-          font-weight: 500;
-          color: $text-primary;
+          @include text-style(lg, medium, relaxed);
+          color: $color-text-primary;
         }
 
         &:last-child {
@@ -603,11 +529,11 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .section-title {
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 600;
+    font-size: clamp($font-size-2xl, 5vw, $font-size-5xl);
+    @include text-style(2xl, semibold, normal);
     margin: 0 0 $spacing-xl;
-    color: $text-primary;
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    color: $color-text-primary;
+    font-family: $font-family-base;
     letter-spacing: -0.02em;
     padding: 0 48px;
     max-width: 100%;
@@ -685,26 +611,24 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       gap: $spacing-xs;
 
       .resource-title {
-        font-size: 18px;
-        font-weight: 600;
+        @include text-style(md, semibold, relaxed);
         margin: 0;
-        color: $text-primary;
-        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        color: $color-text-primary;
+        font-family: $font-family-base;
         letter-spacing: -0.01em;
         transition: color $transition-base;
       }
 
       .resource-description {
-        font-size: 14px;
-        line-height: 1.6;
-        color: $text-secondary;
+        @include text-style(sm, normal, relaxed);
+        color: $color-text-secondary;
         margin: 0;
-        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        font-family: $font-family-base;
       }
     }
 
     &:hover .resource-title {
-      color: $primary-color;
+      color: $color-primary;
     }
   }
 }
@@ -743,15 +667,15 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .section-title {
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 600;
+    font-size: clamp($font-size-2xl, 5vw, $font-size-5xl);
+    @include text-style(2xl, semibold, normal);
     margin: 0 0 $spacing-sm;
-    color: $text-primary;
+    color: $color-text-primary;
   }
 
   .section-subtitle {
-    font-size: 18px;
-    color: $text-secondary;
+    @include text-style(md, normal, relaxed);
+    color: $color-text-secondary;
     margin: 0;
   }
 
@@ -876,14 +800,13 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     h3 {
-      font-size: 24px;
-      font-weight: 600;
+      @include text-style(lg, semibold, normal);
       margin: 0 0 $spacing-sm;
-      color: $text-primary;
+      color: $color-text-primary;
     }
 
     p {
-      font-size: 16px;
+      @include text-style(base, normal, normal);
       margin: 0;
     }
   }

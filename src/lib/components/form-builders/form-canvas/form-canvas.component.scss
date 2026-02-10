@@ -1,3 +1,5 @@
+@import '../../../../lib/styles/index';
+
 :host {
   display: block;
   height: 100%;
@@ -73,7 +75,7 @@
 
     // Drop zone highlight when dragging
     &.cdk-drop-list-dragging {
-      background-color: #f0fdfa;
+      background-color: rgba($color-primary, 0.05);
     }
 
     .survey-frame {
@@ -222,31 +224,31 @@
 
   .canvas-field {
     position: relative;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background-color: #ffffff;
-    border: 2px solid #e5e7eb;
-    border-radius: 0.5rem;
+    margin-bottom: $spacing-base;
+    padding: $spacing-base;
+    background-color: $color-bg-white;
+    border: $border-width-base solid $color-border-default;
+    border-radius: $border-radius-lg;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all $transition-fast $transition-ease;
 
     &:hover {
-      border-color: #14b8a6;
-      box-shadow: 0 2px 8px rgba(20, 184, 166, 0.1);
+      border-color: var(--theme-primary-color, $color-primary);
+      @include shadow(base);
     }
 
     &.selected {
-      border-color: #14b8a6;
-      background-color: #f0fdfa;
-      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+      border-color: var(--theme-primary-color, $color-primary);
+      background-color: rgba($color-primary, 0.05);
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
     }
 
     .field-preview {
       .field-content {
-        margin-top: 0.5rem;
-        padding: 0.5rem;
-        background-color: #f9fafb;
-        border-radius: 0.25rem;
+        margin-top: $spacing-sm;
+        padding: $spacing-sm;
+        background-color: $color-bg-lighter;
+        border-radius: $border-radius-base;
         min-height: 2.5rem;
         display: flex;
         align-items: center;
@@ -254,15 +256,14 @@
 
       label {
         display: block;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: #374151;
-        margin-bottom: 0.25rem;
+        @include text-style(sm, medium, normal);
+        color: $color-text-primary;
+        margin-bottom: $spacing-xs;
       }
 
       span {
-        color: #6b7280;
-        font-size: 0.875rem;
+        color: $color-text-secondary;
+        @include text-style(sm, normal, normal);
       }
     }
 
@@ -274,28 +275,26 @@
   }
 
   .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @include flex-column;
+    @include flex-center;
     height: 100%;
     min-height: 400px;
-    color: #9ca3af;
-    font-size: 1rem;
+    color: $color-text-tertiary;
+    @include text-style(base, normal, relaxed);
     text-align: center;
-    padding: 2rem;
+    padding: $spacing-2xl;
 
     &::before {
       content: "📋";
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: $font-size-3xl;
+      margin-bottom: $spacing-base;
       opacity: 0.5;
     }
 
     p {
       margin: 0;
       font-style: italic;
-      color: #6b7280;
+      color: $color-text-secondary;
     }
   }
 }
@@ -441,24 +440,24 @@
 
     .sv-question {
       position: relative;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      border: $border-width-base solid transparent;
+      border-radius: $border-radius-lg;
+      transition: border-color $transition-fast $transition-ease, box-shadow $transition-fast $transition-ease;
     }
 
     .sv-question__header {
       position: relative;
-      padding-right: 2rem;
+      padding-right: $spacing-2xl;
     }
 
     .canvas-editable-label {
       cursor: text;
       outline: none;
-      border-radius: 0px;
-      padding: 2px 4px;
+      border-radius: 0;
+      padding: 2px $spacing-xs;
 
       &:focus {
-        box-shadow: 0 0 0 2px var(--theme-primary-rgba, rgba(20, 184, 166, 0.35));
+        box-shadow: 0 0 0 2px var(--theme-primary-rgba, rgba($color-primary, 0.35));
       }
     }
 
@@ -467,95 +466,87 @@
     }
 
     .canvas-question-selected {
-      border-color: var(--theme-primary-color, #14b8a6);
-      box-shadow: 0 0 0 3px var(--theme-primary-rgba, rgba(20, 184, 166, 0.35));
+      border-color: var(--theme-primary-color, $color-primary);
+      box-shadow: 0 0 0 3px var(--theme-primary-rgba, rgba($color-primary, 0.35));
     }
 
     .sv-question .sv-question__content button,
     .sv-htmlquestion button,
     .sv-question .sv-html button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      border: 1px solid var(--theme-primary-color, #14b8a6);
-      background: var(--theme-primary-color, #14b8a6);
-      color: #ffffff;
-      font-weight: 600;
-      cursor: pointer;
+      @include button-primary;
+      gap: $spacing-sm;
+      padding: $spacing-sm $spacing-base;
+      border: $border-width-thin solid var(--theme-primary-color, $color-primary);
+      background: var(--theme-primary-color, $color-primary);
+      color: $color-bg-white;
     }
 
     .sv-question .sv-question__content button:disabled,
     .sv-htmlquestion button:disabled,
     .sv-question .sv-html button:disabled {
-      opacity: 0.6;
+      opacity: $opacity-disabled;
       cursor: not-allowed;
     }
 
     .canvas-delete-btn {
       position: absolute;
-      top: 20px;
-      right: 8px;
+      top: $spacing-lg;
+      right: $spacing-sm;
       width: 22px;
       height: 22px;
-      border-radius: 50%;
-      border: 1px solid #ef4444;
-      background: #ffffff;
-      color: #ef4444;
-      font-size: 16px;
-      line-height: 1;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: $border-radius-full;
+      border: $border-width-thin solid $color-accent-red;
+      background: $color-bg-white;
+      color: $color-accent-red;
+      @include text-style(base, bold, normal);
+      @include flex-center;
       cursor: pointer;
-      z-index: 2;
+      z-index: $z-index-base + 1;
       opacity: 0;
       transform: translateY(-2px);
-      transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      transition: opacity $transition-fast $transition-ease, transform $transition-fast $transition-ease, box-shadow $transition-fast $transition-ease;
     }
 
     .sv-question:hover .canvas-delete-btn,
     .canvas-delete-btn:focus-visible {
       opacity: 1;
       transform: translateY(0);
-      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.45);
+      box-shadow: 0 4px 10px rgba($color-accent-red, 0.45);
       outline: none;
     }
 
     .canvas-delete-btn:hover {
-      border-color: #dc2626;
-      background: #fee2e2;
-      color: #dc2626;
+      border-color: darken($color-accent-red, 10%);
+      background: rgba($color-accent-red, 0.1);
+      color: darken($color-accent-red, 10%);
     }
   }
   // Thêm vào phần :global, sau dòng 312
 .canvas-editable-option {
   cursor: text !important;
-  transition: all 0.2s ease;
-  border-radius: 4px;
-  padding: 2px 4px;
-  margin: -2px -4px;
+  transition: all $transition-fast $transition-ease;
+  border-radius: $border-radius-base;
+  padding: 2px $spacing-xs;
+  margin: -2px (-$spacing-xs);
   
   &:hover {
-    background-color: rgba(20, 184, 166, 0.1);
-    outline: 1px dashed rgba(20, 184, 166, 0.3);
+    background-color: rgba($color-primary, 0.1);
+    outline: $border-width-thin dashed rgba($color-primary, 0.3);
   }
   
   &:focus {
-    background-color: rgba(20, 184, 166, 0.15);
-    outline: 2px solid rgba(20, 184, 166, 0.5);
-    box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+    background-color: rgba($color-primary, 0.15);
+    outline: $border-width-base solid rgba($color-primary, 0.5);
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
   }
   
   &::after {
     content: '✎';
     opacity: 0;
-    margin-left: 4px;
+    margin-left: $spacing-xs;
     font-size: 0.8em;
-    color: var(--theme-primary-color, #14b8a6);
-    transition: opacity 0.2s ease;
+    color: var(--theme-primary-color, $color-primary);
+    transition: opacity $transition-fast $transition-ease;
   }
   
   &:hover::after {
@@ -566,30 +557,6 @@
 
 // Scrollbar styling for canvas scroll wrapper
 .canvas-scroll-wrapper {
-  // Webkit scrollbar (Chrome, Edge, Safari)
-  &::-webkit-scrollbar {
-    width: 12px !important;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1 !important;
-    border-radius: 6px !important;
-    margin: 4px 0 !important;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #cbd5e1 !important;
-    border-radius: 6px !important;
-    border: 2px solid #f1f1f1 !important;
-    min-height: 40px !important;
-
-    &:hover {
-      background: #94a3b8 !important;
-    }
-
-    &:active {
-      background: #64748b !important;
-    }
-  }
+  @include custom-scrollbar(12px, $color-bg-lighter, $color-text-tertiary);
 }
 
